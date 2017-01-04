@@ -1,0 +1,18 @@
+.coll-items {
+    padding: 25px;
+}
+.coll-item {
+    padding: 20px;
+    width: 200px;
+    border: 1px solid #ccc;
+    background: #eee;
+    margin: 25px;
+    float: left;
+    height: 300px;
+    overflow: hidden;
+}
+.coll-item-tag {
+    padding: 3px;
+    border-radius: 2px;
+    background: #f5f5f5;
+}

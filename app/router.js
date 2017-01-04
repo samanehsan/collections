@@ -7,6 +7,8 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('index', {path : '/'});
+  this.route('collection', {path : '/collection/:collection_id'});
 });
 
 export default Router;

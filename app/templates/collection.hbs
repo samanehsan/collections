@@ -1,0 +1,17 @@
+{{outlet}}
+<h4> {{#link-to "index"}} Back {{/link-to}}</h4>
+
+<h2> {{model.id}} - {{model.title}}</h2>
+<div class="coll-items">
+    {{#each model.list as |item|}}
+        <div class="coll-item">
+            <h3>{{item.title}}</h3>
+            <p>{{item.description}}</p>
+            <div>
+                {{#each item.tags as |tag|}}
+                    <span class="coll-item-tag">{{tag}}</span>
+                {{/each}}
+            </div>
+        </div>
+    {{/each}}
+</div>
