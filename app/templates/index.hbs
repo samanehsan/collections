@@ -1,14 +1,20 @@
 {{outlet}}
-<div class="coll-items">
-    {{#each model as |item|}}
-        <div class="coll-item">
-            <h3>{{#link-to "collection" item.id}}{{item.title}}{{/link-to}}</h3>
-            <p>{{item.description}}</p>
-            <div>
-                {{#each item.tags as |tag|}}
-                    <span class="coll-item-tag">{{tag}}</span>
-                {{/each}}
+<div class="container">
+    <div class="coll-toolbar">
+        You have {{model.length}} collections.
+        {{filter-collection}}
+    </div>
+    <div class="coll-items">
+        {{#each model as |item|}}
+            <div class="coll-item">
+                <h3>{{#link-to "collection" item.id}}{{item.title}}{{/link-to}}</h3>
+                <p>{{item.description}}</p>
+                <div>
+                    {{#each item.tags as |tag|}}
+                        <span class="coll-item-tag">{{tag}}</span>
+                    {{/each}}
+                </div>
             </div>
-        </div>
-    {{/each}}
+        {{/each}}
+    </div>
 </div>

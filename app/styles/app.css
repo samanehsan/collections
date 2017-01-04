@@ -1,15 +1,26 @@
+/* Global */
+body {
+    margin-top: 50px;
+}
+
+/* collection Navbar */
+.coll-navbar {
+    background-color: #009688;
+    color: #fff;
+}
+.coll-navbar-inner {
+}
+
+/* Collection Items */
 .coll-items {
     padding: 25px;
 }
 .coll-item {
     padding: 20px;
-    width: 200px;
-    border: 1px solid #ccc;
-    background: #eee;
-    margin: 25px;
-    float: left;
-    height: 300px;
-    overflow: hidden;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    background: #f8f8f8;
+    margin: 15px;
 }
 .coll-item-tag {
     padding: 3px;
