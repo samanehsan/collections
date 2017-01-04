@@ -2,7 +2,8 @@
 <div class="container">
     <div class="coll-toolbar">
         You have {{model.length}} collections.
-        {{filter-collection}}
+        {{input value=filterText key-up='filter'}}
+        <!-- <input type=text placeholder="Filter collections" onkeyup={{action 'filter'}}> -->
     </div>
     <div class="coll-items">
         {{#each model as |item|}}
