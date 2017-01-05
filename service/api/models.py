@@ -9,6 +9,7 @@ class Collection(models.Model):
 
 
 class Item(models.Model):
+    _id = models.CharField(max_length=10, default='')
     title = models.CharField(max_length=1000)
     # type = models.CharField(max_length=1000)
     url = models.URLField()
