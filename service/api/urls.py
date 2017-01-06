@@ -3,5 +3,6 @@ import views
 
 urlpatterns = [
     url(r'^collections/$', views.CollectionList.as_view()),
-    url(r'^items/$', views.ItemList.as_view())
+    url(r'^collections/(?P<pk>\w+)/$', views.CollectionDetail.as_view()),
+    url(r'^collections/(?P<pk>\w+)/items/$', views.CollectionItemList.as_view()),
 ]
