@@ -4,7 +4,7 @@ from models import Collection, Item
 
 
 class ItemSerializer(serializers.Serializer):
-    id = serializers.CharField(source='_id', read_only=True)
+    id = serializers.CharField(source='_id')
     title = serializers.CharField(required=True)
     url = serializers.URLField()
 
@@ -12,13 +12,14 @@ class ItemSerializer(serializers.Serializer):
         model = Item
 
     def create(self, validated_data):
-        collection_id = self.context['request'].parser_context['kwargs']['pk']
+        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
         try:
             item = Item.objects.create(**validated_data)
         except IntegrityError:
             item = Item.objects.get(_id=validated_data['_id'])
-        collection = Collection.objects.get(id=collection_id)
-        collection.items.add(item)
+        if collection_id:
+            collection = Collection.objects.get(id=collection_id)
+            collection.items.add(item)
         return item
 
     def update(self, item, validated_data):
