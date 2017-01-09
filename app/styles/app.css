@@ -11,6 +11,13 @@ body {
 .coll-navbar-inner {
 }
 
+/* Collection Toolbar */
+.coll-toolbar {
+    padding-top: 50px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
 /* Collection Items */
 .coll-items {
     padding: 25px;
