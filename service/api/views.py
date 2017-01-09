@@ -12,8 +12,8 @@ class CollectionList(generics.ListCreateAPIView):
 class CollectionDetail(generics.RetrieveUpdateAPIView):
     serializer_class = CollectionSerializer
 
-    def get_queryset(self):
-        return Collection.objects.filter(id=self.kwargs['pk'])
+    def get_object(self):
+        return Collection.objects.get(id=self.kwargs['pk'])
 
 
 class CollectionItemList(generics.ListCreateAPIView):
@@ -22,3 +22,10 @@ class CollectionItemList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return [item for item in Collection.objects.filter(id=self.kwargs['pk'])[0].items.all()]
+
+
+class ItemDetail(generics.RetrieveUpdateAPIView):
+    serializer_class = ItemSerializer
+
+    def get_object(self):
+        return Item.objects.get(_id=self.kwargs['item_id'])

@@ -4,7 +4,7 @@ from models import Collection, Item
 
 
 class ItemSerializer(serializers.Serializer):
-    id = serializers.CharField(source='_id')
+    id = serializers.CharField(source='_id', read_only=True)
     title = serializers.CharField(required=True)
     url = serializers.URLField()
 
@@ -19,6 +19,12 @@ class ItemSerializer(serializers.Serializer):
             item = Item.objects.get(_id=validated_data['_id'])
         collection = Collection.objects.get(id=collection_id)
         collection.items.add(item)
+        return item
+
+    def update(self, item, validated_data):
+        item.title = validated_data['title']
+        item.url = validated_data['url']
+        item.save()
         return item
 
 

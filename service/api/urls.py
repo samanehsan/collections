@@ -5,4 +5,5 @@ urlpatterns = [
     url(r'^collections/$', views.CollectionList.as_view()),
     url(r'^collections/(?P<pk>\w+)/$', views.CollectionDetail.as_view()),
     url(r'^collections/(?P<pk>\w+)/items/$', views.CollectionItemList.as_view()),
+    url(r'^collections/(?P<pk>\w+)/items/(?P<item_id>\w+)$', views.ItemDetail.as_view())
 ]
