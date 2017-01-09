@@ -1,6 +1,17 @@
 from rest_framework import generics
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from serializers import CollectionSerializer, ItemSerializer
 from models import Collection, Item
+
+
+@api_view(['GET'])
+def api_root(request):
+    return Response({
+        'collections': reverse('collection-list', request=request),
+        'items': reverse('item-list', request=request)
+    })
 
 
 class CollectionList(generics.ListCreateAPIView):
