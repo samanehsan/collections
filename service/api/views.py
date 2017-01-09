@@ -25,8 +25,14 @@ class CollectionItemList(generics.ListCreateAPIView):
 
 
 class ItemList(generics.ListCreateAPIView):
-    queryset = Item.objects.all()
     serializer_class = ItemSerializer
+
+    def get_queryset(self):
+        queryset = Item.objects.all()
+        collection_id = self.request.query_params.get('collection_id', None)
+        if collection_id is not None:
+            queryset = queryset.filter(collection=collection_id)
+        return queryset
 
 
 class ItemDetail(generics.RetrieveUpdateAPIView):
