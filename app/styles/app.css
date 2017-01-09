@@ -34,3 +34,11 @@ body {
     border-radius: 2px;
     background: #f5f5f5;
 }
+
+
+/* Collection item detail  */
+.coll-item-detail {
+    background: #fff;
+    padding: 20px;
+    margin-top: 20px;
+}
