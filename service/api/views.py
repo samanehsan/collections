@@ -24,6 +24,11 @@ class CollectionItemList(generics.ListCreateAPIView):
         return [item for item in Collection.objects.filter(id=self.kwargs['pk'])[0].items.all()]
 
 
+class ItemList(generics.ListCreateAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+
+
 class ItemDetail(generics.RetrieveUpdateAPIView):
     serializer_class = ItemSerializer
 
