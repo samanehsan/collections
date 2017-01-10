@@ -20,7 +20,7 @@ class CollectionList(generics.ListCreateAPIView):
     serializer_class = CollectionSerializer
 
 
-class CollectionDetail(generics.RetrieveUpdateAPIView):
+class CollectionDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CollectionSerializer
 
     def get_object(self):
@@ -46,7 +46,7 @@ class ItemList(generics.ListCreateAPIView):
         return queryset
 
 
-class ItemDetail(generics.RetrieveUpdateAPIView):
+class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ItemSerializer
 
     def get_object(self):
