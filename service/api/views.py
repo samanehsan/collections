@@ -32,7 +32,7 @@ class CollectionItemList(generics.ListCreateAPIView):
     serializer_class = ItemSerializer
 
     def get_queryset(self):
-        return [item for item in Collection.objects.filter(id=self.kwargs['pk'])[0].items.all()]
+        return Item.objects.filter(collection=self.kwargs['pk'])
 
 
 class ItemList(generics.ListCreateAPIView):
