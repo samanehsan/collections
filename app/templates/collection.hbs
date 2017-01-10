@@ -1,18 +1,16 @@
 {{outlet}}
 
-<h2> {{model.id}} - {{model.title}}</h2>
+
+<div class="coll-add-layer">
+    <div class="container">
+        <h2> {{model.id}} - {{model.title}}</h2>
+        <button class="btn btn-success pull-right">Add Item</button>
+    </div>
+</div>
 <div class="coll-items">
-    {{#each model.list as |item|}}
-        <div class="coll-item">
-            <h3>{{item.title}}</h3>
-            <p>{{item.description}}</p>
-            <div>
-                {{#each item.tags as |tag|}}
-                    <span class="coll-item-tag">{{tag}}</span>
-                {{/each}}
-            </div>
-            <button class="btn btn-default">Open </button>
-            {{collection-item item=item class="coll-item-detail"}}
-        </div>
-    {{/each}}
+    <div class="row">
+        {{#each model.list as |item|}}
+                {{collection-item item=item class="col-sm-6 col-lg-4"}}
+        {{/each}}
+    </div>
 </div>

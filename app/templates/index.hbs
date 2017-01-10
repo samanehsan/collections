@@ -1,11 +1,11 @@
 {{outlet}}
-<div class="coll-banner">
+<div class="coll-banner text-center">
     <div class="container">
         <h1> OSF Collections </h1>
         <p class="lead">Integrate your research interests into groups</p>
     </div>
 </div>
-<div class="coll-quick-add">
+<div class="coll-add-layer">
     <div class="container">
         <h3> Start a collection </h3>
         <div class="row">
@@ -22,9 +22,9 @@
         </div>
         <!-- <input type=text placeholder="Filter collections" onkeyup={{action 'filter'}}> -->
     </div>
-    <div class="coll-items">
+    <div class="coll-group">
         {{#each model as |item|}}
-            <div class="coll-item">
+            <div class="coll-single">
                 {{#link-to "collection" item.id class="btn btn-info pull-right"}}View{{/link-to}}
                 <h3>{{#link-to "collection" item.id}}{{item.title}}{{/link-to}}</h3>
                 <p>{{item.description}}</p>

@@ -10,7 +10,7 @@ body {
     color: #fff;
 }
 
-.coll-quick-add {
+.coll-add-layer {
     background-color: #eee;
     border-bottom: 1px solid #ddd;
     padding: 15px 0 20px 0;
@@ -22,6 +22,12 @@ body {
     color: #fff;
 }
 .coll-navbar-inner {
+    padding: 12px 0;
+}
+.coll-navbar-inner a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 19px;
 }
 
 /* Collection Toolbar */
@@ -32,26 +38,22 @@ body {
 }
 
 /* Collection Items */
-.coll-items {
+.coll-items, .coll-group {
     padding: 25px;
 }
-.coll-item {
+.coll-item, .coll-single {
     padding: 20px;
     border-bottom: 1px solid #eee;
     border-right: 1px solid #eee;
     background: #f8f8f8;
     margin: 15px;
 }
+.coll-item {
+    height: 300px;
+    overflow: auto;
+}
 .coll-item-tag {
     padding: 3px;
     border-radius: 2px;
     background: #f5f5f5;
-}
-
-
-/* Collection item detail  */
-.coll-item-detail {
-    background: #fff;
-    padding: 20px;
-    margin-top: 20px;
 }
