@@ -37,12 +37,13 @@ class ItemSerializer(serializers.Serializer):
     def create(self, validated_data):
         user = self.context['request'].user
         collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
-        collection = None
-        if collection_id:
-            collection = Collection.objects.get(id=collection_id)
+        collection = Collection.objects.get(id=collection_id)
         try:
             item = Item.objects.create(
-              created_by=user, collection=collection, **validated_data)
+                created_by=user,
+                collection=collection,
+                **validated_data
+            )
         except IntegrityError:
             item = Item.objects.get(_id=validated_data['_id'])
         return item
