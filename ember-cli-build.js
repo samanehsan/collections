@@ -21,7 +21,6 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
 
     app.import('bower_components/bootstrap/dist/css/bootstrap.css');
-    app.import('bower_components/bootstrap/dist/css/bootstrap-theme.css');
     app.import('bower_components/bootstrap/dist/js/bootstrap.js');
 
     app.import('bower_components/osf-style/css/base.css');
