@@ -35,17 +35,6 @@ class CollectionItemList(generics.ListCreateAPIView):
         return Item.objects.filter(collection=self.kwargs['pk'])
 
 
-class ItemList(generics.ListAPIView):
-    serializer_class = ItemSerializer
-
-    def get_queryset(self):
-        queryset = Item.objects.all()
-        collection_id = self.request.query_params.get('collection_id', None)
-        if collection_id is not None:
-            queryset = queryset.filter(collection=collection_id)
-        return queryset
-
-
 class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ItemSerializer
 
