@@ -50,4 +50,4 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ItemSerializer
 
     def get_object(self):
-        return Item.objects.get(_id=self.kwargs['item_id'])
+        return Item.objects.get(id=self.kwargs['item_id'])

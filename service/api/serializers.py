@@ -1,5 +1,5 @@
-from django.db import IntegrityError
 from rest_framework import serializers
+from rest_framework.reverse import reverse
 from models import Collection, Item, User
 
 
@@ -21,7 +21,8 @@ class UserSerializer(serializers.Serializer):
 
 
 class ItemSerializer(serializers.Serializer):
-    id = serializers.CharField(source='_id')
+    id = serializers.CharField(read_only=True)
+    source_id = serializers.CharField()
     title = serializers.CharField(required=True)
     type = serializers.CharField()
     status = serializers.CharField()
@@ -38,14 +39,11 @@ class ItemSerializer(serializers.Serializer):
         user = self.context['request'].user
         collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
         collection = Collection.objects.get(id=collection_id)
-        try:
-            item = Item.objects.create(
-                created_by=user,
-                collection=collection,
-                **validated_data
-            )
-        except IntegrityError:
-            item = Item.objects.get(_id=validated_data['_id'])
+        item = Item.objects.create(
+            created_by=user,
+            collection=collection,
+            **validated_data
+        )
         return item
 
     def update(self, item, validated_data):
@@ -58,8 +56,8 @@ class ItemSerializer(serializers.Serializer):
 class CollectionSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     title = serializers.CharField(required=True)
-    description = serializers.CharField()
-    tags = serializers.CharField()
+    description = serializers.CharField(allow_blank=True)
+    tags = serializers.CharField(allow_blank=True)
     created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
@@ -74,9 +72,14 @@ class CollectionSerializer(serializers.Serializer):
 
     def update(self, collection, validated_data):
         collection.title = validated_data['title']
+        description = validated_data['description']
+        tags = validated_data['tags']
+        if description:
+            collection.description = description
+        if tags:
+            collection.tags = tags
         collection.save()
         return collection
 
-    def get_items(self):
-        url = self.context['request'].build_absolute_uri()
-        return url + 'items/'
+    def get_items(self, obj):
+        return reverse('collection-items', kwargs={'pk': obj.id}, request=self.context['request'])
