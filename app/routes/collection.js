@@ -13,8 +13,11 @@ export default Ember.Route.extend({
         return item;
     },
     model (params){
+
         let model = {
-            title : 'Collection Title',
+            title: faker.lorem.words(),
+            description: faker.lorem.sentences(),
+            tags : faker.lorem.words().split(' '),
             id : params.collection_id,
             list : []
         };
