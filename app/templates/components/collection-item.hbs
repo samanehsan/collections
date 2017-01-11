@@ -1,4 +1,4 @@
-<div class="coll-item">
+<div class="coll-item coll-item-type-{{item.type}}">
     <h3>{{item.title}}</h3>
     <p>{{item.description}}</p>
     <p> Type: {{item.type}}</p>
@@ -7,4 +7,5 @@
             <span class="coll-item-tag">{{tag}}</span>
         {{/each}}
     </div>
+    <button class="btn btn-default btn-sm m-t-md pull-right">{{fa-icon "external-link"}} Open </button>
 </div>
