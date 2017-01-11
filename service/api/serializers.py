@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.reverse import reverse
-from models import Collection, Item, User
+from models import Collection, Group, Item, User
 
 
 class UserSerializer(serializers.Serializer):
@@ -28,7 +28,6 @@ class ItemSerializer(serializers.Serializer):
     status = serializers.CharField()
     url = serializers.URLField()
     created_by = UserSerializer(read_only=True)
-    is_displayed = serializers.BooleanField()
     metadata = serializers.CharField(allow_blank=True)
     date_added = serializers.DateTimeField()
 
@@ -53,6 +52,40 @@ class ItemSerializer(serializers.Serializer):
         return item
 
 
+class GroupSerializer(serializers.Serializer):
+    id = serializers.CharField(read_only=True)
+    title = serializers.CharField(required=True)
+    description = serializers.CharField(allow_blank=True)
+    created_by = UserSerializer(read_only=True)
+    date_created = serializers.DateTimeField(read_only=True)
+    date_updated = serializers.DateTimeField(read_only=True)
+    # items = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Group
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
+        collection = Collection.objects.get(id=collection_id)
+        return Group.objects.create(
+            created_by=user,
+            collection=collection,
+            **validated_data
+        )
+
+    def update(self, group, validated_data):
+        group.title = validated_data['title']
+        description = validated_data['description']
+        if description:
+            group.description = description
+        group.save()
+        return group
+
+    # def get_items(self, obj):
+    #     return reverse('item-list', kwargs={'pk': obj.id}, request=self.context['request'])
+
+
 class CollectionSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     title = serializers.CharField(required=True)
@@ -61,7 +94,7 @@ class CollectionSerializer(serializers.Serializer):
     created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
-    items = serializers.SerializerMethodField()
+    groups = serializers.SerializerMethodField()
 
     class Meta:
         model = Collection
@@ -81,5 +114,5 @@ class CollectionSerializer(serializers.Serializer):
         collection.save()
         return collection
 
-    def get_items(self, obj):
-        return reverse('collection-items', kwargs={'pk': obj.id}, request=self.context['request'])
+    def get_groups(self, obj):
+        return reverse('group-list', kwargs={'pk': obj.id}, request=self.context['request'])

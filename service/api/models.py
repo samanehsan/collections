@@ -12,14 +12,22 @@ class Collection(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
 
 
+class Group(models.Model):
+    title = models.TextField()
+    description = models.TextField()
+    collection = models.ForeignKey(to='Collection')
+    created_by = models.ForeignKey(User)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+
+
 class Item(models.Model):
     source_id = models.TextField()
     title = models.TextField()
     type = models.TextField()
     status = models.TextField()
     url = models.URLField()
-    collection = models.ForeignKey(to='Collection')
+    group = models.ForeignKey(to='Group')
     created_by = models.ForeignKey(User)
-    is_displayed = models.BooleanField(default=True)
     metadata = models.TextField()
     date_added = models.DateTimeField()
