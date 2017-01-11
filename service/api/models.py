@@ -13,7 +13,7 @@ class Collection(models.Model):
 
 
 class Item(models.Model):
-    _id = models.TextField(primary_key=True)
+    source_id = models.TextField()
     title = models.TextField()
     type = models.TextField()
     status = models.TextField()
