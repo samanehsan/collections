@@ -36,11 +36,11 @@ class ItemSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
-        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
-        collection = Collection.objects.get(id=collection_id)
+        group_id = self.context['request'].parser_context['kwargs'].get('group_id', None)
+        group = Group.objects.get(id=group_id)
         item = Item.objects.create(
             created_by=user,
-            collection=collection,
+            group=group,
             **validated_data
         )
         return item
@@ -59,7 +59,7 @@ class GroupSerializer(serializers.Serializer):
     created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
-    # items = serializers.SerializerMethodField()
+    items = serializers.SerializerMethodField()
 
     class Meta:
         model = Group
@@ -82,8 +82,9 @@ class GroupSerializer(serializers.Serializer):
         group.save()
         return group
 
-    # def get_items(self, obj):
-    #     return reverse('item-list', kwargs={'pk': obj.id}, request=self.context['request'])
+    def get_items(self, obj):
+        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
+        return reverse('item-list', kwargs={'pk': collection_id, 'group_id': obj.id}, request=self.context['request'])
 
 
 class CollectionSerializer(serializers.Serializer):
