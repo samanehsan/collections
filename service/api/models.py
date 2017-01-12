@@ -22,4 +22,4 @@ class Item(models.Model):
     created_by = models.ForeignKey(User)
     is_displayed = models.BooleanField(default=True)
     metadata = models.TextField()
-    date_added = models.DateTimeField()
+    date_added = models.DateTimeField(null=True, blank=True, default=None)
