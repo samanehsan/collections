@@ -1,3 +1,4 @@
+import datetime
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 from models import Collection, Group, Item, User
@@ -29,7 +30,8 @@ class ItemSerializer(serializers.Serializer):
     url = serializers.URLField()
     created_by = UserSerializer(read_only=True)
     metadata = serializers.CharField(allow_blank=True)
-    date_added = serializers.DateTimeField()
+    date_added = serializers.DateTimeField(read_only=True, allow_null=True)
+    date_submitted = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Item
@@ -38,6 +40,8 @@ class ItemSerializer(serializers.Serializer):
         user = self.context['request'].user
         group_id = self.context['request'].parser_context['kwargs'].get('group_id', None)
         group = Group.objects.get(id=group_id)
+        if validated_data['status'] == 'approved':
+            validated_data['date_added'] = datetime.datetime.now()
         item = Item.objects.create(
             created_by=user,
             group=group,

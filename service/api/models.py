@@ -30,4 +30,5 @@ class Item(models.Model):
     group = models.ForeignKey(to='Group')
     created_by = models.ForeignKey(User)
     metadata = models.TextField()
-    date_added = models.DateTimeField()
+    date_added = models.DateTimeField(null=True, blank=True, default=None)
+    date_submitted = models.DateTimeField(auto_now_add=True)
