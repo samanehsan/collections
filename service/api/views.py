@@ -16,8 +16,14 @@ def api_root(request):
 
 class CollectionList(generics.ListCreateAPIView):
     """View list of collections and create a new collection. """
-    queryset = Collection.objects.all()
     serializer_class = CollectionSerializer
+
+    def get_queryset(self):
+        queryset = Collection.objects.all()
+        title = self.request.query_params.get('title', None)
+        if title is not None:
+            queryset = queryset.filter(title__icontains=title)
+        return queryset
 
 
 class CollectionDetail(generics.RetrieveUpdateDestroyAPIView):
