@@ -1,11 +1,4 @@
 <div class="coll-item coll-item-type-{{item.type}}">
-    <h3>{{item.title}}</h3>
-    <p>{{item.description}}</p>
+    <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
     <p> Type: {{item.type}}</p>
-    <div>
-        {{#each item.tags as |tag|}}
-            <span class="coll-item-tag">{{tag}}</span>
-        {{/each}}
-    </div>
-    <button class="btn btn-default btn-sm m-t-md pull-right">{{fa-icon "external-link"}} Open </button>
 </div>
