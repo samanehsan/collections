@@ -8,8 +8,8 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('index', {path : '/'});
-  this.route('collection', {path : '/collection/:collection_id'}, function() {
-    this.route('item', {path : '/item/:item_id'});
+  this.route('collection', {path : 'collection/:collection_id'}, function() {
+    this.route('item', {path : 'item/:item_id'});
   });
 });
 
