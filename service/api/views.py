@@ -41,7 +41,7 @@ class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
         return Group.objects.get(id=self.kwargs['group_id'])
 
 
-class ItemList(generics.ListCreateAPIView):
+class GroupItemList(generics.ListCreateAPIView):
     """View items in a collection and create a new item to add to the collection. """
     serializer_class = ItemSerializer
 
@@ -54,3 +54,10 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return Item.objects.get(id=self.kwargs['item_id'])
+
+
+class CollectionItemList(generics.ListCreateAPIView):
+    serializer_class = ItemSerializer
+
+    def get_queryset(self):
+        return Item.objects.filter(collection=self.kwargs['pk'], group=None)

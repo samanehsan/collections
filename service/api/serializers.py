@@ -38,13 +38,16 @@ class ItemSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
+        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
+        collection = Collection.objects.get(id=collection_id)
         group_id = self.context['request'].parser_context['kwargs'].get('group_id', None)
-        group = Group.objects.get(id=group_id)
+        if group_id:
+            validated_data['group'] = Group.objects.get(id=group_id)
         if validated_data['status'] == 'approved':
             validated_data['date_added'] = datetime.datetime.now()
         item = Item.objects.create(
             created_by=user,
-            group=group,
+            collection=collection,
             **validated_data
         )
         return item
@@ -88,7 +91,7 @@ class GroupSerializer(serializers.Serializer):
 
     def get_items(self, obj):
         collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
-        return reverse('item-list', kwargs={'pk': collection_id, 'group_id': obj.id}, request=self.context['request'])
+        return reverse('group-item-list', kwargs={'pk': collection_id, 'group_id': obj.id}, request=self.context['request'])
 
 
 class CollectionSerializer(serializers.Serializer):
@@ -100,6 +103,7 @@ class CollectionSerializer(serializers.Serializer):
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
     groups = serializers.SerializerMethodField()
+    items = serializers.SerializerMethodField()
 
     class Meta:
         model = Collection
@@ -121,3 +125,6 @@ class CollectionSerializer(serializers.Serializer):
 
     def get_groups(self, obj):
         return reverse('group-list', kwargs={'pk': obj.id}, request=self.context['request'])
+
+    def get_items(self, obj):
+        return reverse('collection-item-list', kwargs={'pk': obj.id}, request=self.context['request'])
