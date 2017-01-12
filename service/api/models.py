@@ -23,3 +23,4 @@ class Item(models.Model):
     is_displayed = models.BooleanField(default=True)
     metadata = models.TextField()
     date_added = models.DateTimeField(null=True, blank=True, default=None)
+    date_submitted = models.DateTimeField(auto_now_add=True)

@@ -32,6 +32,7 @@ class ItemSerializer(serializers.Serializer):
     is_displayed = serializers.BooleanField()
     metadata = serializers.CharField(allow_blank=True)
     date_added = serializers.DateTimeField(read_only=True, allow_null=True)
+    date_submitted = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Item
