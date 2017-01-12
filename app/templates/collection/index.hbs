@@ -1,0 +1,33 @@
+{{outlet}}
+<div class="coll-add-layer">
+    <div class="container">
+        <h2>{{model.title}}</h2>
+        <p>{{model.description}}</p>
+    </div>
+</div>
+<div class="coll-add-item">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5"><h4> Add OSF item to collection </h4></div>
+            <div class="col-sm-4">{{input class="form-control" value=searchGuid placeholder="Enter Guid"}}</div>
+            <div class="col-sm-3"><button class="btn btn-success" {{action 'findNode'}}>Add Item</button></div>
+        </div>
+        {{#if loadingGuid}}
+        <div class="row">
+            <div class="col-xs-12 text-center p-md">
+                Loading {{fa-icon "spinner" spin=true}}
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div>
+
+<div class="coll-items">
+    <div class="container">
+        <div class="row">
+            {{#each model.list as |item|}}
+                    {{collection-item item=item class="col-sm-6 col-lg-4"}}
+            {{/each}}
+        </div>
+    </div>
+</div>
