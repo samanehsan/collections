@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -52,7 +53,13 @@ class GroupItemList(generics.ListCreateAPIView):
     serializer_class = ItemSerializer
 
     def get_queryset(self):
-        return Item.objects.filter(group=self.kwargs['group_id'])
+        user = self.request.user
+        collection_id = self.kwargs['pk']
+        collection = Collection.objects.get(id=collection_id)
+        queryset = Item.objects.filter(group=self.kwargs['group_id'])
+        if user.id == collection.created_by_id:
+            return queryset
+        return queryset.filter(Q(status='approved') | Q(created_by=user))
 
 
 class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -66,4 +73,10 @@ class CollectionItemList(generics.ListCreateAPIView):
     serializer_class = ItemSerializer
 
     def get_queryset(self):
-        return Item.objects.filter(collection=self.kwargs['pk'], group=None)
+        user = self.request.user
+        collection_id = self.kwargs['pk']
+        collection = Collection.objects.get(id=collection_id)
+        queryset = Item.objects.filter(collection=collection_id, group=None)
+        if user.id == collection.created_by_id:
+            return queryset
+        return queryset.filter(Q(status='approved') | Q(created_by=user))
