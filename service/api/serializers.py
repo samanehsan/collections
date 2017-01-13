@@ -1,7 +1,7 @@
 import datetime
 from rest_framework import serializers
 from rest_framework.reverse import reverse
-from models import Collection, Item, User
+from models import Collection, Group, Item, User
 
 
 class UserSerializer(serializers.Serializer):
@@ -29,7 +29,6 @@ class ItemSerializer(serializers.Serializer):
     status = serializers.CharField()
     url = serializers.URLField()
     created_by = UserSerializer(read_only=True)
-    is_displayed = serializers.BooleanField()
     metadata = serializers.CharField(allow_blank=True)
     date_added = serializers.DateTimeField(read_only=True, allow_null=True)
     date_submitted = serializers.DateTimeField(read_only=True)
@@ -41,6 +40,9 @@ class ItemSerializer(serializers.Serializer):
         user = self.context['request'].user
         collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
         collection = Collection.objects.get(id=collection_id)
+        group_id = self.context['request'].parser_context['kwargs'].get('group_id', None)
+        if group_id:
+            validated_data['group'] = Group.objects.get(id=group_id)
         if validated_data['status'] == 'approved':
             validated_data['date_added'] = datetime.datetime.now()
         item = Item.objects.create(
@@ -57,6 +59,41 @@ class ItemSerializer(serializers.Serializer):
         return item
 
 
+class GroupSerializer(serializers.Serializer):
+    id = serializers.CharField(read_only=True)
+    title = serializers.CharField(required=True)
+    description = serializers.CharField(allow_blank=True)
+    created_by = UserSerializer(read_only=True)
+    date_created = serializers.DateTimeField(read_only=True)
+    date_updated = serializers.DateTimeField(read_only=True)
+    items = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Group
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
+        collection = Collection.objects.get(id=collection_id)
+        return Group.objects.create(
+            created_by=user,
+            collection=collection,
+            **validated_data
+        )
+
+    def update(self, group, validated_data):
+        group.title = validated_data['title']
+        description = validated_data['description']
+        if description:
+            group.description = description
+        group.save()
+        return group
+
+    def get_items(self, obj):
+        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
+        return reverse('group-item-list', kwargs={'pk': collection_id, 'group_id': obj.id}, request=self.context['request'])
+
+
 class CollectionSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     title = serializers.CharField(required=True)
@@ -65,6 +102,7 @@ class CollectionSerializer(serializers.Serializer):
     created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
+    groups = serializers.SerializerMethodField()
     items = serializers.SerializerMethodField()
 
     class Meta:
@@ -85,5 +123,8 @@ class CollectionSerializer(serializers.Serializer):
         collection.save()
         return collection
 
+    def get_groups(self, obj):
+        return reverse('group-list', kwargs={'pk': obj.id}, request=self.context['request'])
+
     def get_items(self, obj):
-        return reverse('collection-items', kwargs={'pk': obj.id}, request=self.context['request'])
+        return reverse('collection-item-list', kwargs={'pk': obj.id}, request=self.context['request'])

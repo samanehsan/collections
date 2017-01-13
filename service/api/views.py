@@ -2,8 +2,8 @@ from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from serializers import CollectionSerializer, ItemSerializer
-from models import Collection, Item
+from serializers import CollectionSerializer, GroupSerializer, ItemSerializer
+from models import Collection, Group, Item
 
 
 @api_view(['GET'])
@@ -33,12 +33,26 @@ class CollectionDetail(generics.RetrieveUpdateDestroyAPIView):
         return Collection.objects.get(id=self.kwargs['pk'])
 
 
-class CollectionItemList(generics.ListCreateAPIView):
+class GroupList(generics.ListCreateAPIView):
+    serializer_class = GroupSerializer
+
+    def get_queryset(self):
+        return Group.objects.filter(collection=self.kwargs['pk'])
+
+
+class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = GroupSerializer
+
+    def get_object(self):
+        return Group.objects.get(id=self.kwargs['group_id'])
+
+
+class GroupItemList(generics.ListCreateAPIView):
     """View items in a collection and create a new item to add to the collection. """
     serializer_class = ItemSerializer
 
     def get_queryset(self):
-        return Item.objects.filter(collection=self.kwargs['pk'])
+        return Item.objects.filter(group=self.kwargs['group_id'])
 
 
 class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -46,3 +60,10 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return Item.objects.get(id=self.kwargs['item_id'])
+
+
+class CollectionItemList(generics.ListCreateAPIView):
+    serializer_class = ItemSerializer
+
+    def get_queryset(self):
+        return Item.objects.filter(collection=self.kwargs['pk'], group=None)
