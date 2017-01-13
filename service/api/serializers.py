@@ -26,7 +26,7 @@ class ItemSerializer(serializers.Serializer):
     source_id = serializers.CharField()
     title = serializers.CharField(required=True)
     type = serializers.CharField()
-    status = serializers.CharField()
+    status = serializers.CharField(read_only=True)
     url = serializers.URLField()
     created_by = UserSerializer(read_only=True)
     metadata = serializers.CharField(allow_blank=True)
@@ -43,8 +43,11 @@ class ItemSerializer(serializers.Serializer):
         group_id = self.context['request'].parser_context['kwargs'].get('group_id', None)
         if group_id:
             validated_data['group'] = Group.objects.get(id=group_id)
-        if validated_data['status'] == 'approved':
+        status = 'pending'
+        if user.id == collection.created_by_id:
+            status = 'approved'
             validated_data['date_added'] = datetime.datetime.now()
+        validated_data['status'] = status
         item = Item.objects.create(
             created_by=user,
             collection=collection,
