@@ -87,3 +87,7 @@ body {
     height: 800px;
     background: #808080;
 }
+
+.coll-item-navigation {
+    padding: 10px;
+}

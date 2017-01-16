@@ -1,7 +1,14 @@
 {{bread-crumbs tagName="ol" outputStyle="bootstrap" linkable=true}}
 
 {{outlet}}
-
+<div class="coll-item-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 text-left">  {{#link-to 'collection.item' model.previousId}}<i class="fa fa-chevron-left"></i> Previous {{/link-to}}</div>
+            <div class="col-xs-6 text-right">{{#link-to 'collection.item' model.nextId}}Next <i class="fa fa-chevron-right"></i> {{/link-to}}</div>
+        </div>
+    </div>
+</div>
 <div class="coll-item-page">
     <div class="container">
         <div class="row">
@@ -12,6 +19,10 @@
                     {{#each model.tags as |tag|}}
                         <span class="coll-item-tag">{{tag}}</span>
                     {{/each}}
+                </div>
+                <div>Status: {{model.status}}</div>
+                <div class="m-t-xl">
+                    <button class="btn btn-default">Remove from collection </button>
                 </div>
             </div>
             <div class="col-sm-8">
