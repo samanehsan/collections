@@ -11,8 +11,8 @@ export default Ember.Route.extend({
     model (params){
         item.set('id', parseInt(params.item_id));
         let id = item.get('id');
-        item.set('nextId', id > 0 ? id + 1 : null);
-        item.set('previousId', id > 1 ? id - 1 : null);
+        item.set('nextId', id > -1 ? id + 1 : null);
+        item.set('previousId', id > -1 ? id - 1 : null);
         item.set('title', faker.lorem.words());
         item.set('description', faker.lorem.sentences());
         item.set('tags', faker.lorem.words().split(' '));
