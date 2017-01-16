@@ -26,10 +26,10 @@
         {{#each model as |item|}}
             <div class="coll-single">
                 {{#link-to "collection" item.id class="btn btn-info pull-right"}}View{{/link-to}}
-                <h3>{{#link-to "collection" item.id}}{{item.title}}{{/link-to}}</h3>
-                <p>{{item.description}}</p>
+                <h3>{{#link-to "collection" item.id}}{{item.attributes.title}}{{/link-to}}</h3>
+                <p>{{item.attributes.description}}</p>
                 <div>
-                    {{#each item.tags as |tag|}}
+                    {{#each item.attributes.tags as |tag|}}
                         <span class="coll-item-tag">{{tag}}</span>
                     {{/each}}
                 </div>
