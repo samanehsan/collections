@@ -1,5 +1,5 @@
 import datetime
-from rest_framework import serializers
+from rest_framework import serializers, exceptions
 from rest_framework.reverse import reverse
 from models import Collection, Group, Item, User
 
@@ -26,7 +26,7 @@ class ItemSerializer(serializers.Serializer):
     source_id = serializers.CharField()
     title = serializers.CharField(required=True)
     type = serializers.CharField()
-    status = serializers.CharField(read_only=True)
+    status = serializers.CharField()
     url = serializers.URLField()
     created_by = UserSerializer(read_only=True)
     metadata = serializers.CharField(allow_blank=True)
@@ -56,8 +56,22 @@ class ItemSerializer(serializers.Serializer):
         return item
 
     def update(self, item, validated_data):
-        item.title = validated_data['title']
-        item.url = validated_data['url']
+        user = self.context['request'].user
+        status = validated_data.get('status', item.status)
+        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
+        collection = Collection.objects.get(id=collection_id)
+
+        if status != item.status and user.id != collection.created_by_id:
+            raise exceptions.PermissionDenied(detail='Cannot change submission status.')
+        elif user.id != item.created_by_id and validated_data.keys() != ['status']:
+            raise exceptions.PermissionDenied(detail='Cannot update another user\'s submission.')
+
+        item.source_id = validated_data.get('source_id', item.source_id)
+        item.title = validated_data.get('title', item.title)
+        item.type = validated_data.get('type', item.type)
+        item.status = status
+        item.url = validated_data.get('url', item.url)
+        item.metadata = validated_data.get('metadata', item.metadata)
         item.save()
         return item
 
