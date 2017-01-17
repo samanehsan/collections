@@ -91,3 +91,25 @@ body {
 .coll-item-navigation {
     padding: 10px;
 }
+
+
+.coll-item-wrapper {
+    position: relative;
+}
+.coll-item-organize {
+    position: absolute;
+    text-align: center;
+    width: calc(100% - 30px);
+    background-color: rgba(255, 255, 255, 0.44);
+    height: 200px;
+    padding-top: 90px;
+    color: #9E9E9E;
+    margin: 0 15px;
+}
+.coll-item-organize .fa {
+    font-size: 30px;
+}
+.coll-item-organize.item-selected {
+    color: #8bc34a;
+    background-color: rgba(255, 255, 255, 0.82);
+}

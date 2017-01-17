@@ -1,4 +1,12 @@
-<div class="coll-item coll-item-type-{{item.type}}">
-    <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
-    <p> Type: {{item.type}}</p>
+<div class="coll-item-wrapper">
+    {{#if organizeMode}}
+        <div class="coll-item-organize {{if selected 'item-selected'}}" {{action 'markSelected'}}>
+            <i class="fa fa-check"></i>
+            <p>Click to select</p>
+        </div>
+    {{/if}}
+    <div class="coll-item coll-item-type-{{item.type}}">
+        <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
+        <p> Type: {{item.type}}</p>
+    </div>
 </div>
