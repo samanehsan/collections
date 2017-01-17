@@ -27,7 +27,11 @@
                 {{/if}}
             </div>
             <div class="col-xs-6 text-right">
-                <button class="btn btn-info" {{action 'toggleOrganizeMode'}}>Organize Items </button>
+                {{#if organizeMode}}
+                    <button class="btn btn-default" {{action 'toggleOrganizeMode'}}>Cancel organizing </button>
+                {{else}}
+                    <button class="btn btn-info" {{action 'toggleOrganizeMode'}}>Organize Items </button>
+                {{/if}}
             </div>
         </div>
         <div class="row">

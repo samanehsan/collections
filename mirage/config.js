@@ -7,7 +7,12 @@ export default function() {
 
     this.post('/collections', (schema, request) => {
     console.log('requesr', request, schema);
-      return schema.collections.create();
+      let title = request.requestBody.split('&')[0].split('=')[1].split('+').join(' ');
+      return schema.collections.create({
+          title: title,
+          dateCreated: new Date(),
+          dateUpdated: new Date()
+      });
     });
 
     this.get('/collections/:id', (schema, request) => {

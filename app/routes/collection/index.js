@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import faker from 'faker';
+// import faker from 'faker';
 
 // let model;
 // let generateFake = function (id) {
@@ -29,7 +29,5 @@ import faker from 'faker';
 // };
 
 export default Ember.Route.extend({
-    breadCrumb: {
-      title: 'model.title'
-    }
+
 });
