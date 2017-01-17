@@ -1,10 +1,12 @@
 from django.db.models import Q
 from rest_framework import generics
+from rest_framework import permissions as drf_permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from serializers import CollectionSerializer, GroupSerializer, ItemSerializer
 from models import Collection, Group, Item
+from permissions import CanEditCollection, CanEditItem
 
 
 @api_view(['GET'])
@@ -18,6 +20,7 @@ def api_root(request):
 class CollectionList(generics.ListCreateAPIView):
     """View list of collections and create a new collection. """
     serializer_class = CollectionSerializer
+    permission_classes = (drf_permissions.IsAuthenticatedOrReadOnly, )
 
     def get_queryset(self):
         queryset = Collection.objects.all()
@@ -29,6 +32,10 @@ class CollectionList(generics.ListCreateAPIView):
 
 class CollectionDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CollectionSerializer
+    permission_classes = (
+      drf_permissions.IsAuthenticatedOrReadOnly,
+      CanEditCollection
+    )
 
     def get_object(self):
         return Collection.objects.get(id=self.kwargs['pk'])
@@ -36,6 +43,10 @@ class CollectionDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class GroupList(generics.ListCreateAPIView):
     serializer_class = GroupSerializer
+    permission_classes = (
+      drf_permissions.IsAuthenticatedOrReadOnly,
+      CanEditCollection
+    )
 
     def get_queryset(self):
         return Group.objects.filter(collection=self.kwargs['pk'])
@@ -43,6 +54,10 @@ class GroupList(generics.ListCreateAPIView):
 
 class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = GroupSerializer
+    permission_classes = (
+      drf_permissions.IsAuthenticatedOrReadOnly,
+      CanEditCollection
+    )
 
     def get_object(self):
         return Group.objects.get(id=self.kwargs['group_id'])
@@ -51,6 +66,7 @@ class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
 class GroupItemList(generics.ListCreateAPIView):
     """View items in a collection and create a new item to add to the collection. """
     serializer_class = ItemSerializer
+    permission_classes = (drf_permissions.IsAuthenticatedOrReadOnly, )
 
     def get_queryset(self):
         user = self.request.user
@@ -64,6 +80,10 @@ class GroupItemList(generics.ListCreateAPIView):
 
 class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ItemSerializer
+    permission_classes = (
+      drf_permissions.IsAuthenticatedOrReadOnly,
+      CanEditItem
+    )
 
     def get_object(self):
         return Item.objects.get(id=self.kwargs['item_id'])
@@ -71,6 +91,7 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class CollectionItemList(generics.ListCreateAPIView):
     serializer_class = ItemSerializer
+    permission_classes = (drf_permissions.IsAuthenticatedOrReadOnly, )
 
     def get_queryset(self):
         user = self.request.user
