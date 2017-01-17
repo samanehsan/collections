@@ -8,10 +8,11 @@
             {{/if}}
     {{/if}}
     <div class="coll-item coll-item-type-{{item.type}} {{if item.isGroup 'coll-item-isgroup'}}">
-        <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
         {{#if item.isGroup}}
+            <h3>{{#link-to 'collection.group' item.id}}{{item.title}}{{/link-to}}</h3>
             <p> Type: Group </p>
         {{else}}
+            <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
             <p> Type: {{item.type}} </p>
             <p> Status: {{item.status}} </p>
         {{/if}}

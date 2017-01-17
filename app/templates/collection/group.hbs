@@ -1,0 +1,25 @@
+{{bread-crumbs tagName="ol" outputStyle="bootstrap" linkable=true}}
+
+{{outlet}}
+<h2>Group "{{model.title}}"</h2>
+
+<div class="coll-items">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                {{#if organizeMode}}
+                    <button class="btn btn-default" {{action 'groupSelected'}}>Group Selected</button>
+                    <button class="btn btn-danger" {{action 'deleteSelected'}}>Delete selected </button>
+                {{/if}}
+            </div>
+            <div class="col-xs-6 text-right">
+                <button class="btn btn-info" {{action 'toggleOrganizeMode'}}>Organize Items </button>
+            </div>
+        </div>
+        <div class="row">
+            {{#each model.list as |item|}}
+                {{collection-item item=item organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
+            {{/each}}
+        </div>
+    </div>
+</div>
