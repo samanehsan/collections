@@ -6,5 +6,6 @@ export default Ember.Route.extend({
         return $.getJSON('/api/collections').then(result => {
              return result.data;
            });
+
     }
 });

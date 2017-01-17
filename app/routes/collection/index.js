@@ -28,17 +28,6 @@ let buildModel = function () {
 };
 
 export default Ember.Route.extend({
-    model (){
-        return $.getJSON('/api/collections').then(result => {
-            console.log(result);
-            let model = result.data[0];
-            model.list = [];
-            for(let i = 0; i < 20; i++){
-                model.list.push(generateFake(i));
-            }
-            return model;
-           });
-    },
     breadCrumb: {
       title: 'model.title'
     }
