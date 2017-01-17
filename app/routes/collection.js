@@ -3,12 +3,15 @@ import faker from 'faker';
 
 let generateFake = function (id) {
     let types = ['project', 'preprint', 'registration', 'file', 'person'];
+    let status = ['pending', 'approved', 'other'];
     let item = {
         id: id,
         title: faker.lorem.words(),
         description: faker.lorem.sentences(),
         tags : faker.lorem.words().split(' '),
-        type : types[Math.floor(Math.random()*types.length)]
+        type : types[Math.floor(Math.random()*types.length)],
+        status:  status[Math.floor(Math.random()*status.length)],
+        isGroup: faker.random.boolean()
     };
     return item;
 };

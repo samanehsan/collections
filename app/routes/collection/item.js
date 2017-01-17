@@ -20,6 +20,8 @@ export default Ember.Route.extend({
         item.set('addedBy', faker.name.firstName() + faker.name.lastName());
         item.set('dateAdded', faker.date.past());
         item.set('status', status[Math.floor(Math.random()*status.length)]);
+        item.set('isGroup', faker.random.boolean());
+
         return item;
     },
     breadCrumb: {
