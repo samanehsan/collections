@@ -1,11 +1,6 @@
 {{outlet}}
-<div class="coll-add-layer">
-    <div class="container">
-        <h2>{{model.title}}</h2>
-        <p>{{model.description}}</p>
-    </div>
-</div>
-<div class="coll-add-item">
+{{collection-detail model=model}}
+<!-- <div class="coll-add-item">
     <div class="container">
         <div class="row">
             <div class="col-sm-5"><h4> Add OSF item to collection </h4></div>
@@ -20,10 +15,11 @@
         </div>
         {{/if}}
     </div>
-</div>
+</div> -->
 
 <div class="coll-items">
     <div class="container">
+        <button class="btn btn-info pull-right">Organize Items </button>
         <div class="row">
             {{#each model.list as |item|}}
                     {{collection-item item=item class="col-sm-6 col-lg-4"}}

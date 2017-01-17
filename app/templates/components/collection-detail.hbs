@@ -1,0 +1,21 @@
+<div class="coll-add-layer">
+    <div class="container">
+    {{# if editMode}}
+        Hey there 
+    {{else}}
+        <h2>{{model.attributes.title}}</h2>
+        <p>{{model.attributes.description}}</p>
+        <div>
+            {{#each item.attributes.tags as |tag|}}
+                <span class="coll-item-tag">{{tag}}</span>
+            {{/each}}
+        </div>
+        <p>Created by: {{model.attributes.created-by}} Date created: {{model.attributes.date-created}} Date updated : {{model.attributes.date-updated}}</p>
+        <div class="pull-right">
+            <button class="btn btn-default" {{action 'toggleEdit'}}>Edit</button>
+            <button class="btn btn-success">Add Item </button>
+        </div>
+    {{/if}}
+
+    </div>
+</div>
