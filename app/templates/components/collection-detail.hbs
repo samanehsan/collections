@@ -21,7 +21,13 @@
 
     {{else}}
         <h2>{{model.attributes.title}}</h2>
-        <p>{{model.attributes.description}}</p>
+        <div>
+            {{#if model.attributes.description}}
+                {{model.attributes.description}}
+            {{else}}
+                <span class="text-muted" {{action 'showEdit'}}>Add description </span>
+            {{/if}}
+        </div>
         <div>
             {{#each item.attributes.tags as |tag|}}
                 <span class="coll-item-tag">{{tag}}</span>
