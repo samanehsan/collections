@@ -6,8 +6,9 @@ body {
 .coll-banner {
     background: url('/img/collections_bg.jpg') top center;
     background-size: cover;
-    height: 400px;
+    height: 300px;
     color: #fff;
+    padding-top: 50px;
 }
 
 .coll-add-layer {
