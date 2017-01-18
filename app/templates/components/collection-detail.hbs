@@ -23,19 +23,21 @@
 
     {{else}}
         <h2>{{model.attributes.title}}</h2>
-        <div>
+        <div class="m-b-md">
             {{#if model.attributes.description}}
                 {{model.attributes.description}}
             {{else}}
                 <span class="text-muted" {{action 'showEdit'}}>Add description </span>
             {{/if}}
         </div>
-        <div>
-            {{#each item.attributes.tags as |tag|}}
+        <div class="m-b-md">
+            {{#each model.attributes.tags as |tag|}}
                 <span class="coll-item-tag">{{tag}}</span>
             {{/each}}
         </div>
-        <p>Created by: {{model.attributes.created-by}} Date created: {{model.attributes.date-created}} Date updated : {{model.attributes.date-updated}}</p>
+        <p>Created by: {{model.attributes.created-by}} </p>
+        <p>Date created: {{model.attributes.date-created}} </p>
+        <p>Date updated : {{model.attributes.date-updated}}</p>
         <div class="pull-right">
             <button class="btn btn-default btn-collection" {{action 'showEdit'}}> <i class="fa fa-pencil"></i> Edit</button>
         </div>
