@@ -128,3 +128,9 @@ body {
     4px 4px 0 1px #fff,
     5px 5px 0 1px #ccc;
 }
+.btn-collection {
+    background: none;
+    border-radius: 15px;
+    color: #999;
+    min-width: 100px;
+}

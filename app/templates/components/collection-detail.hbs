@@ -15,8 +15,10 @@
             <label for="collectionTags">Tags</label>
             {{input class="form-control" value=modelCache.attributes.tags placeholder="Enter comma separated tags" id="collectionTags"}}
         </div>
-        <button class="btn btn-default" {{action 'cancelEdit'}}>Cancel</button>
-        <button class="btn btn-success" {{action 'saveEdit'}}>Save</button>
+        <div class="text-right">
+            <button class="btn btn-default" {{action 'cancelEdit'}}>Cancel</button>
+            <button class="btn btn-success" {{action 'saveEdit'}}>Save</button>
+        </div>
     </div>
 
     {{else}}
@@ -35,8 +37,7 @@
         </div>
         <p>Created by: {{model.attributes.created-by}} Date created: {{model.attributes.date-created}} Date updated : {{model.attributes.date-updated}}</p>
         <div class="pull-right">
-            <button class="btn btn-default" {{action 'showEdit'}}>Edit</button>
-            <button class="btn btn-success">Add Item </button>
+            <button class="btn btn-default btn-collection" {{action 'showEdit'}}> <i class="fa fa-pencil"></i> Edit</button>
         </div>
     {{/if}}
 

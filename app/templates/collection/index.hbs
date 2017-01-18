@@ -1,21 +1,56 @@
 {{outlet}}
 {{collection-detail model=model}}
-<!-- <div class="coll-add-item">
+<div class="coll-add-item">
     <div class="container">
         <div class="row">
-            <div class="col-sm-5"><h4> Add OSF item to collection </h4></div>
-            <div class="col-sm-4">{{input class="form-control" value=searchGuid placeholder="Enter Guid"}}</div>
-            <div class="col-sm-3"><button class="btn btn-success" {{action 'findNode'}}>Add Item</button></div>
+            <div class="col-sm-5 "><h4> Add item to collection </h4></div>
+            <div class="col-sm-4 text-right">{{input class="form-control" value=searchGuid placeholder="Enter Guid"}}</div>
+            <div class="col-sm-3 text-left"><button class="btn btn-success" {{action 'findNode'}}>Find</button></div>
         </div>
-        {{#if loadingGuid}}
-        <div class="row">
-            <div class="col-xs-12 text-center p-md">
-                Loading {{fa-icon "spinner" spin=true}}
+        {{#if showAddItemDetails}}
+        <div class="coll-find-details p-md">
+            <div class="row">
+                <div class="col-sm-3 text-right">
+                    <h4>Title </h4>
+                </div>
+                <div class="col-sm-9">
+                    <p class="m-t-sm">{{fakeNewNode.title}}</p>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-sm-3 text-right">
+                    <h4>Description </h4>
+                </div>
+                <div class="col-sm-9">
+                    <p class="m-t-sm">{{fakeNewNode.description}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 text-right">
+                    <h4>Type </h4>
+                </div>
+                <div class="col-sm-9">
+                    <p class="m-t-sm">{{fakeNewNode.type}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 text-right">
+                    <h4>Contributor </h4>
+                </div>
+                <div class="col-sm-9">
+                    <p class="m-t-sm">{{fakeNewNode.addedBy}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 text-right">
+                    <button class="btn btn-success" {{action 'addToList'}}>Add to List </button>
+                </div>
+            </div>
+
         </div>
         {{/if}}
     </div>
-</div> -->
+</div>
 
 <div class="coll-items">
     <div class="container">
