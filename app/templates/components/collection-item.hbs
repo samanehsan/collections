@@ -3,7 +3,7 @@
         {{#if (not item.isGroup)}}
             <div class="coll-item-organize {{if selected 'item-selected'}}" {{action 'markSelected'}}>
                 <i class="fa fa-check"></i>
-                <p>Click to select</p>
+                <p>{{if selected 'Click to unselect' 'Click to select'}}</p>
             </div>
             {{/if}}
     {{/if}}
