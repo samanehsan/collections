@@ -5,6 +5,9 @@ body {
 .btn:focus {
     outline: none;
 }
+.modal.in {
+    display: block;
+}
 
 .coll-banner {
     background: url('/img/collections_bg.jpg') top center;

@@ -9,7 +9,8 @@ export default Ember.Controller.extend({
     organizeMode: false,
     showAddItemDetails: false,
     fakeNewNode: {},
-    selectedItems : Ember.A(),
+    selectedItems : Ember.A(), // List of items selected for actions like delete
+    showConfirmation: false, // Modal for deleting items
     actions: {
         findNode () {
             this.set('fakeNewNode',
@@ -26,9 +27,13 @@ export default Ember.Controller.extend({
         toggleOrganizeMode () {
             this.toggleProperty('organizeMode');
         },
+        toggleConfirmation(){
+            this.toggleProperty('showConfirmation');
+        },
         deleteSelected(){
             let items = this.get('model.list');
             items.removeObjects(this.get('selectedItems'));
+            this.set('showConfirmation', false);
         },
         // Adds or removes item to the selectedItems list
         toggleSelectedList(selected, item){
