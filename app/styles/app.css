@@ -2,6 +2,9 @@
 body {
     margin-top: 50px;
 }
+.btn:focus {
+    outline: none;
+}
 
 .coll-banner {
     background: url('/img/collections_bg.jpg') top center;
