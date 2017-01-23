@@ -12,7 +12,11 @@
             <h3>{{#link-to 'collection.group' item.id}}{{item.title}}{{/link-to}}</h3>
             <p> Type: Group </p>
         {{else}}
-            <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
+            {{#if (eq parent 'group')}}
+                <h3>{{#link-to 'collection.group.item' item.id}}{{item.title}}{{/link-to}}</h3>
+            {{else}}
+                <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
+            {{/if}}
             <p> Type: {{item.type}} </p>
             <p> Status: {{item.status}} </p>
         {{/if}}

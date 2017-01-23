@@ -10,10 +10,10 @@ Router.map(function() {
   this.route('index', {path : '/'});
   this.route('collection', {path : 'collection/:collection_id'}, function() {
     this.route('item', {path : 'item/:item_id'});
-    this.route('group', {path : 'group/:group_id'});
+    this.route('group', {path : 'group/:group_id'}, function() {
+      this.route('item', {path : 'item/:group_item_id'});
+    });
   });
-
-  this.route('collections', function() {});
 });
 
 export default Router;
