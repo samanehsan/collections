@@ -9,6 +9,7 @@ export default Ember.Controller.extend({
     organizeMode: false,
     showAddItemDetails: false,
     fakeNewNode: {},
+    selectedItems : Ember.A(),
     actions: {
         findNode () {
             this.set('fakeNewNode',
@@ -24,6 +25,21 @@ export default Ember.Controller.extend({
         },
         toggleOrganizeMode () {
             this.toggleProperty('organizeMode');
+        },
+        deleteSelected(){
+            let items = this.get('model.list');
+            items.removeObjects(this.get('selectedItems'));
+        },
+        // Adds or removes item to the selectedItems list
+        toggleSelectedList(selected, item){
+            console.log(selected, item);
+            let currentList = this.get('selectedItems');
+            if(!selected){
+                currentList.removeObject(item);
+            } else {
+                currentList.addObject(item);
+            }
+
         },
         addToList(){
             let list = this.get('model.list');

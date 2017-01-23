@@ -70,7 +70,7 @@
         </div>
         <div class="row">
             {{#each model.list as |item|}}
-                {{collection-item item=item organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
+                {{collection-item item=item toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
             {{/each}}
         </div>
     </div>
