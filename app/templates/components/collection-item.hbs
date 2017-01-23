@@ -1,10 +1,24 @@
-<div class="coll-item">
-    <h3>{{item.title}}</h3>
-    <p>{{item.description}}</p>
-    <p> Type: {{item.type}}</p>
-    <div>
-        {{#each item.tags as |tag|}}
-            <span class="coll-item-tag">{{tag}}</span>
-        {{/each}}
+<div class="coll-item-wrapper">
+    {{#if organizeMode}}
+        {{#if (not item.isGroup)}}
+            <div class="coll-item-organize {{if selected 'item-selected'}}" {{action 'markSelected' item}}>
+                <i class="fa fa-check"></i>
+                <p>{{if selected 'Click to unselect' 'Click to select'}}</p>
+            </div>
+            {{/if}}
+    {{/if}}
+    <div class="coll-item coll-item-type-{{item.type}} {{if item.isGroup 'coll-item-isgroup'}}">
+        {{#if item.isGroup}}
+            <h3>{{#link-to 'collection.group' item.id}}{{item.title}}{{/link-to}}</h3>
+            <p> Type: Group </p>
+        {{else}}
+            {{#if (eq parent 'group')}}
+                <h3>{{#link-to 'collection.group.item' item.id}}{{item.title}}{{/link-to}}</h3>
+            {{else}}
+                <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
+            {{/if}}
+            <p> Type: {{item.type}} </p>
+            <p> Status: {{item.status}} </p>
+        {{/if}}
     </div>
 </div>

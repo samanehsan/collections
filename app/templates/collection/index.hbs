@@ -1,0 +1,133 @@
+{{collection-detail model=model}}
+<div class="coll-add-item">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5 "><h4> Add item to collection </h4></div>
+            <div class="col-sm-4 text-right">{{input class="form-control" value=searchGuid placeholder="Enter Guid"}}</div>
+            <div class="col-sm-3 text-left"><button class="btn btn-success" {{action 'findNode'}}>Find</button></div>
+        </div>
+        {{#if showAddItemDetails}}
+        <div class="coll-find-details p-md">
+            <div class="row">
+                <div class="col-sm-3 text-right">
+                    <h4>Title </h4>
+                </div>
+                <div class="col-sm-9">
+                    <p class="m-t-sm">{{fakeNewNode.title}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 text-right">
+                    <h4>Description </h4>
+                </div>
+                <div class="col-sm-9">
+                    <p class="m-t-sm">{{fakeNewNode.description}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 text-right">
+                    <h4>Type </h4>
+                </div>
+                <div class="col-sm-9">
+                    <p class="m-t-sm">{{fakeNewNode.type}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 text-right">
+                    <h4>Contributor </h4>
+                </div>
+                <div class="col-sm-9">
+                    <p class="m-t-sm">{{fakeNewNode.addedBy}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 text-right">
+                    <button class="btn btn-success" {{action 'addToList'}}>Add to List </button>
+                </div>
+            </div>
+
+        </div>
+        {{/if}}
+    </div>
+</div>
+
+<div class="coll-items">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                {{#if organizeMode}}
+                    <button class="btn btn-default" {{action 'toggleGroupConfirmation'}}>Group Selected</button>
+                    <button class="btn btn-danger" {{action 'toggleDeleteConfirmation'}}>Delete selected </button>
+                {{/if}}
+            </div>
+            <div class="col-xs-6 text-right">
+                {{#if organizeMode}}
+                    <button class="btn btn-default" {{action 'toggleOrganizeMode'}}>Cancel organizing </button>
+                {{else}}
+                    <button class="btn btn-info" {{action 'toggleOrganizeMode'}}>Organize Items </button>
+                {{/if}}
+            </div>
+        </div>
+        <div class="row">
+            {{#each model.list as |item|}}
+                {{collection-item item=item toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+{{#if showDeleteConfirmation}}
+<div class="modal fade in" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" {{action 'toggleDeleteConfirmation'}}><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete items?</h4>
+      </div>
+      <div class="modal-body">
+        <p>The following items will be removed:</p>
+        <ul>
+            {{#each selectedItems as |item|}}
+                <li>{{item.title}}</li>
+            {{/each}}
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" {{action 'toggleDeleteConfirmation'}}>Close</button>
+        <button type="button" class="btn btn-danger" {{action 'deleteSelected'}}>Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal-backdrop fade in"></div>
+{{/if}}
+
+{{#if showGroupConfirmation}}
+<div class="modal fade in" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" {{action 'toggleGroupConfirmation'}}><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Group selected items?</h4>
+      </div>
+      <div class="modal-body">
+        <p> Enter title for Group </p>
+        {{input class="form-control" value=groupTitle placeholder="e.g. Microbiology studies"}}
+        <p>The following items will be added to the group:</p>
+        <ul>
+            {{#each selectedItems as |item|}}
+                <li>{{item.title}}</li>
+            {{/each}}
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" {{action 'toggleGroupConfirmation'}}>Close</button>
+        <button type="button" class="btn btn-success" {{action 'groupSelected'}}>Group</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal-backdrop fade in"></div>
+{{/if}}
+
+{{outlet}}

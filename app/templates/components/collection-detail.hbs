@@ -1,0 +1,47 @@
+<div class="coll-add-layer">
+    <div class="container">
+    {{# if editMode}}
+
+    <div class="form">
+        <div class="form-group">
+            <label for="collectionTitle">Title</label>
+            {{input class="form-control" value=modelCache.attributes.title placeholder="Enter title" id="collectionTitle"}}
+        </div>
+        <div class="form-group">
+            <label for="collectionDescription">Description</label>
+            {{textarea class="form-control" value=modelCache.attributes.description id="collectionDescription"}}
+        </div>
+        <div class="form-group">
+            <label for="collectionTags">Tags</label>
+            {{input class="form-control" value=modelCache.attributes.tags placeholder="Enter comma separated tags" id="collectionTags"}}
+        </div>
+        <div class="text-right">
+            <button class="btn btn-default" {{action 'cancelEdit'}}>Cancel</button>
+            <button class="btn btn-success" {{action 'saveEdit'}}>Save</button>
+        </div>
+    </div>
+
+    {{else}}
+        <h2>{{model.attributes.title}}</h2>
+        <div class="m-b-md">
+            {{#if model.attributes.description}}
+                {{model.attributes.description}}
+            {{else}}
+                <span class="text-muted" {{action 'showEdit'}}>Add description </span>
+            {{/if}}
+        </div>
+        <div class="m-b-md">
+            {{#each model.attributes.tags as |tag|}}
+                <span class="coll-item-tag">{{tag}}</span>
+            {{/each}}
+        </div>
+        <p>Created by: {{model.attributes.created-by}} </p>
+        <p>Date created: {{model.attributes.date-created}} </p>
+        <p>Date updated : {{model.attributes.date-updated}}</p>
+        <div class="pull-right">
+            <button class="btn btn-default btn-collection" {{action 'showEdit'}}> <i class="fa fa-pencil"></i> Edit</button>
+        </div>
+    {{/if}}
+
+    </div>
+</div>
