@@ -56,7 +56,7 @@
         <div class="row">
             <div class="col-xs-6">
                 {{#if organizeMode}}
-                    <button class="btn btn-default" {{action 'groupSelected'}}>Group Selected</button>
+                    <button class="btn btn-default" {{action 'toggleGroupConfirmation'}}>Group Selected</button>
                     <button class="btn btn-danger" {{action 'toggleDeleteConfirmation'}}>Delete selected </button>
                 {{/if}}
             </div>
@@ -75,6 +75,7 @@
         </div>
     </div>
 </div>
+
 {{#if showDeleteConfirmation}}
 <div class="modal fade in" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -94,6 +95,34 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" {{action 'toggleDeleteConfirmation'}}>Close</button>
         <button type="button" class="btn btn-danger" {{action 'deleteSelected'}}>Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal-backdrop fade in"></div>
+{{/if}}
+
+{{#if showGroupConfirmation}}
+<div class="modal fade in" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" {{action 'toggleGroupConfirmation'}}><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Group selected items?</h4>
+      </div>
+      <div class="modal-body">
+        <p> Enter title for Group </p>
+        {{input class="form-control" value=groupTitle placeholder="e.g. Microbiology studies"}}
+        <p>The following items will be added to the group:</p>
+        <ul>
+            {{#each selectedItems as |item|}}
+                <li>{{item.title}}</li>
+            {{/each}}
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" {{action 'toggleGroupConfirmation'}}>Close</button>
+        <button type="button" class="btn btn-success" {{action 'groupSelected'}}>Group</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

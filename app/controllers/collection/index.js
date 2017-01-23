@@ -11,6 +11,17 @@ export default Ember.Controller.extend({
     fakeNewNode: {},
     selectedItems : Ember.A(), // List of items selected for actions like delete
     showDeleteConfirmation: false, // Modal for deleting items
+    showGroupConfirmation: false, // Modal for grouping
+    groupTitle: '',
+    clearSelected(){
+        let selected = this.get('selectedItems');
+        selected.clear();
+    },
+    clearModals (){
+        this.set('showGroupConfirmation', false);
+        this.set('showDeleteConfirmation', false);
+        this.set('groupTitle', '');
+    },
     actions: {
         findNode () {
             this.set('fakeNewNode',
@@ -33,7 +44,29 @@ export default Ember.Controller.extend({
         deleteSelected(){
             let items = this.get('model.list');
             items.removeObjects(this.get('selectedItems'));
-            this.set('showDeleteConfirmation', false);
+            this.clearSelected();
+            this.clearModals();
+        },
+        toggleGroupConfirmation ( ){
+            this.toggleProperty('showGroupConfirmation');
+        },
+        groupSelected(){
+            let newGroup = {
+                id: 123,
+                title: this.get('groupTitle'),
+                description: faker.lorem.sentences(),
+                tags : faker.lorem.words().split(' '),
+                type : types[Math.floor(Math.random()*types.length)],
+                isGroup : true
+            };
+            let list = this.get('model.list');
+            list.unshiftObject(newGroup);
+            // remove items that were put into the group;
+            let items = this.get('model.list');
+            let selected = this.get('selectedItems');
+            items.removeObjects(selected);
+            this.clearSelected();
+            this.clearModals();
         },
         // Adds or removes item to the selectedItems list
         toggleSelectedList(selected, item){
@@ -47,8 +80,7 @@ export default Ember.Controller.extend({
         },
         addToList(){
             let list = this.get('model.list');
-            list.addObject(this.get('fakeNewNode'));
-            console.log(this.get('model'), list);
+            list.unshiftObject(this.get('fakeNewNode'));
             this.set('showAddItemDetails', false);
             this.set('fakeNewNode', {});
 

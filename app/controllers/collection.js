@@ -11,7 +11,6 @@ export default Ember.Controller.extend({
         },
         toggleOrganizeMode () {
             this.toggleProperty('organizeMode');
-            console.log('asad')
         }
     }
 });

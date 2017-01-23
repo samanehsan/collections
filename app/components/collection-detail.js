@@ -6,7 +6,6 @@ export default Ember.Component.extend({
     actions : {
         showEdit () {
             this.set('modelCache', Ember.copy(this.get('model'), true));
-            console.log(this.get('modelCache'));
             this.set('editMode', true);
         },
         cancelEdit() {
