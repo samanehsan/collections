@@ -1,6 +1,7 @@
 import datetime
-from rest_framework import serializers, exceptions
+from rest_framework import exceptions
 from rest_framework.reverse import reverse
+from rest_framework_json_api import serializers
 from models import Collection, Group, Item, User
 
 
@@ -8,6 +9,12 @@ class UserSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     username = serializers.CharField()
     email = serializers.EmailField()
+
+    class Meta:
+        model = User
+
+    class JSONAPIMeta:
+        resource_name = 'users'
 
     def create(self, validated_data):
         _id = validated_data['id']
@@ -35,6 +42,9 @@ class ItemSerializer(serializers.Serializer):
 
     class Meta:
         model = Item
+
+    class JSONAPIMeta:
+        resource_name = 'items'
 
     def create(self, validated_data):
         user = self.context['request'].user
@@ -88,6 +98,9 @@ class GroupSerializer(serializers.Serializer):
     class Meta:
         model = Group
 
+    class JSONAPIMeta:
+        resource_name = 'groups'
+
     def create(self, validated_data):
         user = self.context['request'].user
         collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
@@ -124,6 +137,9 @@ class CollectionSerializer(serializers.Serializer):
 
     class Meta:
         model = Collection
+
+    class JSONAPIMeta:
+        resource_name = 'collections'
 
     def create(self, validated_data):
         user = self.context['request'].user
