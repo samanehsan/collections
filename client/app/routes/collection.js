@@ -18,6 +18,8 @@ let generateFake = function (id) {
 
 export default Ember.Route.extend({
   model (params) {
+      // Get actual collections
+
       return $.getJSON('/api/collections/' + params.collection_id).then(result => {
            let model = result.data;
            model.list = [];
