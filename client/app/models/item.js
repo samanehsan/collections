@@ -1,11 +1,15 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
+    source_id: DS.attr('string'),
+    title: DS.attr('string'),
     type: DS.attr('string'),
-    identifier: DS.attr('string'),
-    metadata: DS.attr('string'),
+    status: DS.attr('string'),
     url: DS.attr('string'),
-    isDisplayed: DS.attr('boolean'),
+    collection: DS.belongsTo('collection'),
+    group: DS.belongsTo('group'),
+    created_by: DS.attr('number'),
+    metadata: DS.attr('string'),
     dateAdded: DS.attr('date'),
-    collection: DS.belongsTo('collection')
+    dateUpdated: DS.attr('date')
 });
