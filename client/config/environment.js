@@ -6,7 +6,7 @@ module.exports = function(environment) {
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
-    authorizationType: 'cookie',
+    authorizationType: 'token',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -17,6 +17,9 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+      usingCors: true,
+      corsWithCreds: true,
+      apiURL: 'http://127.0.0.1:8000'
     }
   };
 
