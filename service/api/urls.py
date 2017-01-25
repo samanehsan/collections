@@ -11,4 +11,8 @@ urlpatterns = [
     url(r'^collections/(?P<pk>\w+)/groups/(?P<group_id>\w+)/items/(?P<item_id>\w+)/$', views.ItemDetail.as_view(), name='group-item-detail'),
     url(r'^collections/(?P<pk>\w+)/items/$', views.CollectionItemList.as_view(), name='collection-item-list'),
     url(r'^collections/(?P<pk>\w+)/items/(?P<item_id>\w+)/$', views.ItemDetail.as_view(), name='collection-item-detail'),
+
+    url(r'^collections/(?P<pk>\w+)/relationships/(?P<related_field>\w+)/$', views.CollectionRelationship.as_view(), name='collection-relationships'),
+    url(r'^groups/(?P<pk>\w+)/relationships/(?P<related_field>\w+)/$', views.GroupRelationship.as_view(), name='group-relationships'),
+
 ]

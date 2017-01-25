@@ -1,5 +1,6 @@
 import datetime
 from rest_framework import exceptions
+from rest_framework.reverse import reverse
 from rest_framework_json_api import serializers, relations
 from models import Collection, Group, Item, User
 
@@ -132,7 +133,9 @@ class CollectionSerializer(serializers.Serializer):
     date_updated = serializers.DateTimeField(read_only=True)
     groups = relations.ResourceRelatedField(
         many=True,
-        read_only=True
+        read_only=True,
+        related_link_view_name='group-list',
+        self_link_view_name='collection-relationships'
     )
     items = relations.SerializerMethodResourceRelatedField(
         many=True,
@@ -140,6 +143,7 @@ class CollectionSerializer(serializers.Serializer):
         read_only=True,
         model=Item
     )
+    links = serializers.SerializerMethodField()
 
     class Meta:
         model = Collection
@@ -164,3 +168,6 @@ class CollectionSerializer(serializers.Serializer):
 
     def get_items(self, obj):
         return Item.objects.all().filter(group=None)
+
+    def get_links(self, obj):
+        return {'self': reverse('collection-detail', kwargs={'pk': obj.id}, request=self.context['request'])}

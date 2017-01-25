@@ -4,6 +4,7 @@ from rest_framework import permissions as drf_permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework_json_api.views import RelationshipView
 from serializers import CollectionSerializer, GroupSerializer, ItemSerializer
 from models import Collection, Group, Item
 from permissions import CanEditCollection, CanEditItem
@@ -97,7 +98,30 @@ class CollectionItemList(generics.ListCreateAPIView):
         user = self.request.user
         collection_id = self.kwargs['pk']
         collection = Collection.objects.get(id=collection_id)
-        queryset = Item.objects.filter(collection=collection_id, group=None)
+        queryset = Item.objects.filter(group=None)
         if user.id == collection.created_by_id:
             return queryset
         return queryset.filter(Q(status='approved') | Q(created_by=user))
+
+
+class CollectionRelationship(RelationshipView):
+    serializer_class = Collection
+
+    def get_queryset(self):
+        user = self.request.user
+        collection_id = self.kwargs['pk']
+        collection = Collection.objects.get(id=collection_id)
+        related_field = self.kwargs['related_field']
+        if related_field == 'items':
+            queryset = Item.objects.filter(group=None)
+            if user.id == collection.created_by_id:
+                return queryset
+            return queryset.filter(Q(status='approved') | Q(created_by=user))
+        return Collection.objects.all()
+
+
+class GroupRelationship(RelationshipView):
+    serializer_class = Group
+
+    def get_queryset(self):
+        return Group.objects.all()
