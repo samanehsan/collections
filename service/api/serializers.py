@@ -1,7 +1,6 @@
 import datetime
 from rest_framework import exceptions
-from rest_framework.reverse import reverse
-from rest_framework_json_api import serializers
+from rest_framework_json_api import serializers, relations
 from models import Collection, Group, Item, User
 
 
@@ -93,7 +92,10 @@ class GroupSerializer(serializers.Serializer):
     created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
-    items = serializers.SerializerMethodField()
+    items = relations.ResourceRelatedField(
+        many=True,
+        read_only=True
+    )
 
     class Meta:
         model = Group
@@ -119,10 +121,6 @@ class GroupSerializer(serializers.Serializer):
         group.save()
         return group
 
-    def get_items(self, obj):
-        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
-        return reverse('group-item-list', kwargs={'pk': collection_id, 'group_id': obj.id}, request=self.context['request'])
-
 
 class CollectionSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
@@ -132,8 +130,16 @@ class CollectionSerializer(serializers.Serializer):
     created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
-    groups = serializers.SerializerMethodField()
-    items = serializers.SerializerMethodField()
+    groups = relations.ResourceRelatedField(
+        many=True,
+        read_only=True
+    )
+    items = relations.SerializerMethodResourceRelatedField(
+        many=True,
+        source='get_items',
+        read_only=True,
+        model=Item
+    )
 
     class Meta:
         model = Collection
@@ -156,8 +162,5 @@ class CollectionSerializer(serializers.Serializer):
         collection.save()
         return collection
 
-    def get_groups(self, obj):
-        return reverse('group-list', kwargs={'pk': obj.id}, request=self.context['request'])
-
     def get_items(self, obj):
-        return reverse('collection-item-list', kwargs={'pk': obj.id}, request=self.context['request'])
+        return Item.objects.all().filter(group=None)

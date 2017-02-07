@@ -1,8 +1,13 @@
 # Collections
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+Collections is a prototype project at the Center for Open Science. This project is experimental, scope, technologies, code and functionality may change. 
 
+# Django Instructions
+Run the server with this command:
+
+`python manage.py runserver`
+
+# Ember Instructions
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
