@@ -36,8 +36,8 @@
             {{/each}}
         </div>
         <p>Created by: {{model.created-by}} </p>
-        <p>Date created: {{model.date-created}} </p>
-        <p>Date updated : {{model.date-updated}}</p>
+        <p>Date created: {{model.dateCreatedReadable}} </p>
+        <p>Date updated : {{model.dateUpdatedReadable}}</p>
         <div class="pull-right">
             <button class="btn btn-default btn-collection" {{action 'showEdit'}}> <i class="fa fa-pencil"></i> Edit</button>
         </div>
