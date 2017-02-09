@@ -132,7 +132,8 @@ class CollectionSerializer(serializers.Serializer):
     date_updated = serializers.DateTimeField(read_only=True)
     groups = relations.ResourceRelatedField(
         many=True,
-        read_only=True
+        read_only=True,
+        related_link_view_name='group-list'
     )
     items = relations.SerializerMethodResourceRelatedField(
         many=True,
