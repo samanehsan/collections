@@ -1,14 +1,14 @@
 <div class="coll-item-wrapper">
     {{#if organizeMode}}
-        {{#if (not item.isGroup)}}
+        {{#if (not isGroup)}}
             <div class="coll-item-organize {{if selected 'item-selected'}}" {{action 'markSelected' item}}>
                 <i class="fa fa-check"></i>
                 <p>{{if selected 'Click to unselect' 'Click to select'}}</p>
             </div>
             {{/if}}
     {{/if}}
-    <div class="coll-item coll-item-type-{{item.type}} {{if item.isGroup 'coll-item-isgroup'}}">
-        {{#if item.isGroup}}
+    <div class="coll-item coll-item-type-{{type}} {{if isGroup 'coll-item-isgroup'}}">
+        {{#if isGroup}}
             <h3>{{#link-to 'collection.group' item.id}}{{item.title}}{{/link-to}}</h3>
             <p> Type: Group </p>
         {{else}}
@@ -17,8 +17,10 @@
             {{else}}
                 <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
             {{/if}}
-            <p> Type: {{item.type}} </p>
-            <p> Status: {{item.status}} </p>
+            <p> Type: {{type}} </p>
+            {{#if item.status}}
+                <p> Status: {{item.status}} </p>
+            {{/if}}
         {{/if}}
     </div>
 </div>
