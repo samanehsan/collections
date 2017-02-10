@@ -1,7 +1,8 @@
 import datetime
 from rest_framework import exceptions
-from rest_framework_json_api import serializers, relations
+from rest_framework_json_api import serializers
 from models import Collection, Group, Item, User
+from base.serializers import RelationshipField
 
 
 class UserSerializer(serializers.Serializer):
@@ -92,9 +93,9 @@ class GroupSerializer(serializers.Serializer):
     created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
-    items = relations.ResourceRelatedField(
-        many=True,
-        read_only=True
+    items = RelationshipField(
+        related_view='group-item-list',
+        related_view_kwargs={'pk': '<collection.id>', 'group_id': '<pk>'}
     )
 
     class Meta:
@@ -130,16 +131,13 @@ class CollectionSerializer(serializers.Serializer):
     created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
-    groups = relations.ResourceRelatedField(
-        many=True,
-        read_only=True,
-        related_link_view_name='group-list'
+    groups = RelationshipField(
+        related_view='group-list',
+        related_view_kwargs={'pk': '<pk>'}
     )
-    items = relations.SerializerMethodResourceRelatedField(
-        many=True,
-        source='get_items',
-        read_only=True,
-        model=Item
+    items = RelationshipField(
+        related_view='collection-item-list',
+        related_view_kwargs={'pk': '<pk>'}
     )
 
     class Meta:
@@ -162,6 +160,3 @@ class CollectionSerializer(serializers.Serializer):
             collection.tags = tags
         collection.save()
         return collection
-
-    def get_items(self, obj):
-        return Item.objects.all().filter(group=None)
