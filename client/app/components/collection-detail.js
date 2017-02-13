@@ -26,10 +26,6 @@ export default Ember.Component.extend({
             model.set('description', this.get('modelCache.description'));
             model.set('tags', this.get('modelCache.tags'));
             model.save();
-            // let tags = this.get('modelCache.attributes.tags').split(',');
-            // this.set('model', Ember.copy(this.get('modelCache'), true));
-            // this.set('model.attributes.tags', tags);
-            // this.set('modelCache', null);
             this.set('editMode', false);
 
         }
