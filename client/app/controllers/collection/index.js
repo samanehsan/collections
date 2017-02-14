@@ -13,7 +13,14 @@ export default Ember.Controller.extend({
     showDeleteConfirmation: false, // Modal for deleting items
     showGroupConfirmation: false, // Modal for grouping
     groupTitle: '',
-    list: Ember.computed.union('model.groups', 'model.items'),
+    groups: Ember.computed('model.groups', function() {
+      let groups = this.get('model.groups');
+      groups.forEach(function(group) {
+        group.type = 'group';
+      });
+      return groups;
+    }),
+    list: Ember.computed.union('groups', 'model.items'),
     clearSelected(){
         let selected = this.get('selectedItems');
         selected.clear();
