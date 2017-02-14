@@ -5,10 +5,6 @@ export default Ember.Controller.extend({
     loadingGuid : false,
     organizeMode : false,
     actions : {
-        findNode () {
-            this.set('loadingGuid', true);
-            console.log(this.store.findRecord('node', this.get('searchGuid')));
-        },
         toggleOrganizeMode () {
             this.toggleProperty('organizeMode');
         }
