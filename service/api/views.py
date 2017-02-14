@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from serializers import CollectionSerializer, GroupSerializer, ItemSerializer
 from models import Collection, Group, Item
-from permissions import CanEditCollection, CanEditItem
+from permissions import CanEditCollection, CanEditItem, CanEditGroup
 
 
 @api_view(['GET'])
@@ -56,7 +56,7 @@ class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = GroupSerializer
     permission_classes = (
       drf_permissions.IsAuthenticatedOrReadOnly,
-      CanEditCollection
+      CanEditGroup
     )
 
     def get_object(self):
