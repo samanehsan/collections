@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="row">
-            {{#each model.list as |item|}}
+            {{#each model.items as |item|}}
                 {{collection-item item=item parent='group' organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
             {{/each}}
         </div>
