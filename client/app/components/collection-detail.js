@@ -2,20 +2,30 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     editMode : false,
-    modelCache : null,
+    modelCache : Ember.computed('model', function(){
+        let model = this.get('model');
+        return {
+            title: model.get('title'),
+            description: model.get('description'),
+            tags: model.get('tags')
+        };
+    }),
+    formattedTags : Ember.computed('model.tags', function(){
+        return this.get('model.tags').split(',');
+    }),
     actions : {
         showEdit () {
-            this.set('modelCache', Ember.copy(this.get('model'), true));
             this.set('editMode', true);
         },
         cancelEdit() {
             this.set('editMode', false);
         },
         saveEdit (){
-            let tags = this.get('modelCache.attributes.tags').split(',');
-            this.set('model', Ember.copy(this.get('modelCache'), true));
-            this.set('model.attributes.tags', tags);
-            this.set('modelCache', null);
+            let model = this.get('model');
+            model.set('title', this.get('modelCache.title'));
+            model.set('description', this.get('modelCache.description'));
+            model.set('tags', this.get('modelCache.tags'));
+            model.save();
             this.set('editMode', false);
 
         }

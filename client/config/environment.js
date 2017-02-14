@@ -23,6 +23,8 @@ module.exports = function(environment) {
     }
   };
 
+  ENV.headerAuth = process.env.HEADER_AUTH;
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
