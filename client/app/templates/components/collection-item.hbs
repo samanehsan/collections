@@ -1,23 +1,22 @@
 <div class="coll-item-wrapper">
     {{#if organizeMode}}
-        {{#if (not item.isGroup)}}
+        {{#unless (eq item.type 'group')}}
             <div class="coll-item-organize {{if selected 'item-selected'}}" {{action 'markSelected' item}}>
                 <i class="fa fa-check"></i>
                 <p>{{if selected 'Click to unselect' 'Click to select'}}</p>
             </div>
-            {{/if}}
+        {{/unless}}
     {{/if}}
-    <div class="coll-item coll-item-type-{{item.type}} {{if item.isGroup 'coll-item-isgroup'}}">
-        {{#if item.isGroup}}
+    <div class="coll-item coll-item-type-{{item.type}} {{if (eq type 'group') 'coll-item-isgroup'}}">
+        {{#if (eq item.type 'group')}}
             <h3>{{#link-to 'collection.group' item.id}}{{item.title}}{{/link-to}}</h3>
-            <p> Type: Group </p>
+        {{else if (eq parent 'group')}}
+            <h3>{{#link-to 'collection.group.item' item.id}}{{item.title}}{{/link-to}}</h3>
         {{else}}
-            {{#if (eq parent 'group')}}
-                <h3>{{#link-to 'collection.group.item' item.id}}{{item.title}}{{/link-to}}</h3>
-            {{else}}
-                <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
-            {{/if}}
-            <p> Type: {{item.type}} </p>
+            <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
+        {{/if}}
+        <p> Type: {{item.type}} </p>
+        {{#if item.status}}
             <p> Status: {{item.status}} </p>
         {{/if}}
     </div>

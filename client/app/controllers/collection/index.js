@@ -13,6 +13,14 @@ export default Ember.Controller.extend({
     showDeleteConfirmation: false, // Modal for deleting items
     showGroupConfirmation: false, // Modal for grouping
     groupTitle: '',
+    groups: Ember.computed('model.groups', function() {
+      let groups = this.get('model.groups');
+      groups.forEach(function(group) {
+        group.type = 'group';
+      });
+      return groups;
+    }),
+    list: Ember.computed.union('groups', 'model.items'),
     clearSelected(){
         let selected = this.get('selectedItems');
         selected.clear();
@@ -42,7 +50,7 @@ export default Ember.Controller.extend({
             this.toggleProperty('showDeleteConfirmation');
         },
         deleteSelected(){
-            let items = this.get('model.list');
+            let items = this.get('list');
             items.removeObjects(this.get('selectedItems'));
             this.clearSelected();
             this.clearModals();
@@ -59,10 +67,10 @@ export default Ember.Controller.extend({
                 type : types[Math.floor(Math.random()*types.length)],
                 isGroup : true
             };
-            let list = this.get('model.list');
+            let list = this.get('list');
             list.unshiftObject(newGroup);
             // remove items that were put into the group;
-            let items = this.get('model.list');
+            let items = this.get('list');
             let selected = this.get('selectedItems');
             items.removeObjects(selected);
             this.clearSelected();
@@ -79,7 +87,7 @@ export default Ember.Controller.extend({
 
         },
         addToList(){
-            let list = this.get('model.list');
+            let list = this.get('list');
             list.unshiftObject(this.get('fakeNewNode'));
             this.set('showAddItemDetails', false);
             this.set('fakeNewNode', {});

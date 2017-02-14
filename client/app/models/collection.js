@@ -6,5 +6,7 @@ export default DS.Model.extend({
     tags: DS.attr('string'),
     created_by: DS.attr('number'),
     dateCreated: DS.attr('date'),
-    dateUpdated: DS.attr('date')
+    dateUpdated: DS.attr('date'),
+    groups: DS.hasMany('group'),
+    items: DS.hasMany('items')
 });

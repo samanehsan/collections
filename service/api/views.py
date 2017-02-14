@@ -75,7 +75,7 @@ class GroupItemList(generics.ListCreateAPIView):
         queryset = Item.objects.filter(group=self.kwargs['group_id'])
         if user.id == collection.created_by_id:
             return queryset
-        return queryset.filter(Q(status='approved') | Q(created_by=user))
+        return queryset.filter(Q(status='approved') | Q(created_by=user.id))
 
 
 class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -100,4 +100,4 @@ class CollectionItemList(generics.ListCreateAPIView):
         queryset = Item.objects.filter(collection=collection_id, group=None)
         if user.id == collection.created_by_id:
             return queryset
-        return queryset.filter(Q(status='approved') | Q(created_by=user))
+        return queryset.filter(Q(status='approved') | Q(created_by=user.id))

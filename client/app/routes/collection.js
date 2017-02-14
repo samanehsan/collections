@@ -11,9 +11,9 @@ let formatData = function (collection){
 };
 
 export default Ember.Route.extend({
-  model () {
-    return this.store.findRecord('collection', 1).then(function(data){
-        return formatData(data);
+  model (params) {
+    return this.store.findRecord('collection', params.collection_id).then(function(data){
+      return formatData(data);
     });
   }
 });
