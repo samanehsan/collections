@@ -19,5 +19,3 @@ client/testem.log
 *.pyc
 client/config/local.yaml
 db.sqlite3
-0001_initial.py
-__init__.py
