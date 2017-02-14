@@ -69,10 +69,7 @@
             </div>
         </div>
         <div class="row">
-            {{#each model.groups as |group|}}
-                {{collection-item item=group toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
-            {{/each}}
-            {{#each model.items as |item|}}
+            {{#each list as |item|}}
                 {{collection-item item=item toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
             {{/each}}
         </div>
