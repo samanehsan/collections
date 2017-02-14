@@ -1,11 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+    organizeMode: false,
     showDeleteConfirmation: false,
     actions : {
-        toggleDeleteConfirmation(){
-            this.toggleProperty('showDeleteConfirmation');
-        },
         deletePartial(){
             // for the moment this will do the same as deletefull.
         },
