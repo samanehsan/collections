@@ -5,15 +5,15 @@
     <div class="form">
         <div class="form-group">
             <label for="collectionTitle">Title</label>
-            {{input class="form-control" value=modelCache.attributes.title placeholder="Enter title" id="collectionTitle"}}
+            {{input class="form-control" value=modelCache.title placeholder="Enter title" id="collectionTitle"}}
         </div>
         <div class="form-group">
             <label for="collectionDescription">Description</label>
-            {{textarea class="form-control" value=modelCache.attributes.description id="collectionDescription"}}
+            {{textarea class="form-control" value=modelCache.description id="collectionDescription"}}
         </div>
         <div class="form-group">
             <label for="collectionTags">Tags</label>
-            {{input class="form-control" value=modelCache.attributes.tags placeholder="Enter comma separated tags" id="collectionTags"}}
+            {{input class="form-control" value=modelCache.tags placeholder="Enter comma separated tags" id="collectionTags"}}
         </div>
         <div class="text-right">
             <button class="btn btn-default" {{action 'cancelEdit'}}>Cancel</button>
@@ -31,7 +31,7 @@
             {{/if}}
         </div>
         <div class="m-b-md">
-            {{#each model.formattedTags as |tag|}}
+            {{#each formattedTags as |tag|}}
                 <span class="coll-item-tag">{{tag}}</span>
             {{/each}}
         </div>

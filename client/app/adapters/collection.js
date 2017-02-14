@@ -6,5 +6,4 @@ export default Application.extend({
         var base = this._super(...arguments);
         return `${base}/`;
     }
-
 });
