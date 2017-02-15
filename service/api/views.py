@@ -45,7 +45,7 @@ class GroupList(generics.ListCreateAPIView):
     serializer_class = GroupSerializer
     permission_classes = (
       drf_permissions.IsAuthenticatedOrReadOnly,
-      CanEditCollection
+      CanEditGroup
     )
 
     def get_queryset(self):
