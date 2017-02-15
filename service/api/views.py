@@ -101,3 +101,12 @@ class CollectionItemList(generics.ListCreateAPIView):
         if user.id == collection.created_by_id:
             return queryset
         return queryset.filter(Q(status='approved') | Q(created_by=user.id))
+
+
+class ItemList(generics.ListAPIView):
+    serializer_class = ItemSerializer
+    permission_classes = (drf_permissions.IsAuthenticatedOrReadOnly, )
+
+    def get_queryset(self):
+        user = self.request.user
+        return Item.objects.filter(Q(status='approved') | Q(created_by=user.id) | Q(collection__created_by=user.id))
