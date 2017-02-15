@@ -49,7 +49,10 @@ class GroupList(generics.ListCreateAPIView):
     )
 
     def get_queryset(self):
-        return Group.objects.filter(collection=self.kwargs['pk'])
+        groups = Group.objects.all()
+        if self.kwargs.get('pk', None):
+            return groups.filter(collection=self.kwargs['pk'])
+        return groups
 
 
 class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
