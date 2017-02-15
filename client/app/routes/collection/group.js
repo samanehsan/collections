@@ -31,8 +31,8 @@ let buildModel = function () {
 
 buildModel();
 export default Ember.Route.extend({
-    model(){
-        return model;
+    model(params){
+        return this.get('store').findRecord('group', params.group_id);
     },
     breadCrumb: {
       title: model.title

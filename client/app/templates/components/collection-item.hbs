@@ -7,7 +7,7 @@
             </div>
         {{/unless}}
     {{/if}}
-    <div class="coll-item coll-item-type-{{item.type}} {{if (eq type 'group') 'coll-item-isgroup'}}">
+    <div class="coll-item coll-item-type-{{item.type}} {{if (eq item.type 'group') 'coll-item-isgroup'}}">
         {{#if (eq item.type 'group')}}
             <h3>{{#link-to 'collection.group' item.id}}{{item.title}}{{/link-to}}</h3>
         {{else if (eq parent 'group')}}
