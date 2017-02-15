@@ -16,23 +16,14 @@ export default Ember.Controller.extend({
             }));
         },
         addCollection () {
-
-            let coll = {
+            let collection = this.store.createRecord('collection', {
                 title: this.get('newCollectionTitle'),
                 tags: '',
-                description: '',
-                createdBy: 'Marcia Gonzales',
-                dateCreated:  new Date(),
-                dateUpdated: new Date(),
-                items: []
-            };
-            $.post('/api/collections', coll).then(result => {
-                 console.log('returned', result);
-                 this.transitionToRoute('/collection/' + result.data.id);
-               });
-
-
+                description: ''
+            });
+            collection.save().then(record =>
+                this.transitionToRoute('collection', record)
+            );
         }
-
     }
 });
