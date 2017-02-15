@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
     loadingGuid: false,
     organizeMode: false,
     showAddItemDetails: false,
-    fakeNewNode: {},
+    newItemNode: Ember.Object.create(),
     selectedItems : Ember.A(), // List of items selected for actions like delete
     showDeleteConfirmation: false, // Modal for deleting items
     showGroupConfirmation: false, // Modal for grouping
@@ -32,15 +32,17 @@ export default Ember.Controller.extend({
     },
     actions: {
         findNode () {
-            this.set('fakeNewNode',
-            {
-                title:  faker.lorem.words(),
-                description: faker.lorem.sentences(),
-                tags: faker.lorem.words().split(' '),
-                type: types[Math.floor(Math.random()*types.length)],
-                addedBy: faker.name.firstName() + faker.name.lastName()
+            let self = this;
+            let node = this.store.findRecord('node', this.get('searchGuid')).then(function(item){
+                let nodeObject = self.get('newItemNode');
+                nodeObject.setProperties({
+                    title:  item.get('title'),
+                    description: item.get('description'),
+                    type: item.get('category'),
+                    link: item.get('links.html')
+                });
+                self.toggleProperty('showAddItemDetails');
             });
-            this.toggleProperty('showAddItemDetails');
 
         },
         toggleOrganizeMode () {
@@ -87,11 +89,18 @@ export default Ember.Controller.extend({
 
         },
         addToList(){
-            let list = this.get('list');
-            list.unshiftObject(this.get('fakeNewNode'));
+            let nodeObject = this.get('newItemNode');
+            let item = this.store.createRecord('item', {
+                title: nodeObject.get('title'),
+                type: nodeObject.get('type'),
+                metadata: '',
+                status: 'pending',
+                url: nodeObject.get('link'),
+                source_id: this.get('model.id'),
+                collection : this.get('model')
+            });
+            item.save();
             this.set('showAddItemDetails', false);
-            this.set('fakeNewNode', {});
-
         }
     }
 });

@@ -8,38 +8,15 @@
         </div>
         {{#if showAddItemDetails}}
         <div class="coll-find-details p-md">
-            <div class="row">
-                <div class="col-sm-3 text-right">
-                    <h4>Title </h4>
-                </div>
-                <div class="col-sm-9">
-                    <p class="m-t-sm">{{fakeNewNode.title}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3 text-right">
-                    <h4>Description </h4>
-                </div>
-                <div class="col-sm-9">
-                    <p class="m-t-sm">{{fakeNewNode.description}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3 text-right">
-                    <h4>Type </h4>
-                </div>
-                <div class="col-sm-9">
-                    <p class="m-t-sm">{{fakeNewNode.type}}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3 text-right">
-                    <h4>Contributor </h4>
-                </div>
-                <div class="col-sm-9">
-                    <p class="m-t-sm">{{fakeNewNode.addedBy}}</p>
-                </div>
-            </div>
+            <h4>Title </h4>
+            <p class="m-t-sm">{{newItemNode.title}}</p>
+
+            <h4>Description </h4>
+            <p class="m-t-sm">{{newItemNode.description}}</p>
+
+            <h4>Type </h4>
+            <p class="m-t-sm">{{newItemNode.type}}</p>
+
             <div class="row">
                 <div class="col-xs-12 text-right">
                     <button class="btn btn-success" {{action 'addToList'}}>Add to List </button>
