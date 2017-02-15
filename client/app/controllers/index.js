@@ -17,12 +17,13 @@ export default Ember.Controller.extend({
         },
         addCollection () {
             let collection = this.store.createRecord('collection', {
-              title: this.get('newCollectionTitle'),
-              tags: '',
-              description: ''
+                title: this.get('newCollectionTitle'),
+                tags: '',
+                description: ''
             });
-            collection.save();
+            collection.save().then(record =>
+                this.transitionToRoute('collection', record)
+            );
         }
-
     }
 });
