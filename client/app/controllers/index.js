@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
                 this.set('modelCache', model);
             }
             this.set('model', this.get('modelCache').filter(function(item){
-                return item.attributes.title.includes(text);
+                return item.get('title').includes(text);
             }));
         },
         addCollection () {
