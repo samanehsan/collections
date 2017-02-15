@@ -4,7 +4,7 @@ import faker from 'faker';
 let types = ['project', 'preprint', 'registration', 'file', 'person'];
 
 export default Ember.Controller.extend({
-    searchGuid: 'fkat6',
+    searchGuid: '',
     loadingGuid: false,
     organizeMode: false,
     showAddItemDetails: false,
@@ -38,7 +38,8 @@ export default Ember.Controller.extend({
                 nodeObject.setProperties({
                     title:  item.get('title'),
                     description: item.get('description'),
-                    type: item.get('category')
+                    type: item.get('category'),
+                    link: item.get('links.html')
                 });
                 self.toggleProperty('showAddItemDetails');
             });
@@ -88,20 +89,18 @@ export default Ember.Controller.extend({
 
         },
         addToList(){
-            // let list = this.get('model.list');
             let nodeObject = this.get('newItemNode');
             let item = this.store.createRecord('item', {
                 title: nodeObject.get('title'),
                 type: nodeObject.get('type'),
-                metadata: nodeObject.get('description'),
+                metadata: '',
                 status: 'pending',
-                url: 'http://www.hello.org/assad/asdasd',
+                url: nodeObject.get('link'),
                 source_id: this.get('model.id'),
                 collection : this.get('model')
             });
             item.save();
             this.set('showAddItemDetails', false);
-
         }
     }
 });
