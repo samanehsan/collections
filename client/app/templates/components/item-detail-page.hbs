@@ -1,5 +1,10 @@
 <div class="container">
     <div class="row">
+        <div class="col-sm-8">
+            <div class="coll-mock-mfr">
+                {{file-renderer download="https://staging-files.osf.io/v1/resources/2t6qv/providers/osfstorage/58a4c6638ca57e01fddf0a14" width="99%" height="1000" allowfullscreen=true}}
+            </div>
+        </div>
         <div class="col-sm-4">
             <h2> {{item.title}}</h2>
             <p> {{item.description}}</p>
@@ -9,14 +14,7 @@
                 {{/each}}
             </div>
             <div>Status: {{item.status}}</div>
-            <div class="m-t-xl">
-                <button class="btn btn-default">Remove from collection </button>
-            </div>
         </div>
-        <div class="col-sm-8">
-            <div class="coll-mock-mfr">
-                {{file-renderer download="https://staging-files.osf.io/v1/resources/2t6qv/providers/osfstorage/58a4c6638ca57e01fddf0a14" width="800" height="1000" allowfullscreen=true}}
-            </div>
-        </div>
+
     </div>
 </div>
