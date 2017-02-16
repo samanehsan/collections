@@ -1,9 +1,12 @@
 import Ember from 'ember';
 
+const hasFileList = ['preprint', 'file'];
+
 export default Ember.Route.extend({
     model (params){
       let self = this;
       return this.store.findRecord('item', params.item_id).then(function(item){
+        item.set('hasFile', hasFileList.includes(item.get('category')));
         self.get('store').findRecord('node', item.get('source_id')).then(function(node){
           item.set('node', node);
         });

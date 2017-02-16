@@ -29,25 +29,24 @@
 </div>
 <div class="container">
     <div class="row p-t-lg">
-        <div class="col-sm-8">
+        <div class="col-sm-8 {{unless item.hasFile 'hidden'}}">
             <div class="coll-mock-mfr">
                 {{file-renderer download="https://staging-files.osf.io/v1/resources/2t6qv/providers/osfstorage/58a4c6638ca57e01fddf0a14" width="99%" height="1000" allowfullscreen=true}}
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="{{if item.hasFile 'col-sm-4' 'col-sm-12'}}">
             <h4 class="p-v-md f-w-md"><strong>Description</strong></h4>
             <p> {{item.node.description}}</p>
 
             <h4 class="p-v-md f-w-md"><strong>Status</strong></h4>
             <p class="coll-item-status {{item.status}}"> {{item.status}} </p>
-            <h4 class="p-v-md f-w-md"><strong>Abstract</strong></h4>
+            <h4 class="p-v-md f-w-md"><strong>Tags</strong></h4>
 
-            <div>
+            <div>{{item.node.tags}}
                 {{#each item.tags as |tag|}}
                     <span class="coll-item-tag">{{tag}}</span>
                 {{/each}}
             </div>
-            <div>Status: </div>
         </div>
 
     </div>
