@@ -1,8 +1,4 @@
-import Application from './application';
+import CollectionAdapter from './collection';
 
-export default Application.extend({
-    buildURL(collection, id, snapshot, requestType) {
-        let collectionId = snapshot.record.belongsTo('collection').parent._id;
-        return this.get('host') + '/api/collections/' + collectionId + '/groups/' + id + '/';
-    }
+export default CollectionAdapter.extend({
 });
