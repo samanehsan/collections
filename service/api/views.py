@@ -106,9 +106,18 @@ class CollectionItemList(generics.ListCreateAPIView):
         return queryset.filter(Q(status='approved') | Q(created_by=user.id))
 
 
-class ItemList(generics.ListAPIView):
+class ItemList(generics.ListCreateAPIView):
     serializer_class = ItemSerializer
     permission_classes = (drf_permissions.IsAuthenticatedOrReadOnly, )
+
+    def get_serializer_context(self):
+        context = super(ItemList, self).get_serializer_context()
+        collection = self.request.data.get('collection', None)
+        context.update({'collection_id': collection['id']})
+        group = self.request.data.get('group', None)
+        if group:
+            context.update({'group_id': group['id']})
+        return context
 
     def get_queryset(self):
         user = self.request.user

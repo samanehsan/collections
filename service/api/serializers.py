@@ -48,9 +48,9 @@ class ItemSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
-        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
+        collection_id = self.context.get('collection_id', None) or self.context['request'].parser_context['kwargs'].get('pk', None)
         collection = Collection.objects.get(id=collection_id)
-        group_id = self.context['request'].parser_context['kwargs'].get('group_id', None)
+        group_id = self.context.get('group_id', None) or self.context['request'].parser_context['kwargs'].get('group_id', None)
         if group_id:
             validated_data['group'] = Group.objects.get(id=group_id)
         status = 'pending'
