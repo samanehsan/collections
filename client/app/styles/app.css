@@ -23,6 +23,20 @@ body {
     padding: 15px 0 20px 0;
 }
 
+ul.comma-list {
+    display: inline;
+    list-style: none;
+    padding-left: 0;
+}
+ul.comma-list li {
+    display: inline;
+}
+ul.comma-list li:after {
+    content: ", "
+}
+ul.comma-list li:last-child:after {
+    content: "";
+}
 
 
 /* collection Navbar */
@@ -137,4 +151,28 @@ body {
     border-radius: 15px;
     color: #999;
     min-width: 100px;
+}
+/* item detail */
+
+.coll-item-header {
+    background-color: #607D8B;
+    /*background: url('/img/triangle.jpg') top center;
+    background-size: cover;*/
+    padding: 25px 0;
+    color: #fff;
+
+}
+.coll-item-header ul>li>a {
+    color: #6dd1de;
+}
+.coll-item-status {
+    padding: 12px;
+    text-transform: uppercase;
+    border-radius: 3px;
+}
+.coll-item-status.pending {
+    background-color: #FFC107;
+}
+.coll-item-status.approved {
+    background-color: #8BC34A;
 }

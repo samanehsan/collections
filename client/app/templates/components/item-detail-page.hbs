@@ -1,19 +1,53 @@
+<div class="coll-item-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-10">
+                <h1 class="p-b-md">{{item.title}}</h1>
+                <h5 class="view-authors">
+                    <ul class="comma-list">
+                        {{#if authors}}
+                            {{#each authors as |author index| ~}}
+                                {{#if author.bibliographic}}
+                                    <li><a href={{author.users.profileURL}} {{action 'click' 'link' 'Content - Author' author.users.profileURL}}>{{author.users.givenName}} {{author.users.familyName}}</a></li>
+                                {{/if}}
+                            {{~/each}}
+                        {{else}}
+                            <div class="loader">
+                                <div class="loader-inner ball-pulse">
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                </div>
+                            </div>
+                        {{/if}}
+                    </ul>
+                </h5>
+                <p>Added on: {{moment-format model.datePublished "MMMM DD, YYYY"}} | Last edited: {{moment-format model.dateModified "MMMM DD, YYYY"}} </p>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
-    <div class="row">
+    <div class="row p-t-lg">
         <div class="col-sm-8">
             <div class="coll-mock-mfr">
                 {{file-renderer download="https://staging-files.osf.io/v1/resources/2t6qv/providers/osfstorage/58a4c6638ca57e01fddf0a14" width="99%" height="1000" allowfullscreen=true}}
             </div>
         </div>
         <div class="col-sm-4">
-            <h2> {{item.title}}</h2>
-            <p> {{item.description}}</p>
+            <h4 class="p-v-md f-w-md"><strong>Description</strong></h4>
+            <p> {{item.node.description}}</p>
+
+            <h4 class="p-v-md f-w-md"><strong>Status</strong></h4>
+            <p class="coll-item-status {{item.status}}"> {{item.status}} </p>
+            <h4 class="p-v-md f-w-md"><strong>Abstract</strong></h4>
+
             <div>
                 {{#each item.tags as |tag|}}
                     <span class="coll-item-tag">{{tag}}</span>
                 {{/each}}
             </div>
-            <div>Status: {{item.status}}</div>
+            <div>Status: </div>
         </div>
 
     </div>
