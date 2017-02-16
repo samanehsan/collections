@@ -39,7 +39,7 @@ export default Ember.Controller.extend({
                     title:  item.get('title'),
                     description: item.get('description'),
                     type: item.get('category'),
-                    source_id: item.get('guid'),
+                    source_id: item.get('id'),
                     link: item.get('links.html')
                 });
                 self.toggleProperty('showAddItemDetails');
