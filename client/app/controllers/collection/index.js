@@ -21,15 +21,6 @@ export default Ember.Controller.extend({
       return groups;
     }),
     list: Ember.computed.union('groups', 'model.items'),
-    clearSelected(){
-        let selected = this.get('selectedItems');
-        selected.clear();
-    },
-    clearModals (){
-        this.set('showGroupConfirmation', false);
-        this.set('showDeleteConfirmation', false);
-        this.set('groupTitle', '');
-    },
     actions: {
         findNode () {
             let self = this;
@@ -51,11 +42,25 @@ export default Ember.Controller.extend({
         toggleDeleteConfirmation(){
             this.toggleProperty('showDeleteConfirmation');
         },
+        clearSelected() {
+            let selected = this.get('selectedItems');
+            selected.clear();
+        },
+        clearModals() {
+            this.set('showGroupConfirmation', false);
+            this.set('showDeleteConfirmation', false);
+            this.set('groupTitle', '');
+        },
         deleteSelected(){
             let items = this.get('list');
-            items.removeObjects(this.get('selectedItems'));
-            this.clearSelected();
-            this.clearModals();
+            let selected = this.get('selectedItems');
+            selected.forEach(item =>
+                Ember.run.once(() =>
+                  item.destroyRecord()
+            ));
+            items.removeObjects(selected);
+            this.send('clearSelected');
+            this.send('clearModals');
         },
         toggleGroupConfirmation ( ){
             this.toggleProperty('showGroupConfirmation');
@@ -75,8 +80,8 @@ export default Ember.Controller.extend({
             let items = this.get('list');
             let selected = this.get('selectedItems');
             items.removeObjects(selected);
-            this.clearSelected();
-            this.clearModals();
+            this.send('clearSelected');
+            this.send('clearModals');
         },
         // Adds or removes item to the selectedItems list
         toggleSelectedList(selected, item){
