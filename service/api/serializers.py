@@ -132,7 +132,7 @@ class CollectionSerializer(serializers.Serializer):
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
     groups = RelationshipField(
-        related_view='group-list',
+        related_view='collection-group-list',
         related_view_kwargs={'pk': '<pk>'}
     )
     items = RelationshipField(

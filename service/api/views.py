@@ -45,11 +45,14 @@ class GroupList(generics.ListCreateAPIView):
     serializer_class = GroupSerializer
     permission_classes = (
       drf_permissions.IsAuthenticatedOrReadOnly,
-      CanEditCollection
+      CanEditGroup
     )
 
     def get_queryset(self):
-        return Group.objects.filter(collection=self.kwargs['pk'])
+        groups = Group.objects.all()
+        if self.kwargs.get('pk', None):
+            return groups.filter(collection=self.kwargs['pk'])
+        return groups
 
 
 class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -101,3 +104,12 @@ class CollectionItemList(generics.ListCreateAPIView):
         if user.id == collection.created_by_id:
             return queryset
         return queryset.filter(Q(status='approved') | Q(created_by=user.id))
+
+
+class ItemList(generics.ListAPIView):
+    serializer_class = ItemSerializer
+    permission_classes = (drf_permissions.IsAuthenticatedOrReadOnly, )
+
+    def get_queryset(self):
+        user = self.request.user
+        return Item.objects.filter(Q(status='approved') | Q(created_by=user.id) | Q(collection__created_by=user.id))
