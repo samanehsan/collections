@@ -134,5 +134,14 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
       CanEditItem
     )
 
+    def get_serializer_context(self):
+        context = super(ItemDetail, self).get_serializer_context()
+        collection = self.request.data.get('collection', None)
+        context.update({'collection_id': collection['id']})
+        group = self.request.data.get('group', None)
+        if group:
+            context.update({'group_id': group['id']})
+        return context
+
     def get_object(self):
         return Item.objects.get(id=self.kwargs['item_id'])
