@@ -106,7 +106,7 @@ class GroupSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
-        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
+        collection_id = self.context.get('collection_id', None) or self.context['request'].parser_context['kwargs'].get('pk', None)
         collection = Collection.objects.get(id=collection_id)
         return Group.objects.create(
             created_by=user,
