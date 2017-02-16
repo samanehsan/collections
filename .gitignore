@@ -19,3 +19,7 @@ client/testem.log
 *.pyc
 client/config/local.yaml
 db.sqlite3
+local.yml
+0001_initial.py
+service/api/migrations/__init__.py
+tmp
