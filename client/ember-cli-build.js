@@ -24,6 +24,7 @@ module.exports = function(defaults) {
     app.import('bower_components/bootstrap/dist/js/bootstrap.js');
 
     app.import('bower_components/osf-style/css/base.css');
+    app.import('bower_components/loaders.css/loaders.min.css');
 
   return app.toTree();
 };

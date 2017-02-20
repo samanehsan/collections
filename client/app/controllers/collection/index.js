@@ -30,6 +30,7 @@ export default Ember.Controller.extend({
                     title:  item.get('title'),
                     description: item.get('description'),
                     type: item.get('category'),
+                    source_id: item.get('id'),
                     link: item.get('links.html')
                 });
                 self.toggleProperty('showAddItemDetails');
@@ -105,8 +106,8 @@ export default Ember.Controller.extend({
                 metadata: '',
                 status: 'pending',
                 url: nodeObject.get('link'),
-                source_id: this.get('model.id'),
-                collection: this.get('model')
+                source_id: nodeObject.get('source_id'),
+                collection : this.get('model')
             });
             item.save();
             this.set('showAddItemDetails', false);

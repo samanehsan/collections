@@ -1,37 +1,79 @@
-<div class="coll-breadcrumb">
-    <div class="container">
-        {{bread-crumbs tagName="ol" outputStyle="bootstrap" linkable=true}}
-    </div>
-</div>
-<div class="coll-item-navigation">
+<div class="coll-item-header">
     <div class="container">
         <div class="row">
-            <div class="col-xs-6 text-left">  {{#link-to 'collection.group.item' item.previousId}}<i class="fa fa-chevron-left"></i> Previous {{/link-to}}</div>
-            <div class="col-xs-6 text-right">{{#link-to 'collection.group.item' item.nextId}}Next <i class="fa fa-chevron-right"></i> {{/link-to}}</div>
+            <div class="col-xs-12 col-sm-10">
+                <h1 class="p-b-md">{{item.title}}</h1>
+                <h5 class="view-authors">
+                    <ul class="comma-list">
+                        {{#if authors}}
+                            {{#each authors as |author index| ~}}
+                                {{#if author.bibliographic}}
+                                    <li><a href={{author.users.profileURL}} {{action 'click' 'link' 'Content - Author' author.users.profileURL}}>{{author.users.givenName}} {{author.users.familyName}}</a></li>
+                                {{/if}}
+                            {{~/each}}
+                        {{else}}
+                            <div class="loader">
+                                <div class="loader-inner ball-pulse">
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                </div>
+                            </div>
+                        {{/if}}
+                    </ul>
+                </h5>
+                <p>Added on: {{moment-format model.datePublished "MMMM DD, YYYY"}} | Last edited: {{moment-format model.dateModified "MMMM DD, YYYY"}} </p>
+            </div>
         </div>
     </div>
 </div>
-<div class="coll-item-page">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <h2> {{item.title}}</h2>
-                <p> {{item.description}}</p>
+<div class="container">
+    <div class="row p-t-lg">
+        <div class="col-sm-8 {{unless item.hasWiki 'hidden'}}">
+            <div>
+                <pre style='white-space: pre-wrap; border:none; width:100%; text-align:justify; max-height: 300px;'>
+                    {{wikiContent}}
+                </pre>
+            </div>
+        </div>
+        <div class="col-sm-8 {{unless item.hasFile 'hidden'}}">
+            <div class="coll-mock-mfr">
+                {{file-renderer download="https://staging-files.osf.io/v1/resources/2t6qv/providers/osfstorage/58a4c6638ca57e01fddf0a14" width="99%" height="1000" allowfullscreen=true}}
+            </div>
+        </div>
+        <div class="{{if (or item.hasFile item.hasWiki) 'col-sm-4' 'col-sm-12'}}">
+            <h4 class="p-v-md f-w-md"><strong>Description</strong></h4>
+            {{#if item.node.description}}
+                <p>{{item.node.description}}</p>
+            {{else}}
+                <div class="loader text-center">
+                    <div class="loader-inner ball-pulse ball-pulse-dark">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                </div>
+            {{/if}}
+
+            <h4 class="p-v-md f-w-md"><strong>Status</strong></h4>
+            <p class="coll-item-status {{item.status}}"> {{item.status}} </p>
+            <h4 class="p-v-md f-w-md"><strong>Tags</strong></h4>
+            {{#if item.node.tags}}
                 <div>
-                    {{#each item.tags as |tag|}}
+                    {{#each item.node.tags as |tag|}}
                         <span class="coll-item-tag">{{tag}}</span>
                     {{/each}}
                 </div>
-                <div>Status: {{item.status}}</div>
-                <div class="m-t-xl">
-                    <button class="btn btn-default">Remove from collection </button>
+            {{else}}
+                <div class="loader text-center">
+                    <div class="loader-inner ball-pulse ball-pulse-dark">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-8">
-                <div class="coll-mock-mfr">
-
-                </div>
-            </div>
+            {{/if}}
         </div>
+
     </div>
 </div>
