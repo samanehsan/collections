@@ -16,7 +16,7 @@ export default Ember.Controller.extend({
     groups: Ember.computed('model.groups', function() {
       let groups = this.get('model.groups');
       groups.forEach(function(group) {
-        group.type = 'group';
+        group.set('type', 'group');
       });
       return groups;
     }),
@@ -67,22 +67,26 @@ export default Ember.Controller.extend({
             this.toggleProperty('showGroupConfirmation');
         },
         groupSelected(){
-            let newGroup = {
-                id: 123,
+            // Create new group
+            let newGroup = this.get('store').createRecord('group', {
                 title: this.get('groupTitle'),
-                description: faker.lorem.sentences(),
-                tags : faker.lorem.words().split(' '),
-                type : types[Math.floor(Math.random()*types.length)],
-                isGroup : true
-            };
-            let list = this.get('list');
-            list.unshiftObject(newGroup);
-            // remove items that were put into the group;
-            let items = this.get('list');
-            let selected = this.get('selectedItems');
-            items.removeObjects(selected);
-            this.send('clearSelected');
-            this.send('clearModals');
+                description: '',
+                collection: this.get('model')
+            });
+            newGroup.save().then((record) => {
+                // For each item, set group to new group
+                let selected = this.get('selectedItems');
+                selected.forEach(item => {
+                    item.set('group', record);
+                    item.save();
+                });
+
+                // remove items that were put into the group;
+                let list = this.get('list');
+                list.removeObjects(selected);
+                this.send('clearSelected');
+                this.send('clearModals');
+            });
         },
         // Adds or removes item to the selectedItems list
         toggleSelectedList(selected, item){

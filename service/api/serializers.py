@@ -48,9 +48,9 @@ class ItemSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
-        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
+        collection_id = self.context.get('collection_id', None) or self.context['request'].parser_context['kwargs'].get('pk', None)
         collection = Collection.objects.get(id=collection_id)
-        group_id = self.context['request'].parser_context['kwargs'].get('group_id', None)
+        group_id = self.context.get('group_id', None) or self.context['request'].parser_context['kwargs'].get('group_id', None)
         if group_id:
             validated_data['group'] = Group.objects.get(id=group_id)
         status = 'pending'
@@ -68,13 +68,20 @@ class ItemSerializer(serializers.Serializer):
     def update(self, item, validated_data):
         user = self.context['request'].user
         status = validated_data.get('status', item.status)
-        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
-        collection = Collection.objects.get(id=collection_id)
+        collection_id = self.context.get('collection_id', None) or self.context['request'].parser_context['kwargs'].get('pk', None)
+        if collection_id:
+            collection = Collection.objects.get(id=collection_id)
+        else:
+            collection = item.collection
 
         if status != item.status and user.id != collection.created_by_id:
             raise exceptions.PermissionDenied(detail='Cannot change submission status.')
         elif user.id != item.created_by_id and validated_data.keys() != ['status']:
             raise exceptions.PermissionDenied(detail='Cannot update another user\'s submission.')
+
+        group_id = self.context.get('group_id', None) or self.context['request'].parser_context['kwargs'].get('group_id', None)
+        if group_id:
+            item.group = Group.objects.get(id=group_id)
 
         item.source_id = validated_data.get('source_id', item.source_id)
         item.title = validated_data.get('title', item.title)
@@ -106,7 +113,7 @@ class GroupSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
-        collection_id = self.context['request'].parser_context['kwargs'].get('pk', None)
+        collection_id = self.context.get('collection_id', None) or self.context['request'].parser_context['kwargs'].get('pk', None)
         collection = Collection.objects.get(id=collection_id)
         return Group.objects.create(
             created_by=user,

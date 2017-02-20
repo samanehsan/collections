@@ -10,18 +10,18 @@ export default Ember.Component.extend({
         if(wikis){
             wikis.then(function(result){
                 this.set('wikiContent', 'Wiki content will come here');
-                // if(item.hasWiki && result.objectAt(0)){
-                //     let url = result.objectAt(0).get('links.download');
-                //     Ember.$.ajax({
-                //         method: 'GET',
-                //         url: url,
-                //         xhrFields: {
-                //             withCredentials: true
-                //         }
-                //     }).done(data => {
-                //         this.set('wikiContent', data);
-                //     });
-                // }
+                if(item.hasWiki && result.objectAt(0)){
+                    let url = result.objectAt(0).get('links.download');
+                    Ember.$.ajax({
+                        method: 'GET',
+                        url: url,
+                        xhrFields: {
+                            withCredentials: true
+                        }
+                    }).done(data => {
+                        this.set('wikiContent', data);
+                    });
+                }
             }.bind(this));
         }
 
