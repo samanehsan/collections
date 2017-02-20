@@ -31,13 +31,13 @@ export default Ember.Component.extend({
                 }
             }.bind(this));
         }
-
     }),
     formatNodeData: Ember.observer('item.node', function() {
         // Cannot be called until node has loaded!
         const node = this.get('item.node');
         if (!node) { return [];}
 
+        this.set('item.hasFile', true);
         const contributors = Ember.A();
         loadAll(node, 'contributors', contributors).then(() =>
             this.set('authors', contributors)

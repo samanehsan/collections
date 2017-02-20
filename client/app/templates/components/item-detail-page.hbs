@@ -29,18 +29,27 @@
 </div>
 <div class="container">
     <div class="row p-t-lg">
-        <div class="col-sm-8 {{unless item.hasWiki 'hidden'}}">
-            <div>
-                <pre style='white-space: pre-wrap; border:none; width:100%; text-align:justify; max-height: 300px;'>
-                    {{wikiContent}}
-                </pre>
+        {{#if item.hasFile}}
+            <div class="col-sm-8">
+                <div class="coll-mock-mfr">
+                    {{file-renderer download=item.downloadUrl width="99%" height="1000" allowfullscreen=true}}
+                </div>
             </div>
-        </div>
-        <div class="col-sm-8 {{unless item.hasFile 'hidden'}}">
-            <div class="coll-mock-mfr">
-                {{file-renderer download="https://staging-files.osf.io/v1/resources/2t6qv/providers/osfstorage/58a4c6638ca57e01fddf0a14" width="99%" height="1000" allowfullscreen=true}}
-            </div>
-        </div>
+        {{else}}
+            {{#if item.hasWiki}}
+                <div class="col-sm-8">
+                    <div>
+                        <pre style='white-space: pre-wrap; border:none; width:100%; text-align:justify; max-height: 300px;'>
+                            {{wikiContent}}
+                        </pre>
+                    </div>
+                </div>
+            {{else}}
+                <p> This item has no wiki or file associated </p>
+            {{/if}}
+        {{/if}}
+
+
         <div class="{{if (or item.hasFile item.hasWiki) 'col-sm-4' 'col-sm-12'}}">
             <h4 class="p-v-md f-w-md"><strong>Description</strong></h4>
             {{#if item.node.description}}
@@ -73,6 +82,10 @@
                     </div>
                 </div>
             {{/if}}
+
+            <div class="m-t-md">
+                <a href="{{item.node.links.html}}" class="btn btn-default btn-block"> Go to Source</a>
+            </div>
         </div>
 
     </div>

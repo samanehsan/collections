@@ -8,8 +8,16 @@ export default Ember.Route.extend({
       return this.store.findRecord('item', params.item_id).then(function(item){
         item.set('hasFile', hasFileList.includes(item.get('type')));
         item.set('hasWiki', hasWikiList.includes(item.get('type')));
-        self.get('store').findRecord('node', item.get('source_id'), {includes: 'wiki'}).then(function(node){
+        self.get('store').findRecord('node', item.get('source_id')).then(function(node){
           item.set('node', node);
+          node.get('preprints').then(result => {
+              if(result.objectAt(0)){
+                  result.objectAt(0).get('primaryFile').then(pf => {
+                      item.set('downloadUrl', pf.get('links').download);
+                      item.set('hasFile', true);
+                  });
+              }
+           });
         });
         return item;
       });
