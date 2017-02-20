@@ -6,7 +6,7 @@ export default Ember.Component.extend({
     actions : {
         markSelected (item) {
             this.toggleProperty('selected');
-            this.get('toggleSelectedList')(this.get('selected'), item);
+            this.sendAction('toggleSelectedList', this.get('selected'), item);
         }
     }
 });
