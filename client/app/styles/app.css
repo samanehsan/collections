@@ -176,3 +176,6 @@ ul.comma-list li:last-child:after {
 .coll-item-status.approved {
     background-color: #8BC34A;
 }
+.ball-pulse-dark>div {
+    background-color: #607d8b;
+}

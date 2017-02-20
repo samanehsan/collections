@@ -43,17 +43,36 @@
         </div>
         <div class="{{if (or item.hasFile item.hasWiki) 'col-sm-4' 'col-sm-12'}}">
             <h4 class="p-v-md f-w-md"><strong>Description</strong></h4>
-            <p> {{item.node.description}}</p>
+            {{#if item.node.description}}
+                <p>{{item.node.description}}</p>
+            {{else}}
+                <div class="loader text-center">
+                    <div class="loader-inner ball-pulse ball-pulse-dark">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                </div>
+            {{/if}}
 
             <h4 class="p-v-md f-w-md"><strong>Status</strong></h4>
             <p class="coll-item-status {{item.status}}"> {{item.status}} </p>
             <h4 class="p-v-md f-w-md"><strong>Tags</strong></h4>
-
-            <div>
-                {{#each item.node.tags as |tag|}}
-                    <span class="coll-item-tag">{{tag}}</span>
-                {{/each}}
-            </div>
+            {{#if item.node.tags}}
+                <div>
+                    {{#each item.node.tags as |tag|}}
+                        <span class="coll-item-tag">{{tag}}</span>
+                    {{/each}}
+                </div>
+            {{else}}
+                <div class="loader text-center">
+                    <div class="loader-inner ball-pulse ball-pulse-dark">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                </div>
+            {{/if}}
         </div>
 
     </div>
