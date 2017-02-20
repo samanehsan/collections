@@ -15,7 +15,15 @@ export default Ember.Controller.extend({
               this.set('showDeleteItemConfirmation', false);
           },
         deletePartial(){
-            // for the moment this will do the same as deletefull.
+            let collection = this.get('model.collection');
+            let items = this.get('model.items');
+            items.forEach(item => {
+                item.set('group', null);
+                item.save();
+            });
+            this.get('model').destroyRecord().then(() =>
+              this.transitionToRoute('collection', collection)
+            );
         },
         deleteFull(){
             let collection = this.get('model.collection');
