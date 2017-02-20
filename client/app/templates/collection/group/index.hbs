@@ -7,7 +7,7 @@
     <div class="container">
         <h2>Group "{{model.title}}"</h2>
         <div>
-            <button class="btn btn-danger" {{action toggleProperty 'showDeleteConfirmation'}}>Delete group</button>
+            <button class="btn btn-danger" {{action toggleProperty 'showDeleteGroupConfirmation'}}>Delete group</button>
         </div>
     </div>
 </div>
@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-xs-6">
                 {{#if organizeMode}}
-                    <button class="btn btn-danger" {{action 'deleteSelected'}}>Delete selected </button>
+                    <button class="btn btn-danger" {{action toggleProperty 'showDeleteItemConfirmation'}}>Delete selected </button>
                 {{/if}}
             </div>
             <div class="col-xs-6 text-right">
@@ -25,13 +25,39 @@
         </div>
         <div class="row">
             {{#each model.items as |item|}}
-                {{collection-item item=item parent='group' organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
+                {{collection-item item=item parent='group' toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
             {{/each}}
         </div>
     </div>
 </div>
 
-{{#if showDeleteConfirmation}}
+{{#if showDeleteItemConfirmation}}
+<div class="modal fade in" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" {{action toggleProperty 'showDeleteItemConfirmation'}}><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete items?</h4>
+      </div>
+      <div class="modal-body">
+        <p>The following items will be removed:</p>
+        <ul>
+            {{#each selectedItems as |item|}}
+                <li>{{item.title}}</li>
+            {{/each}}
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" {{action toggleProperty 'showDeleteItemConfirmation'}}>Close</button>
+        <button type="button" class="btn btn-danger" {{action 'deleteSelected'}}>Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal-backdrop fade in"></div>
+{{/if}}
+
+{{#if showDeleteGroupConfirmation}}
 <div class="modal fade in" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
