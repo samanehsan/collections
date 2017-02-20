@@ -18,7 +18,10 @@ export default Ember.Controller.extend({
             // for the moment this will do the same as deletefull.
         },
         deleteFull(){
-
+            let collection = this.get('model.collection');
+            this.get('model').destroyRecord().then(() =>
+              this.transitionToRoute('collection', collection)
+            );
         },
         deleteSelected() {
             let items = this.get('model.items');
