@@ -24,12 +24,14 @@ export default Ember.Controller.extend({
             this.get('model').destroyRecord().then(() =>
               this.transitionToRoute('collection', collection)
             );
+            this.send('clearModals');
         },
         deleteFull(){
             let collection = this.get('model.collection');
             this.get('model').destroyRecord().then(() =>
               this.transitionToRoute('collection', collection)
             );
+            this.send('clearModals');
         },
         deleteSelected() {
             let items = this.get('model.items');
