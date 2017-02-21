@@ -108,6 +108,9 @@ export default Ember.Controller.extend({
             });
             item.save();
             this.set('showAddItemDetails', false);
+        },
+        changeRoute(path){
+            this.transitionToRoute(path);
         }
     }
 });

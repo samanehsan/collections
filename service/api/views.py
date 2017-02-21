@@ -143,6 +143,9 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
         group = self.request.data.get('group', None)
         if group:
             context.update({'group_id': group['id']})
+        else:
+            context.update({'group_id': None})
+
         return context
 
     def get_object(self):
