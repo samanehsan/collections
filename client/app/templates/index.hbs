@@ -25,8 +25,8 @@
     <div class="coll-group">
         {{#each model as |item|}}
             <div class="coll-single">
-                {{#link-to "collection" item.id class="btn btn-info pull-right"}}View{{/link-to}}
-                <h3>{{#link-to "collection" item.id}}{{item.title}}{{/link-to}}</h3>
+                {{#link-to "collection" item.id class="btn btn-info pull-right"}}<span {{action 'clearFilter'}}>View</span>{{/link-to}}
+                <h3>{{#link-to "collection" item.id}}<span {{action 'clearFilter'}}>{{item.title}}</span>{{/link-to}}</h3>
                 <p>{{item.description}}</p>
                 <div>
                     {{ item.tags}}

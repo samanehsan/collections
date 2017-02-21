@@ -3,9 +3,11 @@
         {{bread-crumbs tagName="ol" outputStyle="bootstrap" linkable=true}}
     </div>
 </div>
+
+{{group-detail model=model}}
+
 <div class="coll-group-header">
     <div class="container">
-        <h2>Group "{{model.title}}"</h2>
         <div>
             <button class="btn btn-danger" {{action toggleProperty 'showDeleteGroupConfirmation'}}>Delete group</button>
         </div>
