@@ -9,6 +9,9 @@ export default Ember.Route.extend({
         item.set('hasFile', hasFileList.includes(item.get('type')));
         item.set('hasWiki', hasWikiList.includes(item.get('type')));
         self.get('store').findRecord('node', item.get('source_id')).then(function(node){
+          if(node.get('tags').length === 0){  // To differentiate between empty and nonexistent
+              node.set('tags', true);
+          }
           item.set('node', node);
           node.get('preprints').then(result => {
               if(result.objectAt(0)){

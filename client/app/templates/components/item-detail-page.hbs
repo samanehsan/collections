@@ -29,27 +29,22 @@
 </div>
 <div class="container">
     <div class="row p-t-lg">
-        {{#if item.hasFile}}
             <div class="col-sm-8">
-                <div class="coll-mock-mfr">
-                    {{file-renderer download=item.downloadUrl width="99%" height="1000" allowfullscreen=true}}
-                </div>
-            </div>
-        {{else}}
-            {{#if item.hasWiki}}
-                <div class="col-sm-8">
+                {{#if item.hasFile}}
+                    <div class="coll-mock-mfr">
+                        {{file-renderer download=item.downloadUrl width="99%" height="1000" allowfullscreen=true}}
+                    </div>
+                {{/if}}
+                {{#if item.hasWiki}}
                     <div>
                         <pre style='white-space: pre-wrap; border:none; width:100%; text-align:justify; max-height: 300px;'>
                             {{wikiContent}}
                         </pre>
                     </div>
-                </div>
-            {{else}}
-                <p> This item has no wiki or file associated </p>
-            {{/if}}
-        {{/if}}
-
-
+                {{else}}
+                    <p> This item has no wiki or file associated </p>
+                {{/if}}        
+            </div>
         <div class="{{if (or item.hasFile item.hasWiki) 'col-sm-4' 'col-sm-12'}}">
             <h4 class="p-v-md f-w-md"><strong>Description</strong></h4>
             {{#if item.node.description}}
