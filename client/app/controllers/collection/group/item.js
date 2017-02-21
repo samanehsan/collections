@@ -5,11 +5,5 @@ export default Ember.Controller.extend({
         get() {
           return this.get("model.title");
         }
-      }),
-    actions : {
-        findNode () {
-            this.set('loadingGuid', true);
-            console.log(this.store.findRecord('node', this.get('searchGuid')));
-        }
-    }
+      })
 });
