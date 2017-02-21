@@ -15,18 +15,16 @@ export default Ember.Controller.extend({
               this.set('showDeleteItemConfirmation', false);
           },
         deletePartial(){
-            let collection = this.get('model.collection');
+            // Move items to collection before deleting group
             let items = this.get('model.items');
             items.forEach(item => {
                 item.set('group', null);
                 item.save();
             });
-            this.get('model').destroyRecord().then(() =>
-              this.transitionToRoute('collection', collection)
-            );
-            this.send('clearModals');
+            this.sendAction('deleteGroup');
         },
-        deleteFull(){
+        deleteGroup(){
+            // Delete group and any items it contains
             let collection = this.get('model.collection');
             this.get('model').destroyRecord().then(() =>
               this.transitionToRoute('collection', collection)
