@@ -2,12 +2,15 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     editMode : false,
-    modelCache : Ember.computed('model', function(){
+    resetModelCache(){
         let model = this.get('model');
         return {
             title: model.get('title'),
             description: model.get('description'),
         };
+    },
+    modelCache : Ember.computed('model', function(){
+        return this.resetModelCache();
     }),
     actions : {
         showEdit () {
@@ -15,6 +18,7 @@ export default Ember.Component.extend({
         },
         cancelEdit() {
             this.set('editMode', false);
+            this.set('modelCache', this.resetModelCache());
         },
         saveEdit (){
             let model = this.get('model');

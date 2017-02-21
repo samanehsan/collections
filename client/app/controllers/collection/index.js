@@ -1,7 +1,4 @@
 import Ember from 'ember';
-import faker from 'faker';
-
-let types = ['project', 'preprint', 'registration', 'file', 'person'];
 
 export default Ember.Controller.extend({
     searchGuid: '',
@@ -24,7 +21,7 @@ export default Ember.Controller.extend({
     actions: {
         findNode () {
             let self = this;
-            let node = this.store.findRecord('node', this.get('searchGuid')).then(function(item){
+            this.store.findRecord('node', this.get('searchGuid')).then(function(item){
                 let nodeObject = self.get('newItemNode');
                 nodeObject.setProperties({
                     title:  item.get('title'),
