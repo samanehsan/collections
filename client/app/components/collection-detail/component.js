@@ -31,7 +31,9 @@ export default Ember.Component.extend({
             model.set('tags', this.get('modelCache.tags'));
             model.save();
             this.set('editMode', false);
-
+        },
+        deleteCollection(){
+            this.get('model').destroyRecord().then(() => this.get('changeRoute')('/'));
         }
     }
 });
