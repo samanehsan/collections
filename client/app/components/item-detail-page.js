@@ -26,7 +26,6 @@ export default Ember.Component.extend({
                         url
                     }).done(data => {
                         this.set('wikiContent', data);
-                        console.log(data);
                     });
                 }
             }.bind(this));
