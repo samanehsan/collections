@@ -16,5 +16,7 @@ urlpatterns = [
     url(r'^groups/(?P<group_id>\w+)/$', views.GroupDetail.as_view(), name='group-detail'),
 
     url(r'^items/$', views.ItemList.as_view(), name='item-list'),
-    url(r'^items/(?P<item_id>\w+)/$', views.ItemDetail.as_view(), name='item-detail')
+    url(r'^items/(?P<item_id>\w+)/$', views.ItemDetail.as_view(), name='item-detail'),
+
+    url(r'^collections/(?P<pk>\w+)/owner/$', views.CollectionUserDetail.as_view(), name='collection-user'),
 ]
