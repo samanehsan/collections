@@ -29,6 +29,8 @@ export default Ember.Component.extend({
                     });
                 }
             }.bind(this));
+        } else {
+            this.set('wikiContent', 'Could not load wiki');
         }
     }),
     formatNodeData: Ember.observer('item.node', function() {
