@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     editMode : false,
-    resetModalCache(){
+    resetModelCache(){
         let model = this.get('model');
         return {
             title: model.get('title'),
@@ -11,7 +11,7 @@ export default Ember.Component.extend({
         };
     },
     modelCache : Ember.computed('model', function(){
-        return this.resetModalCache();
+        return this.resetModelCache();
     }),
     formattedTags : Ember.computed('model.tags', function(){
         return this.get('model.tags').split(',');
@@ -22,7 +22,7 @@ export default Ember.Component.extend({
         },
         cancelEdit() {
             this.set('editMode', false);
-            this.set('modelCache', this.resetModalCache());
+            this.set('modelCache', this.resetModelCache());
         },
         saveEdit (){
             let model = this.get('model');
