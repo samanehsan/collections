@@ -81,8 +81,11 @@ class ItemSerializer(serializers.Serializer):
 
         group_id = self.context.get('group_id', None) or self.context['request'].parser_context['kwargs'].get('group_id', None)
         if group_id:
-            item.group = Group.objects.get(id=group_id)
+            group = Group.objects.get(id=group_id)
+        else:
+            group = None
 
+        item.group = group
         item.source_id = validated_data.get('source_id', item.source_id)
         item.title = validated_data.get('title', item.title)
         item.type = validated_data.get('type', item.type)
