@@ -30,6 +30,9 @@ export default Ember.Controller.extend({
         },
         clearFilter(){
             this.set('filterText', '');
+        },
+        enterPress(){
+            this.get('actions').addCollection.call(this);
         }
     }
 });
