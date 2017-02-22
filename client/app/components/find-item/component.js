@@ -6,12 +6,14 @@ export default Ember.Component.extend({
     searchGuid: '',
     loadingItem: false,
     showAddItemDetails: false,
+    findItemError: null,
     actions: {
         findNode () {
             let self = this;
             if(!this.get('searchGuid')){
                 return;
             }
+            self.set('findItemError', null);
             this.set('loadingItem', true);
             this.get('store').findRecord('node', this.get('searchGuid')).then(function(item){
                 let nodeObject = self.get('newItemNode');
@@ -25,6 +27,10 @@ export default Ember.Component.extend({
                 self.set('loadingItem', false);
                 self.toggleProperty('showAddItemDetails');
 
+            }).catch(function(error){
+                 self.set('loadingItem', false);
+                 self.set('findItemError', error.errors);
+                 self.set('searchGuid', '');
             });
 
         },

@@ -16,6 +16,16 @@
                 </div>
              </div>
         {{/if}}
+        {{#if findItemError}}
+            <div class="p-lg text-center text-danger">
+                <p>
+                    {{#each findItemError as |error|}}
+                        {{error.detail}}
+                    {{/each}}
+                </p>
+                <p> Please try again or try another project ID </p>
+             </div>
+        {{/if}}
         {{#if showAddItemDetails}}
         <div class="coll-find-details p-md">
             <h4>Title </h4>
