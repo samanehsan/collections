@@ -1,3 +1,7 @@
+$navbar-color: #009688;
+$light-blue-banner: #e8f0f1;
+$light-grey-banner: #eeeeee;
+
 /* Global */
 body {
     margin-top: 50px;
@@ -8,6 +12,45 @@ body {
 .modal.in {
     display: block;
 }
+ul.comma-list {
+    display: inline;
+    list-style: none;
+    padding-left: 0;
+    li {
+        display: inline;
+    }
+    li:after {
+        content: ", "
+    }
+    li:last-child:after {
+        content: "";
+    }
+}
+.coll-breadcrumbs {
+    background-color: #f5f5f5;
+    height: 40px;
+    padding-top: 3px;
+}
+/* override breadcrumb plugin css */
+.breadcrumbs {
+    padding: 8px 15px 8px 0;
+    margin-bottom: 0;
+    list-style: none;
+    background-color: transparent;
+    >li {
+        display: inline-block;
+    }
+    > li + li:before {
+      padding: 0 5px;
+      color: #ccc;
+      content: "/\00a0";
+    }
+    > .active {
+      color: #777;
+    }
+}
+
+/* Home */
 
 .coll-banner {
     background: url('/img/collections_bg.jpg') top center;
@@ -18,42 +61,27 @@ body {
 }
 
 .coll-add-layer {
-    background-color: #eee;
+    background-color: $light-grey-banner;
     border-bottom: 1px solid #ddd;
     padding: 15px 0 20px 0;
 }
 
-ul.comma-list {
-    display: inline;
-    list-style: none;
-    padding-left: 0;
-}
-ul.comma-list li {
-    display: inline;
-}
-ul.comma-list li:after {
-    content: ", "
-}
-ul.comma-list li:last-child:after {
-    content: "";
-}
 
-
-/* collection Navbar */
+/* Collection Navbar */
 .coll-navbar {
-    background-color: #009688;
+    background-color: $navbar-color;
     color: #fff;
 }
 .coll-navbar-inner {
     padding: 12px 0;
-}
-.coll-navbar-inner a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 19px;
+    a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 19px;
+    }
 }
 
-/* Collection Toolbar */
+/* Collection Toolbar - it has filtering only now*/
 .coll-toolbar {
     padding-top: 50px;
     border-bottom: 1px solid #eee;
@@ -61,6 +89,11 @@ ul.comma-list li:last-child:after {
 }
 
 /* Collection Items */
+.coll-item {
+    height: 200px;
+    overflow: auto;
+    position: relative;
+}
 .coll-items, .coll-group {
     padding: 25px;
 }
@@ -71,13 +104,8 @@ ul.comma-list li:last-child:after {
     background: #f8f8f8;
     margin: 15px;
 }
-.coll-item {
-    height: 200px;
-    overflow: auto;
-    position: relative;
-}
 .coll-add-item {
-    background: #e8f0f1;
+    background: $light-blue-banner;
     padding: 20px 0;
 }
 
@@ -86,7 +114,6 @@ ul.comma-list li:last-child:after {
     border-radius: 2px;
     background: #f5f5f5;
 }
-
 .coll-item-type-preprint {
     background-color: #94e3ec;
 }
@@ -102,20 +129,6 @@ ul.comma-list li:last-child:after {
 .coll-item-type-person {
     background-color: #8d98d8;
 }
-
-.coll-mock-mfr {
-    width: 100%;
-}
-
-.coll-item-navigation {
-    padding: 10px;
-}
-.coll-breadcrumbs {
-    background-color: #f5f5f5;
-    height: 40px;
-    padding-top: 3px;
-}
-
 .coll-item-wrapper {
     position: relative;
 }
@@ -129,14 +142,15 @@ ul.comma-list li:last-child:after {
     color: #9E9E9E;
     margin: 0 15px;
     z-index: 9;
+    .fa {
+        font-size: 30px;
+    }
+    &.item-selected {
+        color: #8bc34a;
+        background-color: rgba(255, 255, 255, 0.82);
+    }
 }
-.coll-item-organize .fa {
-    font-size: 30px;
-}
-.coll-item-organize.item-selected {
-    color: #8bc34a;
-    background-color: rgba(255, 255, 255, 0.82);
-}
+
 .coll-item-isgroup {
     background-color: #eee;
     box-shadow:
@@ -152,8 +166,8 @@ ul.comma-list li:last-child:after {
     color: #999;
     min-width: 100px;
 }
-/* item detail */
 
+/* Item detail */
 .coll-item-header {
     background-color: #607D8B;
     /*background: url('/img/triangle.jpg') top center;
@@ -169,33 +183,13 @@ ul.comma-list li:last-child:after {
     padding: 12px;
     text-transform: uppercase;
     border-radius: 3px;
-}
-.coll-item-status.pending {
-    background-color: #FFC107;
-}
-.coll-item-status.approved {
-    background-color: #8BC34A;
+    &.pending {
+        background-color: #FFC107;
+    }
+    &.approved {
+        background-color: #8BC34A;
+    }
 }
 .ball-pulse-dark>div {
     background-color: #607d8b;
-}
-
-
-/* override breadcrumb plugin css */
-.breadcrumbs {
-    padding: 8px 15px;
-    margin-bottom: 0;
-    list-style: none;
-    background-color: transparent;
-}
-.breadcrumbs > li {
-    display: inline-block;
-}
-.breadcrumbs > li + li:before {
-  padding: 0 5px;
-  color: #ccc;
-  content: "/\00a0";
-}
-.breadcrumbs > .active {
-  color: #777;
 }

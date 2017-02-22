@@ -41,7 +41,7 @@
         <div class="pull-right">
             <button class="btn btn-danger btn-collection" {{action toggleProperty 'showDeleteConfirmation'}}> <i class="fa fa-times"></i> Delete </button>
 
-            <button class="btn btn-default btn-collection" {{action 'showEdit'}}> <i class="fa fa-pencil"></i> Edit</button>
+            <button class="btn btn-info btn-collection" {{action 'showEdit'}}> <i class="fa fa-pencil"></i> Edit</button>
         </div>
     {{/if}}
 
@@ -57,7 +57,7 @@
         <h4 class="modal-title">Delete collection "{{model.title}}"?</h4>
       </div>
       <div class="modal-body">
-        <p>This will remove all groups and items inside collections. Original projects are not deleted</p>
+        <p>This will remove all groups and items inside collections. Original projects are not deleted.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" {{action toggleProperty 'showDeleteConfirmation'}}>Close</button>
