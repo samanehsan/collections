@@ -46,9 +46,13 @@
             </div>
         </div>
         <div class="row">
-            {{#each list as |item|}}
-                {{collection-item item=item toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
-            {{/each}}
+            {{#if list}}
+                {{#each list as |item|}}
+                    {{collection-item item=item toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
+                {{/each}}
+            {{else}}
+                <p class="text-center text-muted p-xl"> You do not have any items yet. You can add more using the form above.</p>
+            {{/if}}
         </div>
     </div>
 </div>
