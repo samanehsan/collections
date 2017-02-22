@@ -84,7 +84,12 @@ export default Ember.Component.extend({
                 self.clearFilters();
                 self.set('findItemError', error.errors);
             });
-
+        },
+        enterPressSearch(){
+            this.get('actions').searchNode.call(this);
+        },
+        enterPressGuid(){
+            this.get('actions').findNode.call(this);
         }
     }
 
