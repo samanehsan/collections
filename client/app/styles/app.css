@@ -183,7 +183,7 @@ ul.comma-list li:last-child:after {
 
 /* override breadcrumb plugin css */
 .breadcrumbs {
-    padding: 8px 15px;
+    padding: 8px 15px 8px 0;
     margin-bottom: 0;
     list-style: none;
     background-color: transparent;
