@@ -108,8 +108,7 @@ ul.comma-list {
     margin: 15px;
 }
 .coll-add-item {
-    background: $light-blue-banner;
-    padding: 20px 0;
+    padding: 20px;
 }
 
 .coll-item-tag {
@@ -168,6 +167,39 @@ ul.comma-list {
     border-radius: 15px;
     color: #999;
     min-width: 100px;
+}
+.coll-add-choice {
+    background: $light-blue-banner;
+    padding: 15px;
+    .choice-group{
+        .choice-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 113px;
+            display: inline-block;
+            text-align: center;
+            margin-right: 5px;
+            background-color: #eee;
+            border-radius: 2px;
+            cursor: pointer;
+            z-index: 3;
+            position: relative;
+            border-bottom: none;
+            &.active{
+                background: #fff;
+                z-index: 9;
+            }
+        }
+    }
+    .add-panel {
+        min-height: 200px;
+        background: #fff;
+        margin-top: -16px;
+        border: 1px solid #ccc;
+        z-index: 4;
+        position: relative;
+    }
+
 }
 
 /* Item detail */
