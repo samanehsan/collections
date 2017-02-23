@@ -19,7 +19,7 @@ export default Ember.Component.extend({
     },
     clearView(){
         this.set('loadingItem', false);
-        this.set('showAddItemDetail`s', false);
+        this.set('showAddItemDetails', false);
         this.set('findItemError', null);
         this.set('results', null);
         this.set('showResults', false);
