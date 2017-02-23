@@ -10,6 +10,12 @@ export default Ember.Component.extend({
     findItemError: null,
     results: null,
     showResults: false,
+    displayItemType: Ember.computed('type', function(){
+        return this.get('type') === 'node' ? 'projects' : this.get('type') + 's';
+    }),
+    filterField: Ember.computed('type', function(){
+        return this.get('type') === 'preprint' ?  'provider' : 'title';
+    }),
     clearFilters(){
         this.set('searchGuid', '');
         this.set('searchFilter', '');
@@ -30,6 +36,10 @@ export default Ember.Component.extend({
             link: item.get('links.html')
         });
     },
+    didUpdateAttrs () {
+        this.clearView();
+        this.clearFilters();
+    },
     actions: {
         findNode () {
             let self = this;
@@ -38,7 +48,8 @@ export default Ember.Component.extend({
             }
             this.clearView();
             this.set('loadingItem', true);
-            this.get('store').findRecord('node', this.get('searchGuid')).then(function(item){
+            let recordType = this.get('type');
+            this.get('store').findRecord(recordType, this.get('searchGuid')).then(function(item){
                 self.buildNodeObject(item);
                 self.set('showAddItemDetails', true);
                 self.set('loadingItem', false);
@@ -75,7 +86,10 @@ export default Ember.Component.extend({
             }
             this.clearView();
             this.set('loadingItem', true);
-            this.get('store').query('node', { 'filter[title]': filterText}).then(function(results){
+            let recordType = this.get('type');
+            let filter = {};
+            filter['filter[' + this.get('filterField') + ']'] = filterText;
+            this.get('store').query(recordType, filter).then(function(results){
                 self.set('results', results);
                 self.set('loadingItem', false);
                 self.set('showResults', true);

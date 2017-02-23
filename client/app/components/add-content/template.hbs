@@ -1,14 +1,18 @@
 <div class="coll-add-choice">
     <div class="container">
         <h3> Add content </h3>
-        <div class="choice-group m-v-md">
-            <div class="choice-item {{if (eq addActive 'add-project') 'active'}}" {{action 'setActive' 'add-project'}}>Project</div>
-            <div class="choice-item {{if (eq addActive 'add-preprint') 'active'}}" {{action 'setActive' 'add-preprint'}}>Preprint</div>
-            <div class="choice-item {{if (eq addActive 'add-registration') 'active'}}" {{action 'setActive' 'add-registration'}}>Registration</div>
-            <div class="choice-item {{if (eq addActive 'add-file') 'active'}}" {{action 'setActive' 'add-file'}}>File</div>
+        <div class="choice-group m-t-lg m-b-md p-l-md">
+            <div class="choice-item {{if (eq addActive 'node') 'active'}}" {{action 'setActive' 'node'}}>Project</div>
+            <div class="choice-item {{if (eq addActive 'preprint') 'active'}}" {{action 'setActive' 'preprint'}}>Preprint</div>
+            <div class="choice-item {{if (eq addActive 'registration') 'active'}}" {{action 'setActive' 'registration'}}>Registration</div>
+            <div class="choice-item {{if (eq addActive 'file') 'active'}}" {{action 'setActive' 'file'}}>File</div>
         </div>
         <div class="add-panel">
-            {{component addActive model=model}}
+            {{#if (eq addActive 'file')}}
+                {{add-file model=model}}
+            {{else}}
+                {{add-node model=model type=addActive}}
+            {{/if}}
         </div>
     </div>
 </div>

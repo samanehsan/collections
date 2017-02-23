@@ -170,7 +170,7 @@ ul.comma-list {
 }
 .coll-add-choice {
     background: $light-blue-banner;
-    padding: 15px;
+    padding: 15px 0 30px 0;
     .choice-group{
         .choice-item {
             border: 1px solid #ccc;
@@ -185,6 +185,7 @@ ul.comma-list {
             z-index: 3;
             position: relative;
             border-bottom: none;
+            border-radius: 2px;
             &.active{
                 background: #fff;
                 z-index: 9;
@@ -192,12 +193,14 @@ ul.comma-list {
         }
     }
     .add-panel {
-        min-height: 200px;
+        min-height: 150px;
         background: #fff;
         margin-top: -16px;
         border: 1px solid #ccc;
+        border-radius: 3px;
         z-index: 4;
         position: relative;
+
     }
 
 }

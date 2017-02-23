@@ -1,8 +1,7 @@
-<div class="coll-add-item">
+<div class="coll-add-item m-t-lg">
     <div class="container-fluid">
         <div class="row">
-            <h3> Find projects</h3>
-            <div class="col-sm-8">{{input class="form-control" value=searchFilter placeholder="Search projects" enter="enterPressSearch"}}<button class="btn btn-success m-t-sm {{unless searchFilter 'disabled'}}" {{action 'searchNode'}}>Search</button></div>
+            <div class="col-sm-8">{{input class="form-control" value=searchFilter placeholder="Search" enter="enterPressSearch"}}<button class="btn btn-success m-t-sm {{unless searchFilter 'disabled'}}" {{action 'searchNode'}}>Search {{displayItemType}}</button></div>
             <div class="col-sm-4">{{input class="form-control" value=searchGuid placeholder="Enter guid" enter="enterPressGuid"}} <button class="btn btn-success m-t-sm {{unless searchGuid 'disabled'}}" {{action 'findNode'}}>Preview</button></div>
         </div>
 
@@ -25,7 +24,7 @@
                     <div class="p-xs coll-search-result">{{result.title}} <button class="btn btn-link" {{action 'addItem' result}}><i class="fa fa-plus"></i> Add Item </button></div>
                 {{/each}}
             {{else}}
-                <p class="text-muted m-t-sm"> We couldn't find any projects. Please try another search. </p>
+                <p class="text-muted m-t-sm"> We couldn't find any {{displayItemType}} with this search. Please try another search. </p>
             {{/if}}
         {{/if}}
 
@@ -36,7 +35,7 @@
                         {{error.detail}}
                     {{/each}}
                 </p>
-                <p> Please try again or try another project ID </p>
+                <p> Please try again or try another {{displayItemType}} ID </p>
              </div>
         {{/if}}
 
