@@ -57,6 +57,13 @@ export default Ember.Component.extend({
                         self.buildNodeObject(item);
                     });
                 }
+                if(recordType === 'registration'){
+                    item.set('category', 'registration');
+                    self.buildNodeObject(item);
+                }
+                if(recordType === 'node'){
+                    self.buildNodeObject(item);
+                }
                 self.set('showAddItemDetails', true);
                 self.set('loadingItem', false);
             }).catch(function(error){
