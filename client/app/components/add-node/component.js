@@ -50,7 +50,13 @@ export default Ember.Component.extend({
             this.set('loadingItem', true);
             let recordType = this.get('type');
             this.get('store').findRecord(recordType, this.get('searchGuid')).then(function(item){
-                self.buildNodeObject(item);
+                if(recordType === 'preprint'){
+                    item.get('node').then(function(node){
+                        item.set('title', node.get('title'));
+                        item.set('category', 'preprint');
+                        self.buildNodeObject(item);
+                    });
+                }
                 self.set('showAddItemDetails', true);
                 self.set('loadingItem', false);
             }).catch(function(error){
