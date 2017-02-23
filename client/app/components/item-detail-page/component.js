@@ -3,6 +3,7 @@ import config from 'ember-get-config';
 import loadAll from 'ember-osf/utils/load-relationship';
 
 export default Ember.Component.extend({
+    authors: null,
     wikiContent: null,
     store: Ember.inject.service(),
     session: Ember.inject.service(),
@@ -42,6 +43,8 @@ export default Ember.Component.extend({
         const contributors = Ember.A();
         loadAll(node, 'contributors', contributors).then(() =>
             this.set('authors', contributors)
-        );
+        ).catch(function(error){
+            this.set('authors', null);
+        });
     })
 });
