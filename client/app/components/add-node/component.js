@@ -13,16 +13,13 @@ export default Ember.Component.extend({
     displayItemType: Ember.computed('type', function(){
         return this.get('type') === 'node' ? 'projects' : this.get('type') + 's';
     }),
-    filterField: Ember.computed('type', function(){
-        return this.get('type') === 'preprint' ?  'provider' : 'title';
-    }),
     clearFilters(){
         this.set('searchGuid', '');
         this.set('searchFilter', '');
     },
     clearView(){
         this.set('loadingItem', false);
-        this.set('showAddItemDetails', false);
+        this.set('showAddItemDetail`s', false);
         this.set('findItemError', null);
         this.set('results', null);
         this.set('showResults', false);
@@ -31,7 +28,7 @@ export default Ember.Component.extend({
         this.get('newItemNode').setProperties({
             title:  item.get('title'),
             description: item.get('description'),
-            type: item.get('category'),
+            type: this.get('type') === 'preprint'? 'preprint' : item.get('category'),
             source_id: item.get('id'),
             link: item.get('links.html')
         });
@@ -99,9 +96,12 @@ export default Ember.Component.extend({
             }
             this.clearView();
             this.set('loadingItem', true);
-            let recordType = this.get('type');
+            let recordType = this.get('type') === 'preprint' ? 'node' : this.get('type');
             let filter = {};
-            filter['filter[' + this.get('filterField') + ']'] = filterText;
+            filter['filter[title]'] = filterText;
+            if(this.get('type') === 'preprint'){
+                filter['filter[preprint]'] = true;
+            }
             this.get('store').query(recordType, filter).then(function(results){
                 self.set('results', results);
                 self.set('loadingItem', false);
