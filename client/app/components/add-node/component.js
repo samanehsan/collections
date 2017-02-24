@@ -28,7 +28,7 @@ export default Ember.Component.extend({
         this.get('newItemNode').setProperties({
             title:  item.get('title'),
             description: item.get('description'),
-            type: this.get('type') === 'preprint'? 'preprint' : item.get('category'),
+            type: this.get('type') === 'node' ? 'project' : this.get('type'), // set by the app based on selection of tab
             source_id: item.get('id'),
             link: item.get('links.html')
         });
@@ -50,15 +50,9 @@ export default Ember.Component.extend({
                 if(recordType === 'preprint'){
                     item.get('node').then(function(node){
                         item.set('title', node.get('title'));
-                        item.set('category', 'preprint');
                         self.buildNodeObject(item);
                     });
-                }
-                if(recordType === 'registration'){
-                    item.set('category', 'registration');
-                    self.buildNodeObject(item);
-                }
-                if(recordType === 'node'){
+                } else {
                     self.buildNodeObject(item);
                 }
                 self.set('showAddItemDetails', true);
