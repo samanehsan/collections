@@ -5,7 +5,7 @@
                 <h1 class="p-b-md">{{item.title}}</h1>
                 <h5 class="view-authors">
                     <ul class="comma-list">
-                        {{#if authors}}
+                        {{#unless authorsLoading}}
                             {{#each authors as |author index| ~}}
                                 {{#if author.bibliographic}}
                                     <li><a href={{author.users.profileURL}} {{action 'click' 'link' 'Content - Author' author.users.profileURL}}>{{author.users.givenName}} {{author.users.familyName}}</a></li>
@@ -19,7 +19,7 @@
                                   <div></div>
                                 </div>
                             </div>
-                        {{/if}}
+                        {{/unless}}
                     </ul>
                 </h5>
                 <p>Added on: {{moment-format model.datePublished "MMMM DD, YYYY"}} | Last edited: {{moment-format model.dateModified "MMMM DD, YYYY"}} </p>
