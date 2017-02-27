@@ -82,8 +82,11 @@ ul.comma-list {
     a {
         text-decoration: none;
         color: #fff;
-        font-size: 19px;
+        &.nav-title {
+            font-size: 19px;
+        }
     }
+
 }
 
 /* Collection Toolbar - it has filtering only now*/

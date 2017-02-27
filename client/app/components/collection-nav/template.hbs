@@ -1,7 +1,8 @@
 <div class="coll-navbar">
     <div class="container">
         <div class="coll-navbar-inner">
-            {{#link-to "collection" model.id}}{{model.title}}{{/link-to}}
+            {{#link-to "collection" model.id class="nav-title"}}{{model.title}}{{/link-to}}
+            <div class="pull-right">{{#link-to "collection.add"}}Add content {{/link-to}}</div>
         </div>
     </div>
 </div>
