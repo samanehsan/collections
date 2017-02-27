@@ -10,6 +10,9 @@ export default Ember.Component.extend({
     findItemError: null,
     results: null,
     showResults: false,
+    displayItemType: Ember.computed('type', function(){
+        return this.get('type') === 'node' ? 'projects' : this.get('type') + 's';
+    }),
     clearFilters(){
         this.set('searchGuid', '');
         this.set('searchFilter', '');
@@ -25,10 +28,14 @@ export default Ember.Component.extend({
         this.get('newItemNode').setProperties({
             title:  item.get('title'),
             description: item.get('description'),
-            type: item.get('category'),
+            type: this.get('type') === 'node' ? 'project' : this.get('type'), // set by the app based on selection of tab
             source_id: item.get('id'),
             link: item.get('links.html')
         });
+    },
+    didUpdateAttrs () {
+        this.clearView();
+        this.clearFilters();
     },
     actions: {
         findNode () {
@@ -38,8 +45,16 @@ export default Ember.Component.extend({
             }
             this.clearView();
             this.set('loadingItem', true);
-            this.get('store').findRecord('node', this.get('searchGuid')).then(function(item){
-                self.buildNodeObject(item);
+            let recordType = this.get('type');
+            this.get('store').findRecord(recordType, this.get('searchGuid')).then(function(item){
+                if(recordType === 'preprint'){
+                    item.get('node').then(function(node){
+                        item.set('title', node.get('title'));
+                        self.buildNodeObject(item);
+                    });
+                } else {
+                    self.buildNodeObject(item);
+                }
                 self.set('showAddItemDetails', true);
                 self.set('loadingItem', false);
             }).catch(function(error){
@@ -75,7 +90,13 @@ export default Ember.Component.extend({
             }
             this.clearView();
             this.set('loadingItem', true);
-            this.get('store').query('node', { 'filter[title]': filterText}).then(function(results){
+            let recordType = this.get('type') === 'preprint' ? 'node' : this.get('type');
+            let filter = {};
+            filter['filter[title]'] = filterText;
+            if(this.get('type') === 'preprint'){
+                filter['filter[preprint]'] = true;
+            }
+            this.get('store').query(recordType, filter).then(function(results){
                 self.set('results', results);
                 self.set('loadingItem', false);
                 self.set('showResults', true);

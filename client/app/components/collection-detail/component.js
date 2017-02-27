@@ -14,7 +14,11 @@ export default Ember.Component.extend({
         return this.resetModelCache();
     }),
     formattedTags : Ember.computed('model.tags', function(){
-        return this.get('model.tags').split(',');
+        let tags = this.get('model.tags');
+        if(tags){
+            return this.get('model.tags').split(',');
+        }
+        return [];
     }),
     actions : {
         showEdit () {

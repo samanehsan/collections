@@ -3,6 +3,8 @@ import config from 'ember-get-config';
 import loadAll from 'ember-osf/utils/load-relationship';
 
 export default Ember.Component.extend({
+    authorsLoading: true,
+    authors: null,
     wikiContent: null,
     store: Ember.inject.service(),
     session: Ember.inject.service(),
@@ -39,9 +41,19 @@ export default Ember.Component.extend({
         if (!node) { return [];}
 
         this.set('item.hasFile', true);
+        let self = this;
         const contributors = Ember.A();
-        loadAll(node, 'contributors', contributors).then(() =>
-            this.set('authors', contributors)
-        );
-    })
+        loadAll(node, 'contributors', contributors).then(function (){
+            self.set('authors', contributors);
+            self.set('authorsLoading', false);
+        });
+    }),
+    init(){
+        this._super(...arguments);
+        let self = this;
+        // If things are stuck at loading in 10 seconds cancel loading indicator
+        Ember.run.later(function(){
+            self.set('authorsLoading', false);
+        }, 10000);
+    }
 });
