@@ -14,6 +14,7 @@ Router.map(function() {
       this.route('item', {path : 'item/:group_item_id'});
     });
   });
+  this.route('create');
 });
 
 export default Router;
