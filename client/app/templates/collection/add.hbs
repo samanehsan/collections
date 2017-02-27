@@ -1,1 +1,9 @@
-{{add-content model=model closeRoute="collection" closeId=model.id}}
+<div class="coll-add-choice">
+    <div class="container">
+        <div class="pull-right"> {{#link-to 'collection' model.id class="btn btn-link"}} <i class="fa fa-times"></i> Close {{/link-to}}</div>
+        <h3> Add content </h3>
+        <div class="add-panel">
+            {{add-node model=model type='preprint'}}
+        </div>
+    </div>
+</div>
