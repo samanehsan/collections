@@ -60,7 +60,8 @@ class ItemSerializer(serializers.Serializer):
         if group_id:
             validated_data['group'] = Group.objects.get(id=group_id)
         status = 'pending'
-        if user.id == collection.created_by_id:
+        allow_all = json.loads(collection.settings)['allow_all']
+        if user.id == collection.created_by_id or allow_all:
             status = 'approved'
             validated_data['date_added'] = datetime.datetime.now()
         validated_data['status'] = status
