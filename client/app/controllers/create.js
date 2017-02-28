@@ -10,6 +10,7 @@ export default Ember.Controller.extend({
             let collection = this.store.createRecord('collection', {
                 title: this.get('title'),
                 tags: '',
+                settings: JSON.stringify({ collectionType : this.get('selectedType')}),
                 description: this.get('description')
             });
             collection.save().then(record => {
