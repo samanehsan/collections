@@ -7,7 +7,7 @@ from rest_framework.settings import api_settings
 
 from rest_framework_json_api import utils
 from rest_framework_json_api.renderers import JSONRenderer
-from base.serializers import RelationshipField
+from api.base.serializers import RelationshipField
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "api.settings")
 

@@ -4,9 +4,9 @@ from rest_framework import permissions as drf_permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from serializers import CollectionSerializer, GroupSerializer, ItemSerializer
-from models import Collection, Group, Item
-from permissions import CanEditCollection, CanEditItem, CanEditGroup
+from api.serializers import CollectionSerializer, GroupSerializer, ItemSerializer
+from api.models import Collection, Group, Item
+from api.permissions import CanEditCollection, CanEditItem, CanEditGroup
 
 
 @api_view(['GET'])
