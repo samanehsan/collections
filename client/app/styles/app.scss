@@ -78,17 +78,22 @@ ul.comma-list {
     color: #fff;
 }
 .coll-navbar-inner {
-    padding: 12px 0;
     a {
         text-decoration: none;
         color: #fff;
-        &.nav-title {
-            font-size: 19px;
-        }
+    }
+    .navbar {
+        margin: 0;
     }
 
-}
 
+}
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: #1fa99c;
+}
+.navbar-nav > li > a {
+    padding-bottom: 14px;
+}
 /* Collection Toolbar - it has filtering only now*/
 .coll-toolbar {
     padding-top: 50px;
@@ -213,6 +218,15 @@ ul.comma-list {
         }
     }
 
+}
+
+/* Search pages */
+.search-result-panel {
+
+}
+.search-result{
+    border: 1px solid #eee;
+    background: #f8f8f8;
 }
 
 /* Item detail */
