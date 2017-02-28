@@ -138,6 +138,7 @@ class CollectionSerializer(serializers.Serializer):
     title = serializers.CharField(required=True)
     description = serializers.CharField(allow_blank=True)
     tags = serializers.CharField(allow_blank=True)
+    settings = serializers.JSONField(required=False)
     created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
