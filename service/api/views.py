@@ -4,8 +4,8 @@ from rest_framework import permissions as drf_permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from api.serializers import CollectionSerializer, GroupSerializer, ItemSerializer
-from api.models import Collection, Group, Item
+from api.serializers import CollectionSerializer, GroupSerializer, ItemSerializer, UserSerializer
+from api.models import Collection, Group, Item, User
 from api.permissions import CanEditCollection, CanEditItem, CanEditGroup
 
 
@@ -150,3 +150,12 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return Item.objects.get(id=self.kwargs['item_id'])
+
+
+class CollectionUserDetail(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    permission_classes = (drf_permissions.IsAuthenticatedOrReadOnly, )
+
+    def get_object(self):
+        collection = Collection.objects.get(id=self.kwargs['pk'])
+        return User.objects.get(id=collection.created_by_id)

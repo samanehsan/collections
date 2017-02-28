@@ -9,6 +9,7 @@ DEBUG = True
 try:
     from .local import *
 except ImportError:
+    print("Attention: No Local Settings Defined.")
     pass
 
 
