@@ -2,8 +2,30 @@
     <div class="container">
         <div class="pull-right"> {{#link-to 'collection' model.id class="btn btn-link"}} <i class="fa fa-times"></i> Close {{/link-to}}</div>
         <h3> Add content </h3>
-        <div class="add-panel">
-            {{add-node model=model type='preprint'}}
+        <div class="add-panel m-t-lg p-md">
+            {{#if methodSelected}}
+                    <div class="pointer p-md" {{action toggleProperty 'methodSelected'}}>
+                        <button class="btn btn-link">
+                            <i class="fa fa-angle-left"></i>
+                            Back
+                        </button>
+                    </div>
+                    {{#if (eq addMethod 'select')}}
+                        {{add-node model=model type='preprint'}}
+                    {{/if}}
+                    {{#if (eq addMethod 'create')}}
+                        <div class="p-lg"> Create new preprint </div>
+                    {{/if}}
+            {{else}}
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="p-md add-select-method" {{action 'updateProperty' 'addMethod' 'create'}}> Create a new preprint </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="p-md add-select-method" {{action 'updateProperty' 'addMethod' 'select'}}> Add existing preprint </div>
+                    </div>
+                </div>
+            {{/if}}
         </div>
     </div>
 </div>

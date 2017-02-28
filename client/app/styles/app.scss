@@ -198,13 +198,19 @@ ul.comma-list {
         }
     }
     .add-panel {
-        min-height: 150px;
         background: #fff;
         border: 1px solid #ccc;
         border-radius: 3px;
         z-index: 4;
         position: relative;
-
+        .add-select-method {
+            text-align: center;
+            line-height: 50px;
+            background: #607D8B;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
     }
 
 }
