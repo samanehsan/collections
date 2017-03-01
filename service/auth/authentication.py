@@ -12,7 +12,7 @@ class OSFAuthentication(authentication.BaseAuthentication):
 
         osf_user = requests.get('https://staging-api.osf.io/v2/users/me/', headers={'Authorization': 'Bearer ' + osf_bearer_token})
 
-        if osf_user.status_code is not 200:
+        if osf_user.status_code != 200:
             return None
 
         user_id = osf_user.json()['data']['id']
