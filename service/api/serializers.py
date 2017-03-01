@@ -1,3 +1,4 @@
+import json
 import datetime
 from rest_framework import exceptions
 from rest_framework_json_api import serializers
@@ -50,11 +51,17 @@ class ItemSerializer(serializers.Serializer):
         user = self.context['request'].user
         collection_id = self.context.get('collection_id', None) or self.context['request'].parser_context['kwargs'].get('pk', None)
         collection = Collection.objects.get(id=collection_id)
+        collection_type = json.loads(collection.settings)['type']
+
+        if validated_data['type'] != collection_type:
+            raise ValueError('Collection only accepts items of type ' + collection_type)
+
         group_id = self.context.get('group_id', None) or self.context['request'].parser_context['kwargs'].get('group_id', None)
         if group_id:
             validated_data['group'] = Group.objects.get(id=group_id)
         status = 'pending'
-        if user.id == collection.created_by_id:
+        allow_all = json.loads(collection.settings)['allow_all']
+        if user.id == collection.created_by_id or allow_all:
             status = 'approved'
             validated_data['date_added'] = datetime.datetime.now()
         validated_data['status'] = status
@@ -85,10 +92,15 @@ class ItemSerializer(serializers.Serializer):
         else:
             group = None
 
+        collection_type = json.loads(collection.settings)['type']
+        type = validated_data.get('type', item.type)
+        if type != collection_type:
+            raise ValueError('Collection only accepts items of type ' + collection_type)
+
         item.group = group
         item.source_id = validated_data.get('source_id', item.source_id)
         item.title = validated_data.get('title', item.title)
-        item.type = validated_data.get('type', item.type)
+        item.type = type
         item.status = status
         item.url = validated_data.get('url', item.url)
         item.metadata = validated_data.get('metadata', item.metadata)
@@ -138,7 +150,7 @@ class CollectionSerializer(serializers.Serializer):
     title = serializers.CharField(required=True)
     description = serializers.CharField(allow_blank=True)
     tags = serializers.CharField(allow_blank=True)
-    settings = serializers.JSONField(required=False)
+    settings = serializers.CharField(required=False)
     created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
