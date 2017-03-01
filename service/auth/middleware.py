@@ -23,7 +23,6 @@ class OSFTokenAuthMiddleware(object):
             user = User.objects.create_user(username=user_id)
 
         user.backend = 'django.contrib.auth.backends.ModelBackend' # Hack to allow login without authentication
-        user.save()
         login(request, user)
 
         return None
