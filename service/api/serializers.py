@@ -174,12 +174,9 @@ class CollectionSerializer(serializers.Serializer):
         return Collection.objects.create(created_by=user, **validated_data)
 
     def update(self, collection, validated_data):
-        collection.title = validated_data['title']
-        description = validated_data['description']
-        tags = validated_data['tags']
-        if description:
-            collection.description = description
-        if tags:
-            collection.tags = tags
+        collection.title = validated_data.get('title', collection.title)
+        collection.description = validated_data.get('description', collection.description)
+        collection.tags = validated_data.get('tags', collection.tags)
+        collection.settings = validated_data('settings', collection.settings)
         collection.save()
         return collection
