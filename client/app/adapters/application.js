@@ -3,8 +3,9 @@ import config from '../config/environment';
 
 
 function getToken() {
-    var token, session;
-    if (session = window.localStorage['ember_simple_auth:session']) {
+    var token;
+    var session = window.localStorage['ember_simple_auth:session'];
+    if (session) {
         token = JSON.parse(session)['authenticated'];
         if ('attributes' in token) {
             return token['attributes']['accessToken'];
