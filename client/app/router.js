@@ -17,6 +17,7 @@ Router.map(function() {
     this.route('search');
   });
   this.route('create');
+  this.route('not-found', { path: '/*path' });
 });
 
 export default Router;
