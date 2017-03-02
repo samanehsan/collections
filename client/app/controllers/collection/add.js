@@ -5,6 +5,7 @@ export default Ember.Controller.extend({
     methodSelected: false,
     urlTitle: '',
     urlAddress: '',
+    urlDescription: '',
     urlSaveErrors: null,
     clearInputs () {
         this.set('urlTitle', '');
@@ -20,7 +21,7 @@ export default Ember.Controller.extend({
             let item = this.get('store').createRecord('item', {
                 title: this.get('urlTitle'),
                 type: 'website',
-                metadata: '',
+                metadata: this.get('urlDescription'),
                 status: 'pending',
                 url: this.get('urlAddress'),
                 source_id: this.get('urlAddress'),

@@ -2,23 +2,78 @@ import Ember from 'ember';
 import config from 'ember-get-config';
 import loadAll from 'ember-osf/utils/load-relationship';
 
-export default Ember.Component.extend({
-    authorsLoading: true,
-    authors: null,
-    wikiContent: null,
-    store: Ember.inject.service(),
-    session: Ember.inject.service(),
-    formatWikiData: Ember.observer('item.node.wikis', function(){
-        let node = this.get('item.node');
+const ViewData = Ember.Object.extend({
+    value: null,
+    loaded: false,
+    visible: true,
+    setValue(newValue){
+        if(Ember.isNone(newValue)){
+            return;
+        }
+        this.set('value', newValue);
+        this.set('loaded', true);
+    },
+    show(){
+        this.set('visible', true);
+    },
+    hide(){
+        this.set('visible', false);
+    },
+    reset(){
+        this.set('value', null);
+        this.set('loaded', false);
+    }
+});
+
+const Item = Ember.Object.extend({
+    viewContent : Ember.Object.create({
+        title: ViewData.create(),
+        description: ViewData.create(),
+        tags: ViewData.create(),
+        authors: ViewData.create(),
+        wiki: ViewData.create({visible:false}),
+        file: ViewData.create({visible:false})
+    }),
+    setAuthors() {
+        const contributors = Ember.A();
+        const node = this.get('node');
+        let self = this;
+        loadAll(node, 'contributors', contributors).then(function (){
+            self.get('viewContent.authors').setValue(contributors);
+        });
+    },
+    setCommonNodeContent(node){
+        this.set('node', node);
+        this.get('viewContent.description').setValue(node.get('description'));
+        this.get('viewContent.tags').setValue(node.get('tags'));
+        this.setAuthors();
+    },
+    init (){
+        this.get('viewContent.title').setValue(this.get('item.title'));
+    }
+});
+
+const Website = Item.extend({
+    init(){
+        this._super();
+        this.set('description', this.get('item.metadata'));
+        this.get('viewContent.tags').hide();
+    }
+});
+
+const Project = Item.extend({
+    setWiki (){
+        let self = this;
+        let node = this.get('node');
         let wikis = node.get('wikis');
-        let item = this.get('item');
+        self.get('viewContent.wiki').show();
         if(wikis){
             wikis.then(function(result){
-                if(item.hasWiki && result.objectAt(0)){
+                if(result.objectAt(0)){
                     let url = result.objectAt(0).get('links.download');
                     let headers = {};
                     let authType = config['ember-simple-auth'].authorizer;
-                    this.get('session').authorize(authType, (headerName, content) => {
+                    self.get('session').authorize(authType, (headerName, content) => {
                         headers[headerName] = content;
                     });
 
@@ -27,33 +82,81 @@ export default Ember.Component.extend({
                         headers,
                         url
                     }).done(data => {
-                        this.set('wikiContent', data);
+                        self.get('viewContent.wiki').setValue(data);
                     });
+                } else {
+                    self.get('viewContent.wiki').setValue('This project does not have wikis.');
                 }
             }.bind(this));
         } else {
-            this.set('wikiContent', 'Could not load wiki');
+            self.get('viewContent.wiki').setValue('Could not find wiki for this project.');
         }
-    }),
-    formatNodeData: Ember.observer('item.node', function() {
-        // Cannot be called until node has loaded!
-        const node = this.get('item.node');
-        if (!node) { return [];}
-
-        this.set('item.hasFile', true);
+    },
+    init(){
+        this._super();
         let self = this;
-        const contributors = Ember.A();
-        loadAll(node, 'contributors', contributors).then(function (){
-            self.set('authors', contributors);
-            self.set('authorsLoading', false);
+        this.get('store').findRecord('node', this.get('item.source_id')).then(function(node){
+            self.setCommonNodeContent(node);
+            self.setWiki();
         });
-    }),
+    }
+});
+
+const Preprint = Item.extend({
+    setPreprint(){
+        let node = this.get('node');
+        this.get('viewContent.file').show();
+        node.get('preprints').then(result => {
+            if(result.objectAt(0)){
+                result.objectAt(0).get('primaryFile').then(pf => {
+                    this.get('viewContent.file').setValue(pf.get('links').download);
+                });
+            }
+        });
+    },
+    init(){
+        this._super();
+        let self = this;
+        this.get('store').findRecord('node', this.get('item.source_id')).then(function(node){
+            self.setCommonNodeContent(node);
+            self.setPreprint();
+        });
+
+    }
+});
+
+const Registration = Item.extend({
+    init(){
+        this._super();
+        let self = this;
+        this.get('store').findRecord('registration', this.get('item.source_id')).then(function(node){
+            self.setCommonNodeContent(node);
+        });
+    }
+});
+
+
+const typeClasses = {
+    website: Website,
+    project: Project,
+    preprint: Preprint,
+    registration: Registration
+};
+
+export default Ember.Component.extend({
+    store: Ember.inject.service(),
+    session: Ember.inject.service(),
+    constructedItem: null,
     init(){
         this._super(...arguments);
-        let self = this;
-        // If things are stuck at loading in 10 seconds cancel loading indicator
-        Ember.run.later(function(){
-            self.set('authorsLoading', false);
-        }, 10000);
+        this.set('constructedItem', null);
+    },
+    didReceiveAttrs (){
+        let type = this.get('item.type');
+        this.set('constructedItem', typeClasses[type].create({
+            session: this.get('session'),
+            store : this.get('store'),
+            item: this.get('item')
+        }));
     }
 });

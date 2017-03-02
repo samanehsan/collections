@@ -2,24 +2,26 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-10">
-                <h1 class="p-b-md">{{item.title}}</h1>
+                <h1 class="p-b-md">{{ constructedItem.viewContent.title.value}}</h1>
                 <h5 class="view-authors">
                     <ul class="comma-list">
-                        {{#unless authorsLoading}}
-                            {{#each authors as |author index| ~}}
-                                {{#if author.bibliographic}}
-                                    <li><a href={{author.users.profileURL}} {{action 'click' 'link' 'Content - Author' author.users.profileURL}}>{{author.users.givenName}} {{author.users.familyName}}</a></li>
-                                {{/if}}
-                            {{~/each}}
-                        {{else}}
-                            <div class="loader">
-                                <div class="loader-inner ball-pulse">
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
+                        {{#if constructedItem.viewContent.authors.show}}
+                            {{#if constructedItem.viewContent.authors.loaded}}
+                                {{#each constructedItem.viewContent.authors.value as |author index| ~}}
+                                    {{#if author.bibliographic}}
+                                        <li><a href={{author.users.profileURL}} {{action 'click' 'link' 'Content - Author' author.users.profileURL}}>{{author.users.givenName}} {{author.users.familyName}}</a></li>
+                                    {{/if}}
+                                {{~/each}}
+                            {{else}}
+                                <div class="loader">
+                                    <div class="loader-inner ball-pulse">
+                                      <div></div>
+                                      <div></div>
+                                      <div></div>
+                                    </div>
                                 </div>
-                            </div>
-                        {{/unless}}
+                            {{/if}}
+                        {{/if}}
                     </ul>
                 </h5>
                 <p>Added on: {{moment-format model.datePublished "MMMM DD, YYYY"}} | Last edited: {{moment-format model.dateModified "MMMM DD, YYYY"}} </p>
@@ -30,50 +32,75 @@
 <div class="container">
     <div class="row p-t-lg">
             <div class="col-sm-8">
-                {{#if item.hasFile}}
-                    <div>
-                        {{file-renderer download=item.downloadUrl width="99%" height="1000" allowfullscreen=true}}
-                    </div>
+                {{#if constructedItem.viewContent.file.show}}
+                    {{#if constructedItem.viewContent.file.loaded}}
+                        <div>
+                            {{file-renderer download=constructedItem.viewContent.file.value width="99%" height="1000" allowfullscreen=true}}
+                        </div>
+                    {{else}}
+                        <div class="loader text-center">
+                            <div class="loader-inner ball-pulse ball-pulse-dark">
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                            </div>
+                        </div>
+                    {{/if}}
                 {{/if}}
-                {{#if item.hasWiki}}
-                    <div>
-                        <pre style='white-space: pre-wrap; border:none; width:100%; text-align:justify; max-height: 300px;'>
-                            {{wikiContent}}
-                        </pre>
-                    </div>
+                {{#if constructedItem.viewContent.wiki.show}}
+                    {{#if constructedItem.viewContent.wiki.loaded}}
+                        <div>
+                            <pre style='white-space: pre-wrap; border:none; width:100%; text-align:justify; max-height: 300px;'>
+                                {{constructedItem.viewContent.wiki.value}}
+                            </pre>
+                        </div>
+                    {{else}}
+                        <div class="loader text-center">
+                            <div class="loader-inner ball-pulse ball-pulse-dark">
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                            </div>
+                        </div>
+                    {{/if}}
                 {{/if}}
             </div>
-        <div class="{{if (or item.hasFile item.hasWiki) 'col-sm-4' 'col-sm-12'}}">
+        <div class="{{if (or constructedItem.viewContent.file.show constructedItem.viewContent.wiki.show) 'col-sm-4' 'col-sm-12'}}">
             <h4 class="p-v-md f-w-md"><strong>Description</strong></h4>
-            {{#if item.node.description}}
-                <p>{{item.node.description}}</p>
-            {{else}}
-                <div class="loader text-center">
-                    <div class="loader-inner ball-pulse ball-pulse-dark">
-                      <div></div>
-                      <div></div>
-                      <div></div>
+            {{#if constructedItem.viewContent.description.show}}
+                {{#if constructedItem.viewContent.description.loaded}}
+                    <p>{{constructedItem.viewContent.description.value}}</p>
+                {{else}}
+                    <div class="loader text-center">
+                        <div class="loader-inner ball-pulse ball-pulse-dark">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
                     </div>
-                </div>
+                {{/if}}
             {{/if}}
 
             <h4 class="p-v-md f-w-md"><strong>Status</strong></h4>
             <p class="coll-item-status {{item.status}}"> {{item.status}} </p>
-            <h4 class="p-v-md f-w-md"><strong>Tags</strong></h4>
-            {{#if item.node.tags}}
-                <div>
-                    {{#each item.node.tags as |tag|}}
-                        <span class="coll-item-tag">{{tag}}</span>
-                    {{/each}}
-                </div>
-            {{else}}
-                <div class="loader text-center">
-                    <div class="loader-inner ball-pulse ball-pulse-dark">
-                      <div></div>
-                      <div></div>
-                      <div></div>
+
+            {{#if constructedItem.viewContent.tags.show}}
+                <h4 class="p-v-md f-w-md"><strong>Tags</strong></h4>
+                {{#if constructedItem.viewContent.tags.loaded}}
+                    <div>
+                        {{#each item.node.tags as |tag|}}
+                            <span class="coll-item-tag">{{tag}}</span>
+                        {{/each}}
                     </div>
-                </div>
+                {{else}}
+                    <div class="loader text-center">
+                        <div class="loader-inner ball-pulse ball-pulse-dark">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
+                    </div>
+                {{/if}}
             {{/if}}
 
             <div class="m-t-md">
