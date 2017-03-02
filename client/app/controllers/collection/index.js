@@ -1,14 +1,8 @@
 import Ember from 'ember';
-import faker from 'faker';
-
-let types = ['project', 'preprint', 'registration', 'file', 'person'];
 
 export default Ember.Controller.extend({
-    searchGuid: '',
     loadingGuid: false,
     organizeMode: false,
-    showAddItemDetails: false,
-    newItemNode: Ember.Object.create(),
     selectedItems : Ember.A(), // List of items selected for actions like delete
     showDeleteConfirmation: false, // Modal for deleting items
     showGroupConfirmation: false, // Modal for grouping
@@ -22,21 +16,6 @@ export default Ember.Controller.extend({
     }),
     list: Ember.computed.union('groups', 'model.items'),
     actions: {
-        findNode () {
-            let self = this;
-            let node = this.store.findRecord('node', this.get('searchGuid')).then(function(item){
-                let nodeObject = self.get('newItemNode');
-                nodeObject.setProperties({
-                    title:  item.get('title'),
-                    description: item.get('description'),
-                    type: item.get('category'),
-                    source_id: item.get('id'),
-                    link: item.get('links.html')
-                });
-                self.toggleProperty('showAddItemDetails');
-            });
-
-        },
         toggleOrganizeMode () {
             this.toggleProperty('organizeMode');
         },
@@ -111,6 +90,9 @@ export default Ember.Controller.extend({
             });
             item.save();
             this.set('showAddItemDetails', false);
+        },
+        changeRoute(path){
+            this.transitionToRoute(path);
         }
     }
 });

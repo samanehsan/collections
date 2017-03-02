@@ -1,33 +1,5 @@
-{{collection-detail model=model}}
-<div class="coll-add-item">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-5 "><h4> Add item to collection </h4></div>
-            <div class="col-sm-4 text-right">{{input class="form-control" value=searchGuid placeholder="Enter Guid"}}</div>
-            <div class="col-sm-3 text-left"><button class="btn btn-success" {{action 'findNode'}}>Find</button></div>
-        </div>
-        {{#if showAddItemDetails}}
-        <div class="coll-find-details p-md">
-            <h4>Title </h4>
-            <p class="m-t-sm">{{newItemNode.title}}</p>
-
-            <h4>Description </h4>
-            <p class="m-t-sm">{{newItemNode.description}}</p>
-
-            <h4>Type </h4>
-            <p class="m-t-sm">{{newItemNode.type}}</p>
-
-            <div class="row">
-                <div class="col-xs-12 text-right">
-                    <button class="btn btn-success" {{action 'addToList'}}>Add to List </button>
-                </div>
-            </div>
-
-        </div>
-        {{/if}}
-    </div>
-</div>
-
+{{collection-detail model=model changeRoute=(action 'changeRoute')}}
+{{add-content model=model}}
 <div class="coll-items">
     <div class="container">
         <div class="row">
@@ -46,9 +18,13 @@
             </div>
         </div>
         <div class="row">
-            {{#each list as |item|}}
-                {{collection-item item=item toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
-            {{/each}}
+            {{#if list}}
+                {{#each list as |item|}}
+                    {{collection-item item=item toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
+                {{/each}}
+            {{else}}
+                <p class="text-center text-muted p-xl"> You do not have any items yet. You can add more using the form above.</p>
+            {{/if}}
         </div>
     </div>
 </div>
@@ -90,7 +66,7 @@
       <div class="modal-body">
         <p> Enter title for Group </p>
         {{input class="form-control" value=groupTitle placeholder="e.g. Microbiology studies"}}
-        <p>The following items will be added to the group:</p>
+        <p class="m-t-md">The following items will be added to the group:</p>
         <ul>
             {{#each selectedItems as |item|}}
                 <li>{{item.title}}</li>
@@ -99,7 +75,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" {{action 'toggleGroupConfirmation'}}>Close</button>
-        <button type="button" class="btn btn-success" {{action 'groupSelected'}}>Group</button>
+        <button type="button" class="btn btn-success {{unless groupTitle 'disabled'}}" {{action 'groupSelected'}}>Group</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

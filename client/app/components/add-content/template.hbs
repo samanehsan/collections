@@ -1,0 +1,13 @@
+<div class="coll-add-choice">
+    <div class="container">
+        <h3> Add content </h3>
+        <div class="choice-group m-t-lg m-b-md p-l-md">
+            <div class="choice-item {{if (eq addActive 'node') 'active'}}" {{action 'setActive' 'node'}}>Project</div>
+            <div class="choice-item {{if (eq addActive 'preprint') 'active'}}" {{action 'setActive' 'preprint'}}>Preprint</div>
+            <div class="choice-item {{if (eq addActive 'registration') 'active'}}" {{action 'setActive' 'registration'}}>Registration</div>
+        </div>
+        <div class="add-panel">
+            {{add-node model=model type=addActive}}
+        </div>
+    </div>
+</div>

@@ -21,9 +21,18 @@ export default Ember.Controller.extend({
                 tags: '',
                 description: ''
             });
-            collection.save().then(record =>
-                this.transitionToRoute('collection', record)
+            collection.save().then(record => {
+                this.set('newCollectionTitle', '');
+                this.set('filterText', '');
+                this.transitionToRoute('collection', record);
+            }
             );
+        },
+        clearFilter(){
+            this.set('filterText', '');
+        },
+        enterPress(){
+            this.get('actions').addCollection.call(this);
         }
     }
 });

@@ -10,6 +10,7 @@ class Collection(models.Model):
     created_by = models.ForeignKey(User)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
+    settings = models.TextField(null=True)
 
 
 class Group(models.Model):
