@@ -10,18 +10,18 @@
                         </button>
                     </div>
                     {{#if (eq addMethod 'select')}}
-                        {{add-node model=model type='preprint'}}
+                        {{add-node model=model type=type}}
                     {{/if}}
                     {{#if (eq addMethod 'create')}}
-                        <div class="p-lg"> Create new preprint </div>
+                        <div class="p-lg"> Create new {{type}} </div>
                     {{/if}}
             {{else}}
                 <div class="row">
                     <div class="col-xs-6">
-                        <div class="p-md add-select-method" {{action 'updateProperty' 'addMethod' 'create'}}> Create a new preprint </div>
+                        <div class="p-md add-select-method" {{action 'updateProperty' 'addMethod' 'create'}}> Create a new {{type}} </div>
                     </div>
                     <div class="col-xs-6">
-                        <div class="p-md add-select-method" {{action 'updateProperty' 'addMethod' 'select'}}> Add existing preprint </div>
+                        <div class="p-md add-select-method" {{action 'updateProperty' 'addMethod' 'select'}}> Add existing {{type}} </div>
                     </div>
                 </div>
             {{/if}}

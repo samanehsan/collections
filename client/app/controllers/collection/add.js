@@ -3,6 +3,10 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
     addMethod: 'select', // 'select' or 'create'
     methodSelected: false,
+    type: Ember.computed('model.settings', function(){
+        let type = this.get('model.settings.collectionType');
+        return  type === 'preprint' ? 'node' : type;
+    }),
     urlTitle: '',
     urlAddress: '',
     urlDescription: '',
