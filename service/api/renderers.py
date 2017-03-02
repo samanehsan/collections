@@ -27,11 +27,12 @@ class CustomJSONRenderer(JSONRenderer):
                 data.update({field_name: resource.get(field_name)})
         # Remove embedded relationship data
         for field in data:
-            ret = {}
-            for key in data[field]:
-                if key != 'data':
-                    ret[key] = data[field][key]
-            data[field] = ret
+            if isinstance(field, RelationshipField):
+                ret = {}
+                for key in data[field]:
+                    if key != 'data':
+                        ret[key] = data[field][key]
+                data[field] = ret
         return utils.format_keys(data)
 
     @staticmethod
