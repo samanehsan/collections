@@ -149,10 +149,15 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
         return Item.objects.get(id=self.kwargs['item_id'])
 
 
-class CollectionUserDetail(generics.RetrieveAPIView):
+class UserList(generics.ListCreateAPIView):
+    serializer_class = UserSerializer
+    permission_classes = (drf_permissions.IsAuthenticatedOrReadOnly, )
+    queryset = User.objects.all()
+
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     permission_classes = (drf_permissions.IsAuthenticatedOrReadOnly, )
 
     def get_object(self):
-        collection = Collection.objects.get(id=self.kwargs['pk'])
-        return User.objects.get(id=collection.created_by_id)
+        return User.objects.get(id=self.kwargs['pk'])

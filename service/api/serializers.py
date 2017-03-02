@@ -130,10 +130,7 @@ class CollectionSerializer(serializers.Serializer):
     title = serializers.CharField(required=True)
     description = serializers.CharField(allow_blank=True)
     tags = serializers.CharField(allow_blank=True)
-    created_by = RelationshipField(
-        related_view='collection-user',
-        related_view_kwargs={'pk': '<pk>'}
-    )
+    created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
     groups = RelationshipField(

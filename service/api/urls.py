@@ -18,5 +18,7 @@ urlpatterns = [
     url(r'^items/$', views.ItemList.as_view(), name='item-list'),
     url(r'^items/(?P<item_id>\w+)/$', views.ItemDetail.as_view(), name='item-detail'),
 
-    url(r'^collections/(?P<pk>\w+)/owner/$', views.CollectionUserDetail.as_view(), name='collection-user'),
+    url(r'^users/$', views.UserList.as_view(), name='user-list'),
+    url(r'^users/(?P<pk>\w+)/$', views.UserDetail.as_view(), name='user-detail'),
+
 ]
