@@ -6,6 +6,9 @@
  import config from 'ember-get-config';
  import loadAll from 'ember-osf/utils/load-relationship';
 
+/*
+ *  Construct the individual data pieces shown to user and their states
+ */
  const ViewData = Ember.Object.extend({
      value: null,
      loaded: false,
@@ -29,6 +32,9 @@
      }
  });
 
+ /*
+  *  Base item variavles and helpers, sets content common to all or most
+  */
  const Item = Ember.Object.extend({
      viewContent : Ember.Object.create({
          title: ViewData.create(),
@@ -57,6 +63,9 @@
      }
  });
 
+ /*
+  *  Builds data points for website type item
+  */
  const Website = Item.extend({
      init(){
          this._super();
@@ -65,6 +74,9 @@
      }
  });
 
+ /*
+  *  Builds data points for project ('node') type item
+  */
  const Project = Item.extend({
      setWiki (){
          let self = this;
@@ -106,6 +118,9 @@
      }
  });
 
+ /*
+  *  Builds data points for preprint type item
+  */
  const Preprint = Item.extend({
      setPreprint(){
          let node = this.get('node');
@@ -129,6 +144,9 @@
      }
  });
 
+ /*
+  *  Builds data points for registration type item
+  */
  const Registration = Item.extend({
      init(){
          this._super();
