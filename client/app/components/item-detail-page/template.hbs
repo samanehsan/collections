@@ -2,10 +2,10 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-10">
-                <h1 class="p-b-md">{{ constructedItem.viewContent.title.value}}</h1>
+                <h1 class="p-b-md">{{ constructedItem.viewContent.title.value}} {{hello}}</h1>
                 <h5 class="view-authors">
                     <ul class="comma-list">
-                        {{#if constructedItem.viewContent.authors.show}}
+                        {{#if constructedItem.viewContent.authors.visible}}
                             {{#if constructedItem.viewContent.authors.loaded}}
                                 {{#each constructedItem.viewContent.authors.value as |author index| ~}}
                                     {{#if author.bibliographic}}
@@ -32,7 +32,7 @@
 <div class="container">
     <div class="row p-t-lg">
             <div class="col-sm-8">
-                {{#if constructedItem.viewContent.file.show}}
+                {{#if constructedItem.viewContent.file.visible}}
                     {{#if constructedItem.viewContent.file.loaded}}
                         <div>
                             {{file-renderer download=constructedItem.viewContent.file.value width="99%" height="1000" allowfullscreen=true}}
@@ -47,7 +47,7 @@
                         </div>
                     {{/if}}
                 {{/if}}
-                {{#if constructedItem.viewContent.wiki.show}}
+                {{#if constructedItem.viewContent.wiki.visible}}
                     {{#if constructedItem.viewContent.wiki.loaded}}
                         <div>
                             <pre style='white-space: pre-wrap; border:none; width:100%; text-align:justify; max-height: 300px;'>
@@ -65,9 +65,9 @@
                     {{/if}}
                 {{/if}}
             </div>
-        <div class="{{if (or constructedItem.viewContent.file.show constructedItem.viewContent.wiki.show) 'col-sm-4' 'col-sm-12'}}">
+        <div class="{{if (or constructedItem.viewContent.file.visible constructedItem.viewContent.wiki.visible) 'col-sm-4' 'col-sm-12'}}">
             <h4 class="p-v-md f-w-md"><strong>Description</strong></h4>
-            {{#if constructedItem.viewContent.description.show}}
+            {{#if constructedItem.viewContent.description.visible}}
                 {{#if constructedItem.viewContent.description.loaded}}
                     <p>{{constructedItem.viewContent.description.value}}</p>
                 {{else}}
@@ -84,7 +84,7 @@
             <h4 class="p-v-md f-w-md"><strong>Status</strong></h4>
             <p class="coll-item-status {{item.status}}"> {{item.status}} </p>
 
-            {{#if constructedItem.viewContent.tags.show}}
+            {{#if constructedItem.viewContent.tags.visible}}
                 <h4 class="p-v-md f-w-md"><strong>Tags</strong></h4>
                 {{#if constructedItem.viewContent.tags.loaded}}
                     <div>

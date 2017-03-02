@@ -5,10 +5,6 @@ export default Ember.Component.extend({
     store: Ember.inject.service(),
     session: Ember.inject.service(),
     constructedItem: null,
-    init(){
-        this._super(...arguments);
-        this.set('constructedItem', null);
-    },
     didReceiveAttrs (){
         let type = this.get('item.type');
         this.set('constructedItem', itemClasses[type].create({

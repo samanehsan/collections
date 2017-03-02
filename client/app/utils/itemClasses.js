@@ -36,14 +36,7 @@
   *  Base item variavles and helpers, sets content common to all or most
   */
  const Item = Ember.Object.extend({
-     viewContent : Ember.Object.create({
-         title: ViewData.create(),
-         description: ViewData.create(),
-         tags: ViewData.create(),
-         authors: ViewData.create(),
-         wiki: ViewData.create({visible:false}),
-         file: ViewData.create({visible:false})
-     }),
+     viewContent : null,
      setAuthors() {
          const contributors = Ember.A();
          const node = this.get('node');
@@ -58,7 +51,18 @@
          this.get('viewContent.tags').setValue(node.get('tags'));
          this.setAuthors();
      },
+     resetContent(){
+         this.set('viewContent', Ember.Object.create({
+            title: ViewData.create(),
+            description: ViewData.create(),
+            tags: ViewData.create(),
+            authors: ViewData.create(),
+            wiki: ViewData.create({visible:false}),
+            file: ViewData.create({visible:false})
+        }));
+     },
      init (){
+         this.resetContent();
          this.get('viewContent.title').setValue(this.get('item.title'));
      }
  });
@@ -69,8 +73,9 @@
  const Website = Item.extend({
      init(){
          this._super();
-         this.set('description', this.get('item.metadata'));
+         this.get('viewContent.description').setValue(this.get('item.metadata'));
          this.get('viewContent.tags').hide();
+         this.get('viewContent.authors').hide();
      }
  });
 
