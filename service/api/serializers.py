@@ -46,19 +46,24 @@ class ItemSerializer(serializers.Serializer):
         user = self.context['request'].user
         collection_id = self.context.get('collection_id', None) or self.context['request'].parser_context['kwargs'].get('pk', None)
         collection = Collection.objects.get(id=collection_id)
-        collection_type = json.loads(collection.settings)['type']
 
-        if validated_data['type'] != collection_type:
-            raise ValueError('Collection only accepts items of type ' + collection_type)
+        allow_all = None
+        if collection.settings:
+            collection_settings = json.loads(collection.settings)
+            allow_all = collection_settings.get('allow_all', None)
+            collection_type = collection_settings.get('type', None)
+            if collection_type and validated_data['type'] != collection_type:
+                raise ValueError('Collection only accepts items of type ' + collection_type)
+
+        status = 'pending'
+        if user.id == collection.created_by_id or allow_all:
+            status = 'approved'
+            validated_data['date_added'] = datetime.datetime.now()
 
         group_id = self.context.get('group_id', None) or self.context['request'].parser_context['kwargs'].get('group_id', None)
         if group_id:
             validated_data['group'] = Group.objects.get(id=group_id)
-        status = 'pending'
-        allow_all = json.loads(collection.settings)['allow_all']
-        if user.id == collection.created_by_id or allow_all:
-            status = 'approved'
-            validated_data['date_added'] = datetime.datetime.now()
+
         validated_data['status'] = status
         item = Item.objects.create(
             created_by=user,
@@ -87,15 +92,16 @@ class ItemSerializer(serializers.Serializer):
         else:
             group = None
 
-        collection_type = json.loads(collection.settings)['type']
-        type = validated_data.get('type', item.type)
-        if type != collection_type:
-            raise ValueError('Collection only accepts items of type ' + collection_type)
+        item_type = validated_data.get('type', item.type)
+        if collection.settings:
+            collection_type = json.loads(collection.settings).get('type', None)
+            if collection_type and item_type != collection_type:
+                raise ValueError('Collection only accepts items of type ' + collection_type)
 
         item.group = group
         item.source_id = validated_data.get('source_id', item.source_id)
         item.title = validated_data.get('title', item.title)
-        item.type = type
+        item.type = item_type
         item.status = status
         item.url = validated_data.get('url', item.url)
         item.metadata = validated_data.get('metadata', item.metadata)
