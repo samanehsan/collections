@@ -16,11 +16,13 @@ client/libpeerconnection.log
 client/npm-debug.log
 client/testem.log
 
+.python-version
 *.pyc
 local.py
 client/config/local.yaml
 db.sqlite3
 local.yml
 0001_initial.py
-service/api/migrations/__init__.py
+migrations/*
+!migrations/__init__.py
 tmp
