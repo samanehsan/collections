@@ -2,8 +2,8 @@ import json
 import datetime
 from rest_framework import exceptions
 from rest_framework_json_api import serializers
-from models import Collection, Group, Item, User
-from base.serializers import RelationshipField
+from api.models import Collection, Group, Item, User
+from api.base.serializers import RelationshipField
 
 
 class UserSerializer(serializers.Serializer):
@@ -18,14 +18,9 @@ class UserSerializer(serializers.Serializer):
         resource_name = 'users'
 
     def create(self, validated_data):
-        _id = validated_data['id']
-        username = validated_data['username']
-        email = validated_data['email']
         return User.objects.create_user(
-            id=_id,
-            username=username,
-            email=email,
-            password='password'
+            password='password',
+            **validated_data
         )
 
 

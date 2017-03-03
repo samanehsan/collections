@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Collection, Item
+from api.models import Collection, Item
 
 
 def approve_item(modeladmin, request, queryset):

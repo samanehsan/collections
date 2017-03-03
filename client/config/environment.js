@@ -52,5 +52,9 @@ module.exports = function(environment) {
 
   }
 
+  ENV['simple-auth'] = {
+    crossOriginWhitelist: [ENV.APP.apiURL]
+  };
+
   return ENV;
 };
