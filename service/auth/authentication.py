@@ -1,7 +1,8 @@
-from django.contrib.auth.models import User
-from rest_framework import authentication
-from django.core.exceptions import ObjectDoesNotExist
 import requests
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import get_user_model
+from rest_framework import authentication
+
 
 class OSFAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
@@ -15,10 +16,10 @@ class OSFAuthentication(authentication.BaseAuthentication):
             return None
 
         user_id = osf_user.json()['data']['id']
-
+        user_model = get_user_model()
         try:
-            user = User.objects.get(username=user_id)
+            user = user_model.objects.get(id=user_id, username=user_id)
         except ObjectDoesNotExist:
-            user = User.objects.create_user(username=user_id)
+            user = user_model.objects.create_user(id=user_id, username=user_id)
 
         return (user, None)
