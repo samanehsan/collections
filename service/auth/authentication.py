@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import authentication
-from rest_framework import exceptions
-from django.contrib.auth import login
+from django.core.exceptions import ObjectDoesNotExist
 import requests
 
 class OSFAuthentication(authentication.BaseAuthentication):
