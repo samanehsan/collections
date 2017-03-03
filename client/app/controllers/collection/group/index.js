@@ -21,7 +21,7 @@ export default Ember.Controller.extend({
                 item.set('group', null);
                 item.save();
             });
-            this.sendAction('deleteGroup');
+            this.send('deleteGroup');
         },
         deleteGroup(){
             // Delete group and any items it contains
