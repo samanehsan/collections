@@ -36,8 +36,8 @@
             {{/each}}
         </div>
         <p>Created by: {{model.created_by.username}} </p>
-        <p>Date created: {{model.dateCreatedReadable}} </p>
-        <p>Date updated : {{model.dateUpdatedReadable}}</p>
+        <p>Date created: {{model.dateCreated}} </p>
+        <p>Date updated : {{model.dateUpdated}}</p>
         <div class="pull-right">
             <button class="btn btn-danger btn-collection" {{action toggleProperty 'showDeleteConfirmation'}}> <i class="fa fa-times"></i> Delete </button>
 
