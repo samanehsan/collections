@@ -103,9 +103,22 @@
                 {{/if}}
             {{/if}}
 
-            <div class="m-t-md">
-                <a href="{{item.node.links.html}}" class="btn btn-default btn-block"> Go to Source</a>
-            </div>
+            {{#if constructedItem.viewContent.sourceLink.visible}}
+                {{#if constructedItem.viewContent.sourceLink.loaded}}
+                    <div class="m-t-md">
+                        <a href="{{onstructedItem.viewContent.sourceLink.value}}" class="btn btn-default btn-block"> Go to Source</a>
+                    </div>
+                {{else}}
+                    <div class="loader text-center">
+                        <div class="loader-inner ball-pulse ball-pulse-dark">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
+                    </div>
+                {{/if}}
+            {{/if}}
+
         </div>
 
     </div>

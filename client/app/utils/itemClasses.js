@@ -57,6 +57,7 @@
             description: ViewData.create(),
             tags: ViewData.create(),
             authors: ViewData.create(),
+            sourceLink: ViewData.create(),
             wiki: ViewData.create({visible:false}),
             file: ViewData.create({visible:false})
         }));
@@ -74,6 +75,7 @@
      init(){
          this._super();
          this.get('viewContent.description').setValue(this.get('item.metadata'));
+         this.get('viewContent.sourceLink').setValue(this.get('item.source_id'));
          this.get('viewContent.tags').hide();
          this.get('viewContent.authors').hide();
      }

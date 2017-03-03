@@ -1,12 +1,7 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
-    addMethod: 'select', // 'select' or 'create'
-    methodSelected: false,
-    type: Ember.computed('model.settings', function(){
-        let type = this.get('model.settings.collectionType').toLowerCase;
-        return  type === 'preprint' || type === 'project' ? 'node' : type;
-    }),
+export default Ember.Component.extend({
+    store: Ember.inject.service(),
     urlTitle: '',
     urlAddress: '',
     urlDescription: '',
@@ -16,10 +11,6 @@ export default Ember.Controller.extend({
         this.set('urlAddress', '');
     },
     actions:{
-        updateProperty(oldValue, newValue){
-            this.set(oldValue, newValue);
-            this.set('methodSelected', true); // Change view to show the methods
-        },
         addWebsite (){
             let self = this;
             let item = this.get('store').createRecord('item', {
