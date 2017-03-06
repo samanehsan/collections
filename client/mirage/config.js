@@ -6,7 +6,6 @@ export default function() {
     });
 
     this.post('/collections', (schema, request) => {
-    console.log('requesr', request, schema);
       let title = request.requestBody.split('&')[0].split('=')[1].split('+').join(' ');
       return schema.collections.create({
           title: title,

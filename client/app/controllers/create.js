@@ -21,7 +21,6 @@ export default Ember.Controller.extend({
         },
         updateType (value){
             this.set('selectedType', value);
-            console.log(this.get('selectedType'));
         }
     }
 });
