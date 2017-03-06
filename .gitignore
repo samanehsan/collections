@@ -17,6 +17,7 @@ client/npm-debug.log
 client/testem.log
 
 *.pyc
+local.py
 client/config/local.yaml
 db.sqlite3
 local.yml
