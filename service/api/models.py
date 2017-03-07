@@ -16,6 +16,11 @@ class Collection(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
     settings = models.TextField(null=True)
 
+    class Meta:
+        permissions = (
+            ('approve_items', 'Approve items'),
+        )
+
 
 class Group(models.Model):
     title = models.TextField()

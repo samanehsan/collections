@@ -4,6 +4,7 @@ from rest_framework import exceptions
 from rest_framework_json_api import serializers
 from api.models import Collection, Group, Item, User
 from api.base.serializers import RelationshipField
+from guardian.shortcuts import assign_perm
 
 
 class UserSerializer(serializers.Serializer):
@@ -56,7 +57,7 @@ class ItemSerializer(serializers.Serializer):
                 raise ValueError('Collection only accepts items of type ' + collection_type)
 
         status = 'pending'
-        if user.id == collection.created_by_id or allow_all:
+        if user.has_perm('api.approve_items', collection) or allow_all:
             status = 'approved'
             validated_data['date_added'] = datetime.datetime.now()
 
@@ -81,7 +82,7 @@ class ItemSerializer(serializers.Serializer):
         else:
             collection = item.collection
 
-        if status != item.status and user.id != collection.created_by_id:
+        if status != item.status and user.has_perm('api.approve_items', collection):
             raise exceptions.PermissionDenied(detail='Cannot change submission status.')
         elif user.id != item.created_by_id and validated_data.keys() != ['status']:
             raise exceptions.PermissionDenied(detail='Cannot update another user\'s submission.')
@@ -172,12 +173,14 @@ class CollectionSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
-        return Collection.objects.create(created_by=user, **validated_data)
+        collection = Collection.objects.create(created_by=user, **validated_data)
+        assign_perm('api.approve_items', user, collection)
+        return collection
 
     def update(self, collection, validated_data):
         collection.title = validated_data.get('title', collection.title)
         collection.description = validated_data.get('description', collection.description)
         collection.tags = validated_data.get('tags', collection.tags)
-        collection.settings = validated_data('settings', collection.settings)
+        collection.settings = validated_data.get('settings', collection.settings)
         collection.save()
         return collection

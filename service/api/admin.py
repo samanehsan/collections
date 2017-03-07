@@ -1,5 +1,6 @@
 from django.contrib import admin
 from api.models import Collection, Item
+from guardian.shortcuts import get_objects_for_user
 
 
 def approve_item(modeladmin, request, queryset):
@@ -12,6 +13,7 @@ class ItemAdmin(admin.ModelAdmin):
 
     def get_search_results(self, request, queryset, search_term):
         user = request.user
-        return self.model.objects.filter(collection__created_by=user), True
+        collections = get_objects_for_user(user, 'api.approve_items')
+        return self.model.objects.filter(collection__in=collections), True
 
 admin.site.register(Item, ItemAdmin)
