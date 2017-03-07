@@ -5,14 +5,14 @@ from django.contrib.auth.models import User
 
 
 class OSFTokenAuthMiddleware(object):
-
+    """ This middlewre would be required if there is a view that does not use DRF, but does require authentication. """
     def process_request(self, request):
         osf_bearer_token = request.META.get('HTTP_AUTHORIZATION', None)
         if not osf_bearer_token:
             return None
 
         osf_user = requests.get('https://staging-api.osf.io/v2/users/me/', headers={'Authorization': 'Bearer ' + osf_bearer_token})
-        if osf_user.status_code is not 200:
+        if osf_user.status_code != 200:
             return None
 
         user_id = osf_user.json()['data']['id']

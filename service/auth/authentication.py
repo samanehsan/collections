@@ -1,8 +1,8 @@
-from django.contrib.auth.models import User
-from rest_framework import authentication
-from rest_framework import exceptions
-from django.contrib.auth import login
 import requests
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import get_user_model
+from rest_framework import authentication
+
 
 class OSFAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
@@ -10,20 +10,16 @@ class OSFAuthentication(authentication.BaseAuthentication):
         if not osf_bearer_token:
             return None
 
-        print("starting DRF authenticator")
         osf_user = requests.get('https://staging-api.osf.io/v2/users/me/', headers={'Authorization': 'Bearer ' + osf_bearer_token})
-        print("about to return from drf authenticator")
 
-        if osf_user.status_code is not 200:
+        if osf_user.status_code != 200:
             return None
 
         user_id = osf_user.json()['data']['id']
-
+        user_model = get_user_model()
         try:
-            user = User.objects.get(username=user_id)
+            user = user_model.objects.get(id=user_id, username=user_id)
         except ObjectDoesNotExist:
-            user = User.objects.create_user(username=user_id)
+            user = user_model.objects.create_user(id=user_id, username=user_id)
 
-        #user.backend = 'django.contrib.auth.backends.ModelBackend' # Hack to allow login without authentication
-        #login(request, user)
         return (user, None)
