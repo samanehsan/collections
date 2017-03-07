@@ -75,7 +75,7 @@
      init(){
          this._super();
          this.get('viewContent.description').setValue(this.get('item.metadata'));
-         this.get('viewContent.sourceLink').setValue(this.get('item.source_id'));
+         this.get('viewContent.sourceLink').setValue(this.get('item.url'));
          this.get('viewContent.tags').hide();
          this.get('viewContent.authors').hide();
      }
