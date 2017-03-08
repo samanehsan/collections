@@ -42,10 +42,15 @@ class Item(models.Model):
         ('file', 'file'),
         ('website', 'website')
     )
+    STATUS = (
+        ('approved', 'approved'),
+        ('pending', 'pending'),
+        ('rejected', 'rejected')
+    )
     source_id = models.TextField()
     title = models.TextField()
     type = models.TextField(choices=TYPES)
-    status = models.TextField()
+    status = models.TextField(choices=STATUS)
     url = models.URLField()
     collection = models.ForeignKey(to='Collection', related_name='items')
     group = models.ForeignKey(to='Group', null=True, blank=True, default=None, related_name='items')
