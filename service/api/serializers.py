@@ -1,5 +1,5 @@
 import json
-import datetime
+from django.utils import timezone
 from rest_framework import exceptions
 from rest_framework_json_api import serializers
 from api.models import Collection, Group, Item, User
@@ -58,7 +58,7 @@ class ItemSerializer(serializers.Serializer):
         status = 'pending'
         if user.id == collection.created_by_id or allow_all:
             status = 'approved'
-            validated_data['date_added'] = datetime.datetime.now()
+            validated_data['date_added'] = timezone.now()
 
         group_id = self.context.get('group_id', None) or self.context['request'].parser_context['kwargs'].get('group_id', None)
         if group_id:
