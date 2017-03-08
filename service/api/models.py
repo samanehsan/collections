@@ -35,9 +35,16 @@ class Group(models.Model):
 
 
 class Item(models.Model):
+    TYPES = (
+        ('project', 'project'),
+        ('preprint', 'preprint'),
+        ('registration', 'registration'),
+        ('file', 'file'),
+        ('website', 'website')
+    )
     source_id = models.TextField()
     title = models.TextField()
-    type = models.TextField()
+    type = models.TextField(choices=TYPES)
     status = models.TextField()
     url = models.URLField()
     collection = models.ForeignKey(to='Collection', related_name='items')
