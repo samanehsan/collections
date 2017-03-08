@@ -21,6 +21,9 @@ class Collection(models.Model):
             ('approve_items', 'Approve items'),
         )
 
+    def __str__(self):
+        return self.title
+
 
 class Group(models.Model):
     title = models.TextField()
