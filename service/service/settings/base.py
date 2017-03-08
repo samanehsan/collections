@@ -123,6 +123,7 @@ REST_FRAMEWORK = {
     'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'auth.authentication.OSFAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
     )
 }
 
