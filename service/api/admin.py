@@ -15,7 +15,11 @@ def add_admins(modeladmin, request, queryset):
     collection_id = request.POST.get('collection_id')
     collection = Collection.objects.get(id=collection_id)
     for user in queryset:
+        # Add permissions to view/change items through django admin
         assign_perm('api.approve_items', user, collection)
+        assign_perm('api.change_item', user)
+        user.is_staff = True
+        user.save()
 
 
 class AdminForm(ActionForm):
