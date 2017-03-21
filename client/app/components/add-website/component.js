@@ -9,6 +9,7 @@ export default Ember.Component.extend({
     clearInputs () {
         this.set('urlTitle', '');
         this.set('urlAddress', '');
+        this.set('urlDescription', '');
     },
     actions:{
         addWebsite (){
