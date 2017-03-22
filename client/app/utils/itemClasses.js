@@ -53,7 +53,9 @@
          } else {
              this.get('viewContent.tags').setValue(tags);
          }
-         if(!this.get('viewContent.sourceLink.value')){
+         if(node.get('links.html')){
+             this.get('viewContent.sourceLink').setValue(node.get('links.html'));
+         } else {
              this.get('viewContent.sourceLink').set('visible', false);
          }
          this.setAuthors();
