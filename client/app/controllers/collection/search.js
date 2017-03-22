@@ -5,14 +5,13 @@ export default Ember.Controller.extend({
     results: Ember.A(),
     actions: {
         search () {
-            let self = this;
             let text = this.get('searchText');
             this.get('store').query('item', {
               filter: {
                 title: text
               }
-            }).then(function(results) {
-              self.set('results', results);
+          }).then(results => {
+              this.set('results', results);
             });
         }
     }

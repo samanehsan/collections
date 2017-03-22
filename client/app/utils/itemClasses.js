@@ -40,9 +40,8 @@
      setAuthors() {
          const contributors = Ember.A();
          const node = this.get('node');
-         let self = this;
-         loadAll(node, 'contributors', contributors).then(function (){
-             self.get('viewContent.authors').setValue(contributors);
+         loadAll(node, 'contributors', contributors).then(() => {
+             this.get('viewContent.authors').setValue(contributors);
          });
      },
      setCommonNodeContent(node){
@@ -86,17 +85,16 @@
   */
  const Project = Item.extend({
      setWiki (){
-         let self = this;
          let node = this.get('node');
          let wikis = node.get('wikis');
-         self.get('viewContent.wiki').show();
+         this.get('viewContent.wiki').show();
          if(wikis){
-             wikis.then(function(result){
+             wikis.then(result => {
                  if(result.objectAt(0)){
                      let url = result.objectAt(0).get('links.download');
                      let headers = {};
                      let authType = config['ember-simple-auth'].authorizer;
-                     self.get('session').authorize(authType, (headerName, content) => {
+                     this.get('session').authorize(authType, (headerName, content) => {
                          headers[headerName] = content;
                      });
 
@@ -105,22 +103,21 @@
                          headers,
                          url
                      }).done(data => {
-                         self.get('viewContent.wiki').setValue(data);
+                         this.get('viewContent.wiki').setValue(data);
                      });
                  } else {
-                     self.get('viewContent.wiki').setValue('This project does not have wikis.');
+                     this.get('viewContent.wiki').setValue('This project does not have wikis.');
                  }
-             }.bind(this));
+             });
          } else {
-             self.get('viewContent.wiki').setValue('Could not find wiki for this project.');
+             this.get('viewContent.wiki').setValue('Could not find wiki for this project.');
          }
      },
      init(){
          this._super();
-         let self = this;
-         this.get('store').findRecord('node', this.get('item.source_id')).then(function(node){
-             self.setCommonNodeContent(node);
-             self.setWiki();
+         this.get('store').findRecord('node', this.get('item.source_id')).then(node => {
+             this.setCommonNodeContent(node);
+             this.setWiki();
          });
      }
  });
@@ -142,10 +139,9 @@
      },
      init(){
          this._super();
-         let self = this;
-         this.get('store').findRecord('node', this.get('item.source_id')).then(function(node){
-             self.setCommonNodeContent(node);
-             self.setPreprint();
+         this.get('store').findRecord('node', this.get('item.source_id')).then(node => {
+             this.setCommonNodeContent(node);
+             this.setPreprint();
          });
 
      }
@@ -157,9 +153,8 @@
  const Registration = Item.extend({
      init(){
          this._super();
-         let self = this;
-         this.get('store').findRecord('registration', this.get('item.source_id')).then(function(node){
-             self.setCommonNodeContent(node);
+         this.get('store').findRecord('registration', this.get('item.source_id')).then(node => {
+             this.setCommonNodeContent(node);
          });
      }
  });
