@@ -13,7 +13,6 @@ export default Ember.Component.extend({
     },
     actions:{
         addWebsite (){
-            let self = this;
             let item = this.get('store').createRecord('item', {
                 title: this.get('urlTitle'),
                 type: 'website',
@@ -23,10 +22,10 @@ export default Ember.Component.extend({
                 source_id: this.get('urlAddress'),
                 collection : this.get('model')
             });
-            item.save().then(function(){
-                self.transitionToRoute('collection', self.get('model.id'));
-            }).catch(function(error){
-                self.set('urlSaveErrors', error.errors);
+            item.save().then(() => {
+                this.get('transition')('collection', this.get('model.id'));
+            }).catch((error) => {
+                this.set('urlSaveErrors', error.errors);
             });
             this.clearInputs();
         }

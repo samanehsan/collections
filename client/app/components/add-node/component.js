@@ -78,7 +78,9 @@ export default Ember.Component.extend({
                 source_id: nodeObject.get('source_id'),
                 collection : this.get('model')
             });
-            item.save();
+            item.save().then(() => {
+                this.get('transition')('collection', this.get('model.id'));
+            });
             this.clearView();
             this.clearFilters();
         },

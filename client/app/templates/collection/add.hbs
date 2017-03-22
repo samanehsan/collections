@@ -3,7 +3,7 @@
         <h3> Add content </h3>
         <div class="add-panel m-t-lg p-md">
             {{#if (eq model.settings.collectionType 'Website')}}
-                {{add-website model=model}}
+                {{add-website model=model transition=(action "transition")}}
             {{else}}
                 {{#if methodSelected}}
                         <div class="pointer p-md" {{action toggleProperty 'methodSelected'}}>
@@ -13,7 +13,7 @@
                             </button>
                         </div>
                         {{#if (eq addMethod 'select')}}
-                            {{add-node model=model type=type}}
+                            {{add-node model=model type=type transition=(action "transition")}}
                         {{/if}}
                         {{#if (eq addMethod 'create')}}
                             <div class="p-lg"> Create new {{type}} </div>
