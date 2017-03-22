@@ -47,7 +47,15 @@
      setCommonNodeContent(node){
          this.set('node', node);
          this.get('viewContent.description').setValue(node.get('description'));
-         this.get('viewContent.tags').setValue(node.get('tags'));
+         let tags = node.get('tags');
+         if(tags.length === 0){
+             this.get('viewContent.tags').set('visible', false);
+         } else {
+             this.get('viewContent.tags').setValue(tags);
+         }
+         if(!this.get('viewContent.sourceLink.value')){
+             this.get('viewContent.sourceLink').set('visible', false);
+         }
          this.setAuthors();
      },
      resetContent(){
