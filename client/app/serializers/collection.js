@@ -1,8 +1,7 @@
 import ApplicationSerializer from './application';
 
 export default ApplicationSerializer.extend({
-    normalizeResponse(store, primaryModelClass, payload, id, requestType) {
-
+    normalizeResponse(store, primaryModelClass, payload) {
         if(Array.isArray(payload.data)){
             payload.data.forEach(function(collection){
               collection.attributes.settings = JSON.parse(collection.attributes.settings);
@@ -11,5 +10,10 @@ export default ApplicationSerializer.extend({
             payload.data.attributes.settings = JSON.parse(payload.data.attributes.settings);
         }
         return this._super(...arguments);
+    },
+    serialize(){
+        let json = this._super(...arguments);
+        json.data.attributes.settings = JSON.stringify(json.data.attributes.settings);
+        return json;
     }
 });
