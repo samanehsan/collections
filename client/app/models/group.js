@@ -5,7 +5,7 @@ export default DS.Model.extend({
     description: DS.attr('string'),
     collection: DS.belongsTo('collection'),
     tags: DS.attr('string'),
-    created_by: DS.belongsTo('user'),
+    createdBy: DS.belongsTo('user'),
     dateCreated: DS.attr('date'),
     dateUpdated: DS.attr('date'),
     items: DS.hasMany('item')

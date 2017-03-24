@@ -8,7 +8,7 @@ export default DS.Model.extend({
     url: DS.attr('string'),
     collection: DS.belongsTo('collection'),
     group: DS.belongsTo('group'),
-    created_by: DS.belongsTo('user'),
+    createdBy: DS.belongsTo('user'),
     metadata: DS.attr('string'),
     dateAdded: DS.attr('date'),
     dateUpdated: DS.attr('date')
