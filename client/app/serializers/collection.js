@@ -13,7 +13,9 @@ export default ApplicationSerializer.extend({
     },
     serialize(){
         let json = this._super(...arguments);
-        json.data.attributes.settings = JSON.stringify(json.data.attributes.settings);
+        if(typeof json.data.attributes.settings !== 'string'){
+            json.data.attributes.settings = JSON.stringify(json.data.attributes.settings);            
+        }
         return json;
     }
 });

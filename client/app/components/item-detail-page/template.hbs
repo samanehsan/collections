@@ -88,7 +88,7 @@
                 <h4 class="p-v-md f-w-md"><strong>Tags</strong></h4>
                 {{#if constructedItem.viewContent.tags.loaded}}
                     <div>
-                        {{#each item.node.tags as |tag|}}
+                        {{#each constructedItem.viewContent.tags.value as |tag|}}
                             <span class="coll-item-tag">{{tag}}</span>
                         {{/each}}
                     </div>
