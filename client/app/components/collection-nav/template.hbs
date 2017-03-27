@@ -1,7 +1,16 @@
 <div class="coll-navbar">
     <div class="container">
         <div class="coll-navbar-inner">
-            {{#link-to "index"}}OSF Collections{{/link-to}}
+            <div class="navbar-header">
+                {{#link-to "collection" model.id class="navbar-brand"}}{{model.title}}{{/link-to}}
+            </div>
+            <div class="navbar navbar-right">
+                <ul class="nav navbar-nav">
+                    <li>{{#link-to "collection.add"}}Add content {{/link-to}}</li>
+                    <li>{{#link-to "collection.search"}} Search {{/link-to}}</li>
+                </ul>
+
+            </div>
         </div>
     </div>
 </div>

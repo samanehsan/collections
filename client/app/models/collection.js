@@ -7,6 +7,7 @@ export default DS.Model.extend({
     created_by: DS.belongsTo('user'),
     dateCreated: DS.attr('date'),
     dateUpdated: DS.attr('date'),
+    settings: DS.attr('object'),
     groups: DS.hasMany('group'),
     items: DS.hasMany('items')
 });

@@ -39,28 +39,27 @@ export default Ember.Component.extend({
     },
     actions: {
         findNode () {
-            let self = this;
             if(!this.get('searchGuid')){
                 return;
             }
             this.clearView();
             this.set('loadingItem', true);
             let recordType = this.get('type');
-            this.get('store').findRecord(recordType, this.get('searchGuid')).then(function(item){
+            this.get('store').findRecord(recordType, this.get('searchGuid')).then(item => {
                 if(recordType === 'preprint'){
-                    item.get('node').then(function(node){
+                    item.get('node').then(node => {
                         item.set('title', node.get('title'));
-                        self.buildNodeObject(item);
+                        this.buildNodeObject(item);
                     });
                 } else {
-                    self.buildNodeObject(item);
+                    this.buildNodeObject(item);
                 }
-                self.set('showAddItemDetails', true);
-                self.set('loadingItem', false);
-            }).catch(function(error){
-                self.clearView();
-                self.clearFilters();
-                self.set('findItemError', error.errors);
+                this.set('showAddItemDetails', true);
+                this.set('loadingItem', false);
+            }).catch(error => {
+                this.clearView();
+                this.clearFilters();
+                this.set('findItemError', error.errors);
             });
 
         },
@@ -78,12 +77,13 @@ export default Ember.Component.extend({
                 source_id: nodeObject.get('source_id'),
                 collection : this.get('model')
             });
-            item.save();
+            item.save().then(() => {
+                this.get('transition')('collection', this.get('model.id'));
+            });
             this.clearView();
             this.clearFilters();
         },
         searchNode () {
-            let self = this;
             let filterText = this.get('searchFilter');
             if(!filterText){
                 return;
@@ -96,14 +96,14 @@ export default Ember.Component.extend({
             if(this.get('type') === 'preprint'){
                 filter['filter[preprint]'] = true;
             }
-            this.get('store').query(recordType, filter).then(function(results){
-                self.set('results', results);
-                self.set('loadingItem', false);
-                self.set('showResults', true);
-            }).catch(function(error){
-                self.clearView();
-                self.clearFilters();
-                self.set('findItemError', error.errors);
+            this.get('store').query(recordType, filter).then(results => {
+                this.set('results', results);
+                this.set('loadingItem', false);
+                this.set('showResults', true);
+            }).catch(error => {
+                this.clearView();
+                this.clearFilters();
+                this.set('findItemError', error.errors);
             });
         },
         enterPressSearch(){
