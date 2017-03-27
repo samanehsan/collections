@@ -2,6 +2,7 @@ appnope==0.1.0
 decorator==4.0.11
 Django==1.10.5
 django-cors-headers==2.0.2
+django-guardian==1.4.6
 djangorestframework==3.5.4
 djangorestframework-jsonapi==2.1.1
 inflection==0.3.1

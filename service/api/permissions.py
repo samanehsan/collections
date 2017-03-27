@@ -31,5 +31,5 @@ class CanEditItem(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         elif request.method == 'PATCH':
-            return user.id == obj.created_by_id or user.id == collection.created_by_id
+            return user.id == obj.created_by_id or user.has_perm('api.approve_items', collection)
         return user.id == obj.created_by_id

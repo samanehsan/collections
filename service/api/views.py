@@ -1,5 +1,7 @@
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics
+from rest_framework import exceptions as drf_exceptions
 from rest_framework import permissions as drf_permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -32,13 +34,18 @@ class CollectionList(generics.ListCreateAPIView):
 
 class CollectionDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CollectionSerializer
+    queryset = Collection.objects.all()
     permission_classes = (
       drf_permissions.IsAuthenticatedOrReadOnly,
       CanEditCollection
     )
 
     def get_object(self):
-        return Collection.objects.get(id=self.kwargs['pk'])
+        try:
+            collection = Collection.objects.get(id=self.kwargs['pk'])
+        except ObjectDoesNotExist:
+            raise drf_exceptions.NotFound
+        return collection
 
 
 class CollectionGroupList(generics.ListCreateAPIView):
@@ -71,13 +78,18 @@ class GroupList(generics.ListCreateAPIView):
 
 class GroupDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = GroupSerializer
+    queryset = Group.objects.all()
     permission_classes = (
       drf_permissions.IsAuthenticatedOrReadOnly,
       CanEditGroup
     )
 
     def get_object(self):
-        return Group.objects.get(id=self.kwargs['group_id'])
+        try:
+            group = Group.objects.get(id=self.kwargs['group_id'])
+        except ObjectDoesNotExist:
+            raise drf_exceptions.NotFound
+        return group
 
 
 class CollectionItemList(generics.ListCreateAPIView):
@@ -130,6 +142,7 @@ class ItemList(generics.ListCreateAPIView):
 
 class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ItemSerializer
+    queryset = Item.objects.all()
     permission_classes = (
       drf_permissions.IsAuthenticatedOrReadOnly,
       CanEditItem
@@ -149,4 +162,8 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
         return context
 
     def get_object(self):
-        return Item.objects.get(id=self.kwargs['item_id'])
+        try:
+            item = Item.objects.get(id=self.kwargs['item_id'])
+        except ObjectDoesNotExist:
+            raise drf_exceptions.NotFound
+        return item
