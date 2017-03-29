@@ -1,1 +1,14 @@
-{{yield}}
+<div class="landing-board-wrapper p-xl" style="background:{{branding.colors.background}}; color: {{branding.colors.backgroundText}}">
+    <div class="container">
+        <h2> {{componentSettings.title}}</h2>
+        <div class="row">
+            <div class="col-xs-6">
+                <ul>
+                    {{#each componentSettings.data as |person|}}
+                        <li><b>{{person.firstName}} {{person.lastName}}</b>, {{person.institution}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

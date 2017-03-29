@@ -1,1 +1,15 @@
-{{yield}}
+<div class="landing-hero-container p-xl" style="background:{{branding.colors.background}}; color: {{branding.colors.backgroundText}}">
+    <div class="container">
+       <div class="row">
+           <div class="text-center m-t-lg col-xs-12">
+               <div class="preprint-brand"></div>
+               {{#if componentSettings.useLogo}}
+                    <div style="background:url({{branding.logo.url}}) center no-repeat; height: {{branding.logo.height}}" aria-role="img" aria-label="{{branding.logo.label}}"></div>
+               {{else}}
+                    <h2>{{componentSettings.title}}</h2>
+               {{/if}}
+               <p class="lead">{{componentSettings.tagline}}</p>
+           </div>
+       </div>
+    </div>
+</div>

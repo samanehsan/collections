@@ -1,1 +1,3 @@
-Some index her e...
+{{#each model.landingSettings.landingComponents as |view|}}
+    {{component view.type model=model componentSettings=view branding=model.landingSettings.branding}}
+{{/each}}
