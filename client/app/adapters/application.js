@@ -1,5 +1,5 @@
+import Ember from 'ember';
 import DS from 'ember-data';
-import config from '../config/environment';
 
 
 function getToken() {
@@ -12,7 +12,7 @@ function getToken() {
         }
         return token;
     }
-};
+}
 
 export default DS.JSONAPIAdapter.extend({
 

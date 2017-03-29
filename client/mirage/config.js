@@ -1,7 +1,7 @@
 export default function() {
     this.namespace = '/api';
 
-    this.get('/collections', (schema, request) => {
+    this.get('/collections', (schema) => {
       return schema.collections.all();
     });
 

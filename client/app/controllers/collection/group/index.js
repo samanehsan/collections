@@ -3,7 +3,6 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
     organizeMode: false,
     selectedItems : Ember.A(),
-    showDeleteGroupConfirmation: false, // Modal for deleting group
     showDeleteItemConfirmation: false, // Modal for deleting items
     actions : {
         clearSelected() {
@@ -11,25 +10,7 @@ export default Ember.Controller.extend({
             selected.clear();
         },
         clearModals() {
-              this.set('showDeleteGroupConfirmation', false);
               this.set('showDeleteItemConfirmation', false);
-          },
-        deletePartial(){
-            // Move items to collection before deleting group
-            let items = this.get('model.items');
-            items.forEach(item => {
-                item.set('group', null);
-                item.save();
-            });
-            this.send('deleteGroup');
-        },
-        deleteGroup(){
-            // Delete group and any items it contains
-            let collection = this.get('model.collection');
-            this.get('model').destroyRecord().then(() =>
-              this.transitionToRoute('collection', collection)
-            );
-            this.send('clearModals');
         },
         deleteSelected() {
             let items = this.get('model.items');
@@ -51,6 +32,9 @@ export default Ember.Controller.extend({
                 currentList.addObject(item);
             }
 
+        },
+        changeRoute(path){
+            this.transitionToRoute(path);
         }
     }
 });
