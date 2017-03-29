@@ -1,0 +1,71 @@
+<div class="coll-add-layer">
+    <div class="container">
+    {{# if editMode}}
+
+    <div class="form">
+        <div class="form-group">
+            <label for="collectionTitle">Title</label>
+            {{input class="form-control" value=modelCache.title placeholder="Enter title" id="collectionTitle"}}
+        </div>
+        <div class="form-group">
+            <label for="collectionDescription">Description</label>
+            {{textarea class="form-control" value=modelCache.description id="collectionDescription"}}
+        </div>
+        <div class="form-group">
+            <label for="collectionTags">Tags</label>
+            {{input class="form-control" value=modelCache.tags placeholder="Enter comma separated tags" id="collectionTags"}}
+        </div>
+        <div class="text-right">
+            <button class="btn btn-default" {{action 'cancelEdit'}}>Cancel</button>
+            <button class="btn btn-success" {{action 'saveEdit'}}>Save</button>
+        </div>
+    </div>
+
+    {{else}}
+        <h2>{{model.title}}</h2>
+        <div class="m-b-md">
+            {{#if model.description}}
+                {{model.description}}
+            {{else}}
+                <span class="text-muted" {{action 'showEdit'}}>Add description </span>
+            {{/if}}
+        </div>
+        <div class="m-b-md">
+            {{#each formattedTags as |tag|}}
+                <span class="coll-item-tag">{{tag}}</span>
+            {{/each}}
+        </div>
+        <p>Type: {{model.settings.collectionType}}</p>
+        <p>Created by: {{model.created_by.fullName}} </p>
+        <p>Date created: {{model.dateCreated}} </p>
+        <p>Date updated : {{model.dateUpdated}}</p>
+        <div class="pull-right">
+            <button class="btn btn-danger btn-collection" {{action toggleProperty 'showDeleteConfirmation'}}> <i class="fa fa-times"></i> Delete </button>
+
+            <button class="btn btn-info btn-collection" {{action 'showEdit'}}> <i class="fa fa-pencil"></i> Edit</button>
+        </div>
+    {{/if}}
+
+    </div>
+</div>
+
+{{#if showDeleteConfirmation}}
+<div class="modal fade in" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" {{action toggleProperty 'showDeleteConfirmation'}}><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete collection "{{model.title}}"?</h4>
+      </div>
+      <div class="modal-body">
+        <p>This will remove all groups and items inside collections. Original projects are not deleted.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" {{action toggleProperty 'showDeleteConfirmation'}}>Close</button>
+        <button type="button" class="btn btn-danger" {{action 'deleteCollection'}}>Delete</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal-backdrop fade in"></div>
+{{/if}}

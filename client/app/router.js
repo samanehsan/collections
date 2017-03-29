@@ -15,6 +15,8 @@ Router.map(function() {
     });
     this.route('add');
     this.route('search');
+    this.route('browse');
+    this.route('edit');
   });
   this.route('create');
   this.route('not-found', { path: '/*path' });
