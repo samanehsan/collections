@@ -1,0 +1,27 @@
+<div class="coll-add-choice text-center">
+    <div class="container">
+        <h2> Search content </h2>
+        <div class="search-panel m-t-lg p-md">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    {{input class="form-control" value=searchText enter="search"}}
+                </div>
+                <div class="col-sm-2 text-left">
+                    <button class="btn btn-success " {{action 'search'}}>Search</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="search-results-panel">
+    <div class="container">
+        <h4 class="m-t-md"> Results </h4>
+        <div class="search-results-wrapper m-t-md">
+            {{#each results as |item|}}
+                <div class="search-result p-sm m-sm"> {{item.title}}</div>
+            {{/each}}
+        </div>
+    </div>
+</div>
