@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     editMode : false,
+    showDeleteGroupConfirmation: false, // Modal for deleting group
     resetModelCache(){
         let model = this.get('model');
         return {
@@ -27,6 +28,26 @@ export default Ember.Component.extend({
             model.save();
             this.set('editMode', false);
 
+        },
+        deletePartial(){
+            // Move items to collection before deleting group
+            let items = this.get('model.items');
+            items.forEach(item => {
+                item.set('group', null);
+                item.save();
+            });
+            this.send('deleteGroup');
+            this.set('showDeleteGroupConfirmation', false);
+        },
+        deleteGroup(){
+            // Delete group and any items it contains
+            let collection = this.get('model.collection');
+            this.get('model').destroyRecord().then(() => {
+                var path = '/collection/' + collection.get('id');
+                this.get('changeRoute')(path)
+              }
+            );
+            this.set('showDeleteGroupConfirmation', false);
         }
     }
 });
