@@ -2,19 +2,21 @@
 <div class="coll-items">
     <div class="container">
         <div class="row">
-            <div class="col-xs-6">
-                {{#if organizeMode}}
-                    <button class="btn btn-default" {{action 'toggleGroupConfirmation'}}>Group Selected</button>
-                    <button class="btn btn-danger" {{action 'toggleDeleteConfirmation'}}>Delete selected </button>
-                {{/if}}
-            </div>
-            <div class="col-xs-6 text-right">
-                {{#if organizeMode}}
-                    <button class="btn btn-default" {{action 'toggleOrganizeMode'}}>Cancel organizing </button>
-                {{else}}
-                    <button class="btn btn-info" {{action 'toggleOrganizeMode'}}>Organize Items </button>
-                {{/if}}
-            </div>
+            {{#if list}}
+                <div class="col-xs-6">
+                    {{#if organizeMode}}
+                        <button class="btn btn-default" {{action 'toggleGroupConfirmation'}}>Group Selected</button>
+                        <button class="btn btn-danger" {{action 'toggleDeleteConfirmation'}}>Delete selected </button>
+                    {{/if}}
+                </div>
+                <div class="col-xs-6 text-right">
+                    {{#if organizeMode}}
+                        <button class="btn btn-default" {{action 'toggleOrganizeMode'}}>Cancel organizing </button>
+                    {{else}}
+                        <button class="btn btn-info" {{action 'toggleOrganizeMode'}}>Organize Items </button>
+                    {{/if}}
+                </div>
+            {{/if}}
         </div>
         <div class="row">
             {{#if list}}
