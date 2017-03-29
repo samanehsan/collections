@@ -10,14 +10,16 @@
 <div class="coll-items">
     <div class="container">
         <div class="row">
-            <div class="col-xs-6">
-                {{#if organizeMode}}
-                    <button class="btn btn-danger" {{action toggleProperty 'showDeleteItemConfirmation'}}>Delete selected </button>
-                {{/if}}
-            </div>
-            <div class="col-xs-6 text-right">
-                <button class="btn btn-info" {{action toggleProperty 'organizeMode'}}>Organize Items </button>
-            </div>
+            {{#if model.items}}
+                <div class="col-xs-6">
+                    {{#if organizeMode}}
+                        <button class="btn btn-danger" {{action toggleProperty 'showDeleteItemConfirmation'}}>Delete selected </button>
+                    {{/if}}
+                </div>
+                <div class="col-xs-6 text-right">
+                    <button class="btn btn-info" {{action toggleProperty 'organizeMode'}}>Organize Items </button>
+                </div>
+           {{/if}}
         </div>
         <div class="row">
             {{#each model.items as |item|}}
