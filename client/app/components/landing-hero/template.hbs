@@ -9,7 +9,16 @@
                     <h2>{{componentSettings.title}}</h2>
                {{/if}}
                <p class="lead">{{componentSettings.tagline}}</p>
+
+               <div class="input-group input-group-lg m-b-md">
+                   {{input value=searchQuery placeholder="Search preprints..." class="form-control"}}
+                   <span class="input-group-btn">
+                       <button class="btn btn-default" type="button" {{action 'search'}}>Search</button>
+                   </span>
+               </div>
+
+               {{#link-to "collection.add" class="btn btn-success btn-lg"}}Add to Collection {{/link-to}}
            </div>
        </div>
-    </div>
+   </div>
 </div>

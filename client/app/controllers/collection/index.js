@@ -91,8 +91,8 @@ export default Ember.Controller.extend({
             item.save();
             this.set('showAddItemDetails', false);
         },
-        changeRoute(path){
-            this.transitionToRoute(path);
+        changeRoute(path, params){
+            this.transitionToRoute(path, params);
         }
     }
 });
