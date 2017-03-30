@@ -1,4 +1,4 @@
-{{#if (eq view 'cards')}}
+{{#if cardView}}
     <div class="coll-item-wrapper">
         {{#if organizeMode}}
             {{#unless (eq item.type 'group')}}
@@ -22,7 +22,7 @@
             {{/if}}
         </div>
     </div>
-{{else if (eq view 'table')}}
+{{else}}
     <td>
         {{#if (eq item.type 'group')}}
             <p>{{#link-to 'collection.group' item.id}}{{item.title}}{{/link-to}}</p>

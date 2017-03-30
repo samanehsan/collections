@@ -16,10 +16,10 @@
                         <button class="btn btn-info" {{action 'toggleOrganizeMode'}}>Organize Items </button>
                     {{/if}}
                     <div class="btn-group">
-                        <button class="btn {{if (eq view 'cards') 'btn-info' 'btn-default'}}"  {{action 'changeView' 'cards'}}>
-                          <i class="fa fa-th"></i>
+                        <button class="btn {{if cardView 'btn-info' 'btn-default'}}" {{action 'changeView' true}}>
+                            <i class="fa fa-th"></i>
                         </button>
-                        <button class="btn {{if (eq view 'table') 'btn-info' 'btn-default'}}" {{action 'changeView' 'table'}}>
+                        <button class="btn {{unless cardView 'btn-info' 'btn-default'}}" {{action 'changeView' false}}>
                             <i class="fa fa-list"></i>
                         </button>
                     </div>
@@ -28,27 +28,26 @@
         </div>
         <div class="row">
             {{#if list}}
-                {{#if (eq view 'table')}}
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each list as |item|}}
-                            {{collection-item item=item view=view tagName='tr' toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode}}
-                        {{/each}}
-                    </tbody>
-                </table>
-                {{else if (eq view 'cards')}}
+                {{#if cardView}}
                     {{#each list as |item|}}
-                        {{collection-item item=item view=view toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
-                {{/each}}
+                        {{collection-item item=item cardView=cardView toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
+                    {{/each}}
+                {{else}}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each list as |item|}}
+                                {{collection-item item=item cardView=cardView tagName='tr' toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode}}
+                            {{/each}}
+                        </tbody>
+                    </table>
                 {{/if}}
-
             {{else}}
                 <p class="text-center text-muted p-xl"> You do not have any items yet. You can add more using the form above.</p>
             {{/if}}

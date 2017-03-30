@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     tagName: null,
-    view: null,
+    cardView: true,
     item: null,
     selected: false,
     actions : {

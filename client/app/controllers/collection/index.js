@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
     loadingGuid: false,
     organizeMode: false,
-    view: 'cards',
+    cardView: true,
     selectedItems : Ember.A(), // List of items selected for actions like delete
     showDeleteConfirmation: false, // Modal for deleting items
     showGroupConfirmation: false, // Modal for grouping
@@ -95,8 +95,8 @@ export default Ember.Controller.extend({
         changeRoute(path){
             this.transitionToRoute(path);
         },
-        changeView(viewName) {
-            this.set('view', viewName);
+        changeView(cardView) {
+            this.set('cardView', cardView);
         }
     }
 });
