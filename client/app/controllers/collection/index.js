@@ -94,6 +94,9 @@ export default Ember.Controller.extend({
         },
         changeRoute(path){
             this.transitionToRoute(path);
+        },
+        changeView(viewName) {
+            this.set('view', viewName);
         }
     }
 });
