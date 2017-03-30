@@ -20,6 +20,9 @@ export default Ember.Controller.extend({
         }
         return [];
     }),
+    settingsString :  Ember.computed('model.settings', function() {
+       return JSON.stringify(this.get('model.settings'));
+   }),
     actions : {
         showEdit () {
             this.set('editMode', true);
