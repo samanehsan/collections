@@ -9,12 +9,12 @@ class User(AbstractUser):
 
 class Collection(models.Model):
     title = models.TextField()
-    description = models.TextField()
-    tags = models.TextField()
+    description = models.TextField(null=True, blank=True)
+    tags = models.TextField(null=True, blank=True)
     created_by = models.ForeignKey(User)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    settings = models.TextField(null=True)
+    settings = models.TextField()
 
     class Meta:
         permissions = (
@@ -27,7 +27,7 @@ class Collection(models.Model):
 
 class Group(models.Model):
     title = models.TextField()
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     collection = models.ForeignKey(to='Collection', related_name='groups')
     created_by = models.ForeignKey(User)
     date_created = models.DateTimeField(auto_now_add=True)
