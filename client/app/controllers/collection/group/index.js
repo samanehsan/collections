@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
     organizeMode: false,
+    cardView: true,
     selectedItems : Ember.A(),
     showDeleteItemConfirmation: false, // Modal for deleting items
     actions : {
@@ -35,6 +36,9 @@ export default Ember.Controller.extend({
         },
         changeRoute(path){
             this.transitionToRoute(path);
+        },
+        changeView(cardView) {
+            this.set('cardView', cardView);
         }
     }
 });

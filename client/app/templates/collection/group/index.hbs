@@ -11,13 +11,41 @@
                 </div>
                 <div class="col-xs-6 text-right">
                     <button class="btn btn-info" {{action toggleProperty 'organizeMode'}}>Organize Items </button>
+                    <div class="btn-group">
+                        <button class="btn {{if cardView 'btn-info' 'btn-default'}}" {{action 'changeView' true}}>
+                            <i class="fa fa-th"></i>
+                        </button>
+                        <button class="btn {{unless cardView 'btn-info' 'btn-default'}}" {{action 'changeView' false}}>
+                            <i class="fa fa-list"></i>
+                        </button>
+                    </div>
                 </div>
            {{/if}}
         </div>
         <div class="row">
-            {{#each model.items as |item|}}
-                {{collection-item item=item parent='group' toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
-            {{/each}}
+            {{#if model.items}}
+                {{#if cardView}}
+                    {{#each model.items as |item|}}
+                        {{collection-item item=item parent='group' toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
+                    {{/each}}
+                {{else}}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each model.items as |item|}}
+                                {{collection-item item=item cardView=cardView tagName='tr' parent='group' toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode}}
+                            {{/each}}
+                        </tbody>
+                    </table>
+                {{/if}}
+            {{/if}}
         </div>
     </div>
 </div>
