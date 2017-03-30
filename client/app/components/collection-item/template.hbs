@@ -1,23 +1,44 @@
-<div class="coll-item-wrapper">
-    {{#if organizeMode}}
-        {{#unless (eq item.type 'group')}}
-            <div class="coll-item-organize {{if selected 'item-selected'}}" {{action 'markSelected' item}}>
-                <i class="fa fa-check"></i>
-                <p>{{if selected 'Click to unselect' 'Click to select'}}</p>
-            </div>
-        {{/unless}}
-    {{/if}}
-    <div class="coll-item coll-item-type-{{item.type}} {{if (eq item.type 'group') 'coll-item-isgroup'}}">
-        {{#if (eq item.type 'group')}}
-            <h3>{{#link-to 'collection.group' item.id}}{{item.title}}{{/link-to}}</h3>
-        {{else if (eq parent 'group')}}
-            <h3>{{#link-to 'collection.group.item' item.id}}{{item.title}}{{/link-to}}</h3>
-        {{else}}
-            <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
+{{#if (eq view 'cards')}}
+    <div class="coll-item-wrapper">
+        {{#if organizeMode}}
+            {{#unless (eq item.type 'group')}}
+                <div class="coll-item-organize {{if selected 'item-selected'}}" {{action 'markSelected' item}}>
+                    <i class="fa fa-check"></i>
+                    <p>{{if selected 'Click to unselect' 'Click to select'}}</p>
+                </div>
+            {{/unless}}
         {{/if}}
-        <p> Type: {{item.type}} </p>
-        {{#if item.status}}
-            <p> Status: {{item.status}} </p>
-        {{/if}}
+        <div class="coll-item coll-item-type-{{item.type}} {{if (eq item.type 'group') 'coll-item-isgroup'}}">
+            {{#if (eq item.type 'group')}}
+                <h3>{{#link-to 'collection.group' item.id}}{{item.title}}{{/link-to}}</h3>
+            {{else if (eq parent 'group')}}
+                <h3>{{#link-to 'collection.group.item' item.id}}{{item.title}}{{/link-to}}</h3>
+            {{else}}
+                <h3>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h3>
+            {{/if}}
+            <p> Type: {{item.type}} </p>
+            {{#if item.status}}
+                <p> Status: {{item.status}} </p>
+            {{/if}}
+        </div>
     </div>
-</div>
+{{else if (eq view 'table')}}
+    <td>
+        {{#if (eq item.type 'group')}}
+            <p>{{#link-to 'collection.group' item.id}}{{item.title}}{{/link-to}}</p>
+        {{else if (eq parent 'group')}}
+            <p>{{#link-to 'collection.group.item' item.id}}{{item.title}}{{/link-to}}</p>
+        {{else}}
+            <p>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</p>
+        {{/if}}
+    </td>
+    <td>{{item.type}}</td>
+    <td>{{item.status}}</td>
+    <td>
+        {{#if organizeMode}}
+            {{#unless (eq item.type 'group')}}
+                {{input checked=selected type="checkbox" click=(action 'markSelected' item)}}
+            {{/unless}}
+        {{/if}}
+    </td>
+{{/if}}

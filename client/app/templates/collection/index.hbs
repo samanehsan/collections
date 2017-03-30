@@ -20,9 +20,27 @@
         </div>
         <div class="row">
             {{#if list}}
-                {{#each list as |item|}}
-                    {{collection-item item=item toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
+                {{#if (eq view 'table')}}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each list as |item|}}
+                            {{collection-item item=item view=view tagName='tr' toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode}}
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{else if (eq view 'cards')}}
+                    {{#each list as |item|}}
+                        {{collection-item item=item view=view toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
                 {{/each}}
+                {{/if}}
+
             {{else}}
                 <p class="text-center text-muted p-xl"> You do not have any items yet. You can add more using the form above.</p>
             {{/if}}

@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
     loadingGuid: false,
     organizeMode: false,
+    view: 'cards',
     selectedItems : Ember.A(), // List of items selected for actions like delete
     showDeleteConfirmation: false, // Modal for deleting items
     showGroupConfirmation: false, // Modal for grouping
