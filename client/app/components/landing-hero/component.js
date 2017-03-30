@@ -10,5 +10,11 @@ export default Ember.Component.extend({
         search(){
             this.get('changeRoute')('collection.search');
         }
-    }
+    },
+    containerStyle: Ember.computed('branding.colors', function() {
+       return Ember.String.htmlSafe("background-color: " + this.get('branding.colors.background') + "; color: " + this.get('branding.colors.backgroundText'));
+   }),
+   logoStyle: Ember.computed('branding.logo', function() {
+      return Ember.String.htmlSafe("background: url(" + this.get('branding.logo.url') + ") center no-repeat; height: " + this.get('branding.logo.height'));
+    })
 });

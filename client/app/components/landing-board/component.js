@@ -9,5 +9,8 @@ export default Ember.Component.extend({
         column.left = list.splice(0,splitIndex);
         column.right = list;
        return column;
-     })
+    }),
+    containerStyle: Ember.computed('branding.colors', function() {
+      return Ember.String.htmlSafe("background-color: " + this.get('branding.colors.background') + "; color: " + this.get('branding.colors.backgroundText'));
+    }),
 });

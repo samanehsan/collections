@@ -8,7 +8,7 @@ let collectionSettings = {
     },
     logo: {
       label: 'socarxiv',
-      url: 'https://osf.io/preprints/assets/img/provider_logos/socarxiv-small-8bb4e49d8c3bb92a90798039fd604ca680235083.png',
+      url: 'https://osf.io/preprints/assets/img/provider_logos/socarxiv-small-ee6338993da17d8c871e23ae39d0b29e3c171abf.png',
       height: '140px'
     }
   },
@@ -135,7 +135,7 @@ let collectionSettings = {
         ]
   }
 };
-  
+
 export {
   collectionSettings
 };
