@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     data: Ember.computed('layout', function(){
         let dataSource = this.get('layout.data');
-        return this.get('model.landingSettings').data[dataSource];
+        return this.get('model.settings').data[dataSource];
     }),
     buttonStyle: Ember.computed('branding.colors', function() {
        //var bgcolor = escapeCSS(this.get('branding.colors.primary'));

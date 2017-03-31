@@ -2,12 +2,14 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
     editMode : false,
+    collectionSettings: {},
     resetModelCache(){
         let model = this.get('model');
         return {
             title: model.get('title'),
             description: model.get('description'),
-            tags: model.get('tags')
+            tags: model.get('tags'),
+            settings: JSON.stringify(model.get('settings'))
         };
     },
     modelCache : Ember.computed('model', function(){
@@ -33,6 +35,7 @@ export default Ember.Controller.extend({
         },
         saveEdit (){
             let model = this.get('model');
+            model.set('settings', JSON.parse(this.get('modelCache.settings')));
             model.set('title', this.get('modelCache.title'));
             model.set('description', this.get('modelCache.description'));
             model.set('tags', this.get('modelCache.tags'));

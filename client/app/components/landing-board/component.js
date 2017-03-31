@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     listColumns: Ember.computed('layout', function() {
         let dataSource = this.get('layout.data');
-        let list = this.get('model.landingSettings').data[dataSource];
+        let list = this.get('model.settings').data[dataSource];
         let column = {};
         let splitIndex = Math.round(list.length/2);
         column.left = list.splice(0,splitIndex);
