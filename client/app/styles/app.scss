@@ -56,6 +56,24 @@ ul.comma-list {
     }
 }
 
+.coll-table {
+    background: #fff;
+    border: 1px solid #eee;
+    border-bottom: none;
+    box-shadow: 0 2px 12px -5px #ccc;
+    width: 100%;
+    thead {
+        background-color: #00BCD4;
+        color: #fff;
+    }
+    td, th {
+        padding: 15px;
+    }
+    tr {
+        border-bottom: 1px solid #eee;
+    }
+}
+
 /* Home */
 
 .coll-banner {
@@ -165,7 +183,7 @@ ul.comma-list {
 }
 
 tr.item-row-selected {
-  background-color: #dff0d8;
+  background-color: #e3f3f5;
 }
 
 .coll-item-isgroup {
