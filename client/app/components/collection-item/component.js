@@ -2,10 +2,13 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     tagName: null,
-    classNameBindings: ['selected:item-row-selected'],
+    classNameBindings: ['rowSelected:item-row-selected'],
     cardView: true,
     item: null,
     selected: false,
+    rowSelected: Ember.computed('organizeMode', 'selected', function(){
+        return !this.get('organizeMode') ? false : this.get('selected');
+    }),
     actions : {
         markSelected (item) {
             this.toggleProperty('selected');
