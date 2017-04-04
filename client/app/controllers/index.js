@@ -4,6 +4,11 @@ export default Ember.Controller.extend({
     newCollectionTitle: '',
     modelCache : null,
     filterText : '',
+    currentPage: 1,
+    loadingMore: false,
+    showLoadMore: Ember.computed('model.meta', function(){
+        return this.get('model.meta.pagination.count') > this.get('model.length') ? true : false;
+    }),
     actions : {
         filter () {
             let model = this.get('model');
@@ -33,6 +38,19 @@ export default Ember.Controller.extend({
         },
         enterPress(){
             this.get('actions').addCollection.call(this);
+        },
+        loadMore(){
+            this.set('loadingMore', true);
+            this.store.query('collection', {
+                page: this.get('currentPage') + 1
+            }).then(data => {
+                this.incrementProperty('currentPage');
+                let currentModel = this.get('model').toArray();
+                let arr = data.toArray();
+                currentModel.pushObjects(arr);
+                this.set('model', currentModel);
+                this.set('loadingMore', false);
+            });
         }
     }
 });
