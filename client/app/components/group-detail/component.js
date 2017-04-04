@@ -44,7 +44,7 @@ export default Ember.Component.extend({
             let collection = this.get('model.collection');
             this.get('model').destroyRecord().then(() => {
                 var path = '/collection/' + collection.get('id');
-                this.get('changeRoute')(path)
+                this.get('changeRoute')(path);
               }
             );
             this.set('showDeleteGroupConfirmation', false);
