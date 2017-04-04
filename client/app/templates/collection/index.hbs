@@ -1,3 +1,7 @@
-{{#each model.settings.layout as |view|}}
-    {{component view.type model=model layout=view branding=model.settings.branding changeRoute=(action 'changeRoute') }}
-{{/each}}
+{{#if model.settings.layout}}
+    {{#each model.settings.layout as |view|}}
+        {{component view.type model=model layout=view branding=model.settings.branding changeRoute=(action 'changeRoute') }}
+    {{/each}}
+{{else}}
+    {{landing-default model=model}}
+{{/if}}

@@ -283,10 +283,17 @@ tr.item-row-selected {
     background-color: #607d8b;
 }
 
+/* Landing pages */
+
 .landing-list-container {
     .btn-primary {
         font-size: 17px;
         width: 100%;
         margin: 5px;
     }
+}
+.landing-default-container {
+    background-color: #607D8B;
+    color: #fff;
+    min-height: 500px;
 }
