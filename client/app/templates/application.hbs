@@ -1,5 +1,5 @@
 {{osf-navbar loginAction=(action 'login') hideSearch=true}}
-{{#unless model.loggedIn}}
+{{#unless model}}
     <div class="coll-alert"> Collections demo app needs OSF login to work. Please login above.</div>
 {{/unless}}
 {{outlet}}
