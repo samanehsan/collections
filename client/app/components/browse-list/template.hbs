@@ -4,9 +4,9 @@
             {{#if list}}
                 <div class="col-xs-6">
                     {{#if organizeMode}}
-                        {{#unless groupView}}
-                            <button class="btn btn-default" {{action 'toggleGroupConfirmation'}}>Group Selected</button>
-                        {{/unless}}
+                        {{#if (not groupView)}}
+                            <button class="btn btn-default {{unless selectedItems.length 'disabled'}}" {{action 'toggleGroupConfirmation'}}>Group Selected</button>
+                        {{/if}}
                         <button class="btn btn-danger" {{action 'toggleDeleteConfirmation'}}>Delete selected </button>
                     {{/if}}
                 </div>
