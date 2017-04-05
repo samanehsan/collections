@@ -2,7 +2,7 @@
 
 <div class="coll-items">
     <div class="container">
-        <div class="row">
+        <div class="row m-b-lg">
             {{#if model.items}}
                 <div class="col-xs-6">
                     {{#if organizeMode}}
@@ -29,7 +29,7 @@
                         {{collection-item item=item parent='group' toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
                     {{/each}}
                 {{else}}
-                    <table class="table">
+                    <table class="coll-table">
                         <thead>
                             <tr>
                                 <th>Title</th>
