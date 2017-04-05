@@ -33,8 +33,8 @@ export default Ember.Controller.extend({
                 currentList.addObject(item);
             }
         },
-        changeRoute(path){
-            this.transitionToRoute(path);
+        changeRoute(path, params){
+            this.transitionToRoute(path, params);
         },
         changeView(cardView) {
             this.set('cardView', cardView);
