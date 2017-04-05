@@ -8,6 +8,7 @@ export default Ember.Component.extend({
     selectedItems : Ember.A(), // List of items selected for actions like delete
     showDeleteConfirmation: false, // Modal for deleting items
     showGroupConfirmation: false, // Modal for grouping
+    addingGroup: false,
     groupTitle: '',
     // Build list
     groups: Ember.computed('model.groups', function() {
@@ -34,6 +35,7 @@ export default Ember.Component.extend({
             this.set('showGroupConfirmation', false);
             this.set('showDeleteConfirmation', false);
             this.set('groupTitle', '');
+            this.set('addingGroup', false);
         },
         deleteSelected(){
             let items = this.get('list');
@@ -45,11 +47,13 @@ export default Ember.Component.extend({
             items.removeObjects(selected);
             this.send('clearSelected');
             this.send('clearModals');
+            this.send('toggleOrganizeMode');
         },
         toggleGroupConfirmation ( ){
             this.toggleProperty('showGroupConfirmation');
         },
         groupSelected(){
+            this.set('addingGroup', true);
             // Create new group
             let newGroup = this.get('store').createRecord('group', {
                 title: this.get('groupTitle'),
@@ -70,6 +74,7 @@ export default Ember.Component.extend({
                 this.send('clearSelected');
                 this.send('clearModals');
             });
+            this.send('toggleOrganizeMode');
         },
         // Adds or removes item to the selectedItems list
         toggleSelectedList(selected, item){

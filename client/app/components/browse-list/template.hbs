@@ -103,7 +103,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" {{action 'toggleGroupConfirmation'}}>Close</button>
-        <button type="button" class="btn btn-success {{unless groupTitle 'disabled'}}" {{action 'groupSelected'}}>Group</button>
+        {{#if addingGroup}}
+            <button type="button" class="btn btn-success disabled">Grouping <i class="fa fa-spinner fa-pulse"></i></button>
+        {{else}}
+            <button type="button" class="btn btn-success {{unless groupTitle 'disabled'}}" {{action 'groupSelected'}}>Group</button>
+        {{/if}}
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
