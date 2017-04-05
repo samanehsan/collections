@@ -32,7 +32,6 @@ export default Ember.Controller.extend({
             } else {
                 currentList.addObject(item);
             }
-
         },
         changeRoute(path){
             this.transitionToRoute(path);

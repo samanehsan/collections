@@ -1,13 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-    loadingGuid: false,
     organizeMode: false,
     cardView: true,
     selectedItems : Ember.A(), // List of items selected for actions like delete
     showDeleteConfirmation: false, // Modal for deleting items
     showGroupConfirmation: false, // Modal for grouping
     groupTitle: '',
+    // Build list
     groups: Ember.computed('model.groups', function() {
       let groups = this.get('model.groups');
       groups.forEach(function(group) {
@@ -16,6 +16,23 @@ export default Ember.Controller.extend({
       return groups;
     }),
     list: Ember.computed.union('groups', 'model.items'),
+
+
+    // Check if list is loaded
+    itemsLoaded: false,
+    groupsLoaded: false,
+    checkItemsLoaded: Ember.observer('model.items', function(){
+        this.get('model.items').finally(() => {
+            this.set('itemsLoaded', true);
+        });
+    }),
+    checkGroupsLoaded: Ember.observer('model.groups', function(){
+        this.get('model.groups').finally(() => {
+            this.set('groupsLoaded', true);
+        });
+    }),
+    listLoaded: Ember.computed.or('itemsLoaded', 'groupsLoaded'),
+
     actions: {
         toggleOrganizeMode () {
             this.toggleProperty('organizeMode');
@@ -76,7 +93,6 @@ export default Ember.Controller.extend({
             } else {
                 currentList.addObject(item);
             }
-
         },
         changeRoute(path, params){
             this.transitionToRoute(path, params);

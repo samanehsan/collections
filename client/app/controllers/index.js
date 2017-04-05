@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
     currentPage: 1,
     loadingMore: false,
     showLoadMore: Ember.computed('model.meta', function(){
-        return this.get('model.meta.pagination.count') > this.get('model.length') ? true : false;
+        return this.get('model.meta.pagination.count') > this.get('model.length');
     }),
     actions : {
         filter () {
