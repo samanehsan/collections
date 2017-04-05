@@ -7,7 +7,7 @@ export default Ember.Component.extend({
     item: null,
     selected: false,
     rowSelected: Ember.computed('organizeMode', 'selected', function(){
-        return !this.get('organizeMode') ? false : this.get('selected');
+        return this.get('organizeMode') ? this.get('selected') : false;
     }),
     actions : {
         markSelected (item) {

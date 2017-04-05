@@ -6,7 +6,6 @@ export default Ember.Component.extend({
         return this.get('model.settings').data[dataSource];
     }),
     buttonStyle: Ember.computed('branding.colors', function() {
-       //var bgcolor = escapeCSS(this.get('branding.colors.primary'));
        return Ember.String.htmlSafe("background-color: " + this.get('branding.colors.primary'));
      })
 });
