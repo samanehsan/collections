@@ -1,4 +1,4 @@
-<div class="coll-add-layer">
+<div class="coll-add-layer p-xl">
     <div class="container">
     {{# if editMode}}
 
@@ -17,7 +17,7 @@
         </div>
         <div class="form-group">
             <label for="collectionTags">Settings</label>
-            {{textarea class="form-control" value=modelCache.settings id="collectionSettings"}}
+            {{textarea class="form-control" value=modelCache.settings id="collectionSettings" rows=12}}
         </div>
         <div class="text-right">
             <button class="btn btn-default" {{action 'cancelEdit'}}>Cancel</button>
