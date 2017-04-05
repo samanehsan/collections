@@ -2,9 +2,9 @@
     <div class="coll-item-wrapper">
         {{#if organizeMode}}
             {{#unless (eq item.type 'group')}}
-                <div class="coll-item-organize {{if selected 'item-selected'}}" {{action 'markSelected' item}}>
+                <div class="coll-item-organize {{if item.selected 'item-selected'}}" {{action 'markSelected' item}}>
                     <i class="fa fa-check"></i>
-                    <p>{{if selected 'Click to unselect' 'Click to select'}}</p>
+                    <p>{{if item.selected 'Click to unselect' 'Click to select'}}</p>
                 </div>
             {{/unless}}
         {{/if}}
@@ -37,7 +37,7 @@
     <td>
         {{#if organizeMode}}
             {{#unless (eq item.type 'group')}}
-                {{input checked=selected type="checkbox" click=(action 'markSelected' item)}}
+                {{input checked=item.selected type="checkbox" click=(action 'markSelected' item)}}
             {{/unless}}
         {{/if}}
     </td>
