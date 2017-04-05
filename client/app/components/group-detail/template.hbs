@@ -16,7 +16,7 @@
             </div>
         </div>
     {{else}}
-        <h2>{{model.title}}</h2>
+        <h2> <span> {{#link-to 'collection.browse'}} <i class="fa fa-angle-left"></i>{{/link-to}}</span> {{model.title}}</h2>
         <div class="m-b-md">
             {{#if model.description}}
                 {{model.description}}
