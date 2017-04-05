@@ -8,7 +8,7 @@ export default Ember.Component.extend({
     searchQuery: '',
     actions: {
         search(){
-            this.get('changeRoute')('collection.search');
+            this.get('changeRoute')('collection.search', this.get('model.id'));
         }
     },
     containerStyle: Ember.computed('branding.colors', function() {
