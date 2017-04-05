@@ -7,7 +7,7 @@
                         {{#if (not groupView)}}
                             <button class="btn btn-default {{unless selectedItems.length 'disabled'}}" {{action 'toggleGroupConfirmation'}}>Group Selected</button>
                         {{/if}}
-                        <button class="btn btn-danger" {{action 'toggleDeleteConfirmation'}}>Delete selected </button>
+                        <button class="btn btn-danger {{unless selectedItems.length 'disabled'}}" {{action 'toggleDeleteConfirmation'}}>Delete selected </button>
                     {{/if}}
                 </div>
                 <div class="col-xs-6 text-right">
