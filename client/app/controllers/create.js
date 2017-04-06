@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-    typeList : Ember.A(['Project', 'Registration', 'Preprint', 'File', 'Meeting', 'Website']),
+    typeList : Ember.A(['Project', 'Registration', 'Preprint', 'Website']),
     title: '',
     selectedType: 'Preprint',
     description: '',

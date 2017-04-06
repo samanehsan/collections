@@ -78,6 +78,9 @@ ul.comma-list {
     text-align: center;
     background-color: #FFEB3B;
 }
+.pointer {
+    cursor: pointer;
+}
 
 /* Home */
 
@@ -126,7 +129,7 @@ ul.comma-list {
 
 /* Collection Items */
 .coll-item {
-    height: 200px;
+    height: 160px;
     overflow: auto;
     position: relative;
 }
@@ -292,7 +295,13 @@ tr.item-row-selected {
     }
 }
 .landing-default-container {
-    background-color: #607D8B;
+    background-color: $dark-banner;
     color: #fff;
     min-height: 500px;
+}
+
+/* Create collection page */
+.coll-create-header {
+    background-color: $dark-banner;
+    color: #fff;
 }
