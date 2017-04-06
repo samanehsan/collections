@@ -22,6 +22,7 @@ export default Ember.Component.extend({
     list: Ember.computed.union('groups', 'model.items'),
     actions: {
         toggleOrganizeMode () {
+            this.send('emptySelectedList');
             this.toggleProperty('organizeMode');
         },
         toggleDeleteConfirmation(){
@@ -84,6 +85,10 @@ export default Ember.Component.extend({
             } else {
                 currentList.addObject(item);
             }
+        },
+        emptySelectedList(){
+            this.get('selectedItems').clear();
+            this.get('list').setEach('selected', false);
         },
         changeView(cardView) {
             this.set('cardView', cardView);
