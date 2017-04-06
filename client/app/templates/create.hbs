@@ -34,7 +34,7 @@
         </div>
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3 m-t-lg text-center">
-                <button class="btn btn-primary {{unless title 'disabled'}}" {{action 'addCollection'}}>Continue</button>
+                {{#link-to 'index' class="btn btn-default"}}Cancel {{/link-to}} <button class="btn btn-primary {{unless title 'disabled'}}" {{action 'addCollection'}}>Continue</button>
             </div>
         </div>
         <div class="text-center p-t-lg">
