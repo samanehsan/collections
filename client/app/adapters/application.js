@@ -1,6 +1,12 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 
+$.ajaxSetup({
+  crossOrigin:true,
+  xhrFields: {
+    withCredentials: true
+  }
+});
 
 function getToken() {
     var token;
@@ -16,7 +22,7 @@ function getToken() {
 
 export default DS.JSONAPIAdapter.extend({
 
-    host: 'http://127.0.0.1:8000',
+    host: 'http://localhost:8001',
     namespace: 'api',
     headers: Ember.computed(function() {
         return {

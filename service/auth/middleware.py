@@ -1,28 +1,29 @@
 import requests
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 class OSFTokenAuthMiddleware(object):
-    """ This middlewre would be required if there is a view that does not use DRF, but does require authentication. """
+
     def process_request(self, request):
-        osf_bearer_token = request.META.get('HTTP_AUTHORIZATION', None)
-        if not osf_bearer_token:
+        cookie_val = request.COOKIES.get('osf')
+        if not cookie_val:
             return None
 
-        osf_user = requests.get('https://staging-api.osf.io/v2/users/me/', headers={'Authorization': 'Bearer ' + osf_bearer_token})
+        osf_user = requests.get('http://localhost:8000/v2/users/me/', cookies={'osf': cookie_val})
         if osf_user.status_code != 200:
             return None
 
         user_id = osf_user.json()['data']['id']
+        user_model = get_user_model()
 
         try:
-            user = User.objects.get(username=user_id)
+            user = user_model.objects.get(username=user_id)
         except ObjectDoesNotExist:
-            user = User.objects.create_user(username=user_id)
+            user = user_model.objects.create_user(username=user_id)
 
-        user.backend = 'django.contrib.auth.backends.ModelBackend' # Hack to allow login without authentication
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
         login(request, user)
 
         return None

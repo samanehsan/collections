@@ -19,7 +19,7 @@ module.exports = function(environment) {
       // when it is created
       usingCors: true,
       corsWithCreds: true,
-      apiURL: 'http://127.0.0.1:8000'
+      apiURL: 'http://127.0.0.1:8001'
     }
   };
 
