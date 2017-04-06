@@ -25,6 +25,7 @@ module.exports = function(defaults) {
 
     app.import('bower_components/osf-style/css/base.css');
     app.import('bower_components/loaders.css/loaders.min.css');
+    app.import('bower_components/hint.css/hint.min.css');
 
   return app.toTree();
 };

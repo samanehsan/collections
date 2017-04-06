@@ -1,4 +1,4 @@
-<div class="coll-navbar">
+<div class="coll-navbar" style="background-color:{{model.settings.branding.colors.primary}}">
     <div class="container">
         <div class="coll-navbar-inner">
             <div class="navbar-header">
@@ -7,9 +7,10 @@
             <div class="navbar navbar-right">
                 <ul class="nav navbar-nav">
                     <li>{{#link-to "collection.add"}}Add content {{/link-to}}</li>
+                    <li>{{#link-to "collection.browse"}} Browse {{/link-to}}</li>
                     <li>{{#link-to "collection.search"}} Search {{/link-to}}</li>
+                    <li>{{#link-to "collection.edit"}} Edit{{/link-to}}</li>
                 </ul>
-
             </div>
         </div>
     </div>

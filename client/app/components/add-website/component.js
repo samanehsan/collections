@@ -23,7 +23,7 @@ export default Ember.Component.extend({
                 collection : this.get('model')
             });
             item.save().then(() => {
-                this.get('transition')('collection', this.get('model.id'));
+                this.get('transition')('collection.browse', this.get('model.id'));
             }).catch((error) => {
                 this.set('urlSaveErrors', error.errors);
             });
