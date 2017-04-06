@@ -21,9 +21,7 @@
                 <h3>{{#link-to "collection" item.id}}<span {{action 'clearFilter'}}>{{item.title}}</span>{{/link-to}}</h3>
                 <p>{{item.description}}</p>
 
-                <div>
-                    {{ item.tags}}
-                </div>
+                <div>Tags: {{item.tags}}</div>
                 <div class="text-muted">Created on {{moment-format item.dateCreated "MMMM DD, YYYY"}} </div>
             </div>
         {{/each}}

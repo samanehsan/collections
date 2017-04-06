@@ -1,15 +1,13 @@
 <div class="coll-create">
     <div class="container">
-        <div class="text-center">
-            <h1> Create a collection </h1>
-
+        <div class="text-center p-t-xl">
+            <h2> Create a collection </h2>
         </div>
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3 m-t-lg">
                 <h4> Title </h4>
                 {{input class="form-control" value=title placeholder="Enter collection name"}}
             </div>
-
             <div class="col-sm-6 col-sm-offset-3 m-t-lg">
                 <h4>Collection Type</h4>
 
@@ -19,20 +17,18 @@
                   {{/each}}
                 </select>
             </div>
-
             <div class="col-sm-6 col-sm-offset-3 m-t-lg">
                 <h4> Description <span class="text-muted">Optional </span></h4>
                 {{textarea class="form-control" value=description rows="6"}}
             </div>
         </div>
-
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3 m-t-lg text-center">
                 <button class="btn btn-primary {{unless title 'disabled'}}" {{action 'addCollection'}}>Continue</button>
             </div>
         </div>
-
-
-
+        <div class="text-center p-t-lg">
+            {{#link-to "index"}} Cancel {{/link-to}}
+        </div>
     </div>
 </div>
