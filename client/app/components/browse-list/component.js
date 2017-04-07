@@ -55,15 +55,15 @@ export default Ember.Component.extend({
         },
         groupSelected(){
             this.set('addingGroup', true);
+            let selected = this.get('selectedItems');
             // Create new group
             let newGroup = this.get('store').createRecord('group', {
                 title: this.get('groupTitle'),
                 description: '',
                 collection: this.get('model')
             });
-            newGroup.save().then((record) => {
+            newGroup.save().then(record => {
                 // For each item, set group to new group
-                let selected = this.get('selectedItems');
                 selected.forEach(item => {
                     item.set('group', record);
                     item.save();
@@ -74,8 +74,8 @@ export default Ember.Component.extend({
                 list.removeObjects(selected);
                 this.send('clearSelected');
                 this.send('clearModals');
+                this.send('toggleOrganizeMode');
             });
-            this.send('toggleOrganizeMode');
         },
         // Adds or removes item to the selectedItems list
         toggleSelectedList(selected, item){
