@@ -58,7 +58,6 @@ export default Ember.Component.extend({
                 } else {
                     this.buildNodeObject(item);
                 }
-                this.buildNodeObject(item);
                 this.set('showAddItemDetails', true);
                 this.set('loadingItem', false);
             }).catch(error => {
