@@ -4,8 +4,7 @@ export default Ember.Controller.extend({
     addMethod: 'select', // 'select' or 'create'
     methodSelected: false,
     type: Ember.computed('model.settings', function(){
-        let type = this.get('model.settings.collectionType').toLowerCase();
-        return  type === 'preprint' || type === 'project' ? 'node' : type;
+        return this.get('model.settings.collectionType').toLowerCase();
     }),
     actions:{
         updateProperty(oldValue, newValue){
