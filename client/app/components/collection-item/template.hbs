@@ -2,7 +2,7 @@
     <div class="coll-item-wrapper">
         {{#if organizeMode}}
             {{#unless (eq item.type 'group')}}
-                <div class="coll-item-organize {{if item.selected 'item-selected'}}" {{action 'markSelected' item}}>
+                <div class="coll-item-organize pointer {{if item.selected 'item-selected'}}" {{action 'markSelected' item}}>
                     <i class="fa fa-check"></i>
                     <p>{{if item.selected 'Click to unselect' 'Click to select'}}</p>
                 </div>
