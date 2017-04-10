@@ -20,8 +20,9 @@
                 {{#link-to "collection" item.id class="btn btn-info pull-right"}}<span {{action 'clearFilter'}}>View</span>{{/link-to}}
                 <h3>{{#link-to "collection" item.id}}<span {{action 'clearFilter'}}>{{item.title}}</span>{{/link-to}}</h3>
                 <p>{{item.description}}</p>
-
-                <div>Tags: {{item.tags}}</div>
+                {{#if item.tags}}
+                    <div>Tags: {{item.tags}}</div>
+                {{/if}}
                 <div class="text-muted">Created on {{moment-format item.dateCreated "MMMM DD, YYYY"}} </div>
             </div>
         {{/each}}
