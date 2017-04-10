@@ -50,7 +50,7 @@ export default Ember.Component.extend({
             this.clearView();
             this.set('loadingItem', true);
             // We need to add type variable here because there is no model for project in ember-osf but 'node
-            let type = this.get('type') === 'project' ? 'node' : this.get('type'); '
+            let type = this.get('type') === 'project' ? 'node' : this.get('type');
             this.get('store').findRecord(type, this.get('searchGuid')).then(item => {
                 if(this.get('type') === 'preprint'){
                     item.get('node').then(node => {
