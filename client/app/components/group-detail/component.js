@@ -43,10 +43,10 @@ export default Ember.Component.extend({
             // Delete group and any items it contains
             let collection = this.get('model.collection');
             this.get('model').destroyRecord().then(() => {
+                this.set('showDeleteGroupConfirmation', false);
                 this.get('changeRoute')('collection.browse', collection.get('id'));
               }
             );
-            this.set('showDeleteGroupConfirmation', false);
         }
     }
 });

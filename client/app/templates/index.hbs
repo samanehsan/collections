@@ -10,7 +10,7 @@
     <div class="coll-toolbar row">
         <div class="col-xs-6"><h2> All collections</h2></div>
         <div class="col-xs-6">
-            <div class="pull-right">{{input class="form-control" value=filterText key-up='filter' placeholder="Filter"}}  {{model.length}} results </div>
+            <div class="pull-right">{{input class="form-control" value=filterText key-up='filter' placeholder="Filter"}}  {{model.length}} shown </div>
         </div>
         <!-- <input type=text placeholder="Filter collections" onkeyup={{action 'filter'}}> -->
     </div>
@@ -20,9 +20,10 @@
                 {{#link-to "collection" item.id class="btn btn-info pull-right"}}<span {{action 'clearFilter'}}>View</span>{{/link-to}}
                 <h3>{{#link-to "collection" item.id}}<span {{action 'clearFilter'}}>{{item.title}}</span>{{/link-to}}</h3>
                 <p>{{item.description}}</p>
-                <div>
-                    {{ item.tags}}
-                </div>
+                {{#if item.tags}}
+                    <div>Tags: {{item.tags}}</div>
+                {{/if}}
+                <div class="text-muted">Created on {{moment-format item.dateCreated "MMMM DD, YYYY"}} </div>
             </div>
         {{/each}}
 

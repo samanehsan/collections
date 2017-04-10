@@ -8,6 +8,7 @@ export default Ember.Component.extend({
     selectedItems : Ember.A(), // List of items selected for actions like delete
     showDeleteConfirmation: false, // Modal for deleting items
     showGroupConfirmation: false, // Modal for grouping
+    addingGroup: false,
     groupTitle: '',
     // Build list
     groups: Ember.computed('model.groups', function() {
@@ -21,6 +22,7 @@ export default Ember.Component.extend({
     list: Ember.computed.union('groups', 'model.items'),
     actions: {
         toggleOrganizeMode () {
+            this.send('emptySelectedList');
             this.toggleProperty('organizeMode');
         },
         toggleDeleteConfirmation(){
@@ -34,6 +36,7 @@ export default Ember.Component.extend({
             this.set('showGroupConfirmation', false);
             this.set('showDeleteConfirmation', false);
             this.set('groupTitle', '');
+            this.set('addingGroup', false);
         },
         deleteSelected(){
             let items = this.get('list');
@@ -45,20 +48,22 @@ export default Ember.Component.extend({
             items.removeObjects(selected);
             this.send('clearSelected');
             this.send('clearModals');
+            this.send('toggleOrganizeMode');
         },
         toggleGroupConfirmation ( ){
             this.toggleProperty('showGroupConfirmation');
         },
         groupSelected(){
+            this.set('addingGroup', true);
+            let selected = this.get('selectedItems');
             // Create new group
             let newGroup = this.get('store').createRecord('group', {
                 title: this.get('groupTitle'),
                 description: '',
                 collection: this.get('model')
             });
-            newGroup.save().then((record) => {
+            newGroup.save().then(record => {
                 // For each item, set group to new group
-                let selected = this.get('selectedItems');
                 selected.forEach(item => {
                     item.set('group', record);
                     item.save();
@@ -69,6 +74,7 @@ export default Ember.Component.extend({
                 list.removeObjects(selected);
                 this.send('clearSelected');
                 this.send('clearModals');
+                this.send('toggleOrganizeMode');
             });
         },
         // Adds or removes item to the selectedItems list
@@ -79,6 +85,10 @@ export default Ember.Component.extend({
             } else {
                 currentList.addObject(item);
             }
+        },
+        emptySelectedList(){
+            this.get('selectedItems').clear();
+            this.get('list').setEach('selected', false);
         },
         changeView(cardView) {
             this.set('cardView', cardView);

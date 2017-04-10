@@ -1,38 +1,41 @@
+<div class="coll-create-header p-xl">
+    <div class="text-center">
+        <h2> Create a collection </h2>
+    </div>
+</div>
 <div class="coll-create">
     <div class="container">
-        <div class="text-center">
-            <h1> Create a collection </h1>
-
-        </div>
         <div class="row">
-            <div class="col-sm-6 col-sm-offset-3 m-t-lg">
-                <h4> Title </h4>
+            <div class="col-sm-10 col-sm-offset-1 m-t-lg">
+                <h4>1. Add title  </h4>
                 {{input class="form-control" value=title placeholder="Enter collection name"}}
             </div>
+        </div>
+        <hr class="soften" />
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h4>2. Select collection type</h4>
+                <div class="row">
+                    {{#each typeList as |type|}}
+                        <div class="col-xs-3 text-center">
+                            <div class="pointer m-b-md p-md box-round {{if (eq selectedType type) 'osf-box-dk' 'osf-box'}} " {{action 'updateType' type}}> {{type}}</div>
+                        </div>
+                    {{/each}}
+                </div>
 
-            <div class="col-sm-6 col-sm-offset-3 m-t-lg">
-                <h4>Collection Type</h4>
-
-                <select class="form-control" onchange={{action "updateType" value="target.value"}}>
-                  {{#each typeList key="@identity" as |type|}}
-                    <option value={{type}} selected={{is-equal selectedType type}}>{{type}}</option>
-                  {{/each}}
-                </select>
             </div>
-
-            <div class="col-sm-6 col-sm-offset-3 m-t-lg">
-                <h4> Description <span class="text-muted">Optional </span></h4>
+        </div>
+        <hr class="soften" />
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h4> 3. Add description <span class="text-muted">Optional </span></h4>
                 {{textarea class="form-control" value=description rows="6"}}
             </div>
         </div>
-
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3 m-t-lg text-center">
-                <button class="btn btn-primary {{unless title 'disabled'}}" {{action 'addCollection'}}>Continue</button>
+                {{#link-to 'index' class="btn btn-default"}}Cancel {{/link-to}} <button class="btn btn-primary {{unless title 'disabled'}}" {{action 'addCollection'}}>Continue</button>
             </div>
         </div>
-
-
-
     </div>
 </div>

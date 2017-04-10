@@ -4,10 +4,10 @@
             {{#if list}}
                 <div class="col-xs-6">
                     {{#if organizeMode}}
-                        {{#unless groupView}}
-                            <button class="btn btn-default" {{action 'toggleGroupConfirmation'}}>Group Selected</button>
-                        {{/unless}}
-                        <button class="btn btn-danger" {{action 'toggleDeleteConfirmation'}}>Delete selected </button>
+                        {{#if (not groupView)}}
+                            <button class="btn btn-default" disabled={{if selectedItems.length '' 'disabled'}} {{action 'toggleGroupConfirmation'}}>Group Selected</button>
+                        {{/if}}
+                        <button class="btn btn-danger" disabled={{if selectedItems.length '' 'disabled'}} {{action 'toggleDeleteConfirmation'}}>Delete selected </button>
                     {{/if}}
                 </div>
                 <div class="col-xs-6 text-right">
@@ -93,7 +93,7 @@
       </div>
       <div class="modal-body">
         <p> Enter title for Group </p>
-        {{input class="form-control" value=groupTitle placeholder="e.g. Microbiology studies"}}
+        {{input class="form-control" value=groupTitle placeholder="e.g. Microbiology studies" enter="groupSelected"}}
         <p class="m-t-md">The following items will be added to the group:</p>
         <ul>
             {{#each selectedItems as |item|}}
@@ -103,7 +103,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" {{action 'toggleGroupConfirmation'}}>Close</button>
-        <button type="button" class="btn btn-success {{unless groupTitle 'disabled'}}" {{action 'groupSelected'}}>Group</button>
+        {{#if addingGroup}}
+            <button type="button" class="btn btn-success disabled">Grouping <i class="fa fa-spinner fa-pulse"></i></button>
+        {{else}}
+            <button type="button" class="btn btn-success" disabled={{unless groupTitle 'disabled'}} {{action 'groupSelected'}}>Group</button>
+        {{/if}}
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
