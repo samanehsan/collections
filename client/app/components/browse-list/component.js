@@ -70,7 +70,7 @@ export default Ember.Component.extend({
                 });
 
                 // remove items that were put into the group;
-                let list = this.get('list');
+                let list = this.get('model.items');
                 list.removeObjects(selected);
                 this.send('clearSelected');
                 this.send('clearModals');
