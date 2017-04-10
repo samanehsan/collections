@@ -1,0 +1,114 @@
+{
+  "collectionType": "preprint",
+  "branding": {
+    "colors": {
+      "primary": "#286090",
+      "secondary": "#eeeeee",
+      "background": "#214661",
+      "backgroundText": "#ffffff"
+    },
+    "logo": {
+      "label": "OSF Preprints",
+      "url": "https://osf.io/preprints/assets/img/preprints-logo-bb26fbaa227c1fc8b5cc6f8c7d1705e69c18bfd9.png",
+      "height": "70px"
+    }
+  },
+  "layout": [{
+    "type": "landing-hero",
+    "title": "OSF Preprints",
+    "tagline": "The open preprint repository network",
+    "data": null,
+    "settings": {
+      "useLogo": true
+    }
+  }, {
+    "type": "landing-list",
+    "title": "Subjects",
+    "data": "subjects",
+    "settings": null
+  }, {
+    "type": "landing-board",
+    "title": "Steering Committee",
+    "data": "people",
+    "settings": null
+  }, {
+    "type": "landing-copyright",
+    "title": null,
+    "data": "links",
+    "settings": null
+  }],
+  "data": {
+    "subjects": [{
+      "name": "Arts and Humanities",
+      "label": "Fine Arts, History, Music, Philosophy, Religion",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }, {
+      "name": "Business",
+      "label": "Fine Arts, History, Music, Philosophy, Religion",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }, {
+      "name": "Engineering",
+      "label": "Fine Arts, History, Music, Philosophy, Religion",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }, {
+      "name": "Life Sciences",
+      "label": "Fine Arts, History, Music, Philosophy, Religion",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    },{
+      "name": "Physical Sciences and Mathematics",
+      "label": "Fine Arts, History, Music, Philosophy, Religion",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }, {
+      "name": "Education",
+      "label": "Fine Arts, History, Music, Philosophy, Religion",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }, {
+      "name": "Law",
+      "label": "Fine Arts, History, Music, Philosophy, Religion",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }, {
+      "name": "Medicine and Health Sciences",
+      "label": "Fine Arts, History, Music, Philosophy, Religion",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }],
+    "people": [{
+      "firstName": "Maria",
+      "lastName": "Gonzales",
+      "institution": "University of North Carolina at Chapel Hill"
+    },
+    {
+      "firstName": "George",
+      "lastName": "Chen",
+      "institution": "University of North Carolina at Chapel Hill"
+    },
+    {
+      "firstName": "Jamal",
+      "lastName": "Brown",
+      "institution": "University of North Carolina at Chapel Hill"
+    },
+    {
+      "firstName": "James",
+      "lastName": "Aberdeen",
+      "institution": "University of North Carolina at Chapel Hill"
+    },{
+      "firstName": "Gloria",
+      "lastName": "von Devitt",
+      "institution": "University of North Carolina at Chapel Hill"
+    }],
+    "links": [{
+      "label": "Support",
+      "url": "/support"
+    }, {
+      "label": "Contact",
+      "url": "/contact"
+    }, {
+      "label": "Twitter",
+      "url": "/twitter/somearchive",
+      "icon": "fa-twitter"
+    },{
+      "label": "Facebook",
+      "url": "/facebook/somearchive",
+      "icon": "fa-facebook"
+    }]
+  }
+}
