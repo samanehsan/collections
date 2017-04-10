@@ -49,7 +49,8 @@ export default Ember.Component.extend({
             }
             this.clearView();
             this.set('loadingItem', true);
-            this.get('store').findRecord(this.get('type'), this.get('searchGuid')).then(item => {
+            let type = this.get('type') === 'project' ? 'node' : this.get('type');
+            this.get('store').findRecord(type, this.get('searchGuid')).then(item => {
                 if(this.get('type') === 'preprint'){
                     item.get('node').then(node => {
                         item.set('title', node.get('title'));
