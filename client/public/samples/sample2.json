@@ -39,61 +39,69 @@
   }],
   "data": {
     "subjects": [{
+      "name": "Architecture",
+      "label": "Architectural Engineering, Construction Engineering, Environmental Design, Interior Architecture, Landscape Architecture",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }, {
+      "name": "Business",
+      "label": "Accounting, Finance and Financial Management, Human Resource Management, Marketing, Taxation",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }, {
+      "name": "Engineering",
+      "label": "Biomedical Engineering and Bioengineering, Chemical Engineering, Civil and Environmental Engineering, Electrical and Computer Engineering, Mechanical Engineering",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }, {
+      "name": "Life Sciences",
+      "label": "Agriculture, Genetics and Genomics, Microbiology, Physiology, Zoology",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }, {
+      "name": "Physical Sciences and Mathematics",
+      "label": "Chemistry, Computer Sciences, Earth Sciences, Physics, Statistics and Probability",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }, {
       "name": "Arts and Humanities",
       "label": "Fine Arts, History, Music, Philosophy, Religion",
       "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
     }, {
-      "name": "Business",
-      "label": "Fine Arts, History, Music, Philosophy, Religion",
-      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
-    }, {
-      "name": "Engineering",
-      "label": "Fine Arts, History, Music, Philosophy, Religion",
-      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
-    }, {
-      "name": "Life Sciences",
-      "label": "Fine Arts, History, Music, Philosophy, Religion",
-      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
-    },{
-      "name": "Physical Sciences and Mathematics",
-      "label": "Fine Arts, History, Music, Philosophy, Religion",
-      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
-    }, {
       "name": "Education",
-      "label": "Fine Arts, History, Music, Philosophy, Religion",
+      "label": "Curriculum and Instruction, Educational Administration and Supervision, Educational Leadership, Higher Education, Liberal Studies",
       "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
     }, {
       "name": "Law",
-      "label": "Fine Arts, History, Music, Philosophy, Religion",
+      "label": "Civil Law, Criminal Law, Legislation, State and Local Government Law, Supreme Court of the United States",
       "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
     }, {
       "name": "Medicine and Health Sciences",
-      "label": "Fine Arts, History, Music, Philosophy, Religion",
+      "label": "Anatomy, Diseases, Medical Sciences, Public Health, Veterinary Medicine",
+      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+    }, {
+      "name": "Social and Behavioral Sciences",
+      "label": "Anthropology, Economics, Political Science, Psychology, Sociology",
       "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
     }],
     "people": [{
-      "firstName": "Maria",
-      "lastName": "Gonzales",
-      "institution": "University of North Carolina at Chapel Hill"
+      "firstName": "Daniela",
+      "lastName": "Le Blanc",
+      "institution": "University of Connecticut"
     },
     {
       "firstName": "George",
       "lastName": "Chen",
-      "institution": "University of North Carolina at Chapel Hill"
+      "institution": "University of Virginia"
     },
     {
-      "firstName": "Jamal",
-      "lastName": "Brown",
-      "institution": "University of North Carolina at Chapel Hill"
+      "firstName": "Bashar",
+      "lastName": "Mahmoudi",
+      "institution": "Cairo University"
     },
     {
       "firstName": "James",
       "lastName": "Aberdeen",
-      "institution": "University of North Carolina at Chapel Hill"
+      "institution": "University of York"
     },{
       "firstName": "Gloria",
       "lastName": "von Devitt",
-      "institution": "University of North Carolina at Chapel Hill"
+      "institution": "California Institute of Technology"
     }],
     "links": [{
       "label": "Support",

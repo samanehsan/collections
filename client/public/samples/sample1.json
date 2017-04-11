@@ -38,46 +38,46 @@
     "settings": null
   }],
   "data": {
-    "subjects": [{
-      "name": "Arts and Humanities",
-      "label": "Fine Arts, History, Music, Philosophy, Religion",
-      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
-    }, {
-      "name": "Arts and Humanities",
-      "label": "Fine Arts, History, Music, Philosophy, Religion",
-      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
-    }, {
-      "name": "Arts and Humanities",
-      "label": "Fine Arts, History, Music, Philosophy, Religion",
-      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
-    }, {
-      "name": "Arts and Humanities",
-      "label": "Fine Arts, History, Music, Philosophy, Religion",
-      "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
-    }],
+      "subjects": [{
+        "name": "Arts and Humanities",
+        "label": "Fine Arts, History, Music, Philosophy, Religion",
+        "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+      }, {
+        "name": "Education",
+        "label": "Curriculum and Instruction, Educational Administration and Supervision, Educational Leadership, Higher Education, Liberal Studies",
+        "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+      }, {
+        "name": "Law",
+        "label": "Civil Law, Criminal Law, Legislation, State and Local Government Law, Supreme Court of the United States",
+        "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+      }, {
+        "name": "Social and Behavioral Sciences",
+        "label": "Anthropology, Economics, Political Science, Psychology, Sociology",
+        "link": "/preprints/socarxiv/discover?subject=Arts%20and%20Humanities"
+      }],
     "people": [{
       "firstName": "Maria",
       "lastName": "Gonzales",
       "institution": "University of North Carolina at Chapel Hill"
     },
     {
-      "firstName": "Maria",
-      "lastName": "Gonzales",
-      "institution": "University of North Carolina at Chapel Hill"
+      "firstName": "James",
+      "lastName": "Brown",
+      "institution": "University of California San Diego"
     },
     {
-      "firstName": "Maria",
-      "lastName": "Gonzales",
-      "institution": "University of North Carolina at Chapel Hill"
+      "firstName": "Jamal",
+      "lastName": "Beckett",
+      "institution": "Purdue University"
     },
     {
-      "firstName": "Maria",
-      "lastName": "Gonzales",
-      "institution": "University of North Carolina at Chapel Hill"
+      "firstName": "Andrea",
+      "lastName": "Schumer",
+      "institution": "Free University Berlin"
     },{
-      "firstName": "Maria",
-      "lastName": "Gonzales",
-      "institution": "University of North Carolina at Chapel Hill"
+      "firstName": "Shauntel",
+      "lastName": "Rogers",
+      "institution": "Harvard University"
     }],
     "links": [{
       "label": "Support",
