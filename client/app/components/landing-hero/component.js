@@ -15,6 +15,6 @@ export default Ember.Component.extend({
        return Ember.String.htmlSafe("background-color: " + this.get('branding.colors.background') + "; color: " + this.get('branding.colors.backgroundText'));
    }),
    logoStyle: Ember.computed('branding.logo', function() {
-      return Ember.String.htmlSafe("background: url(" + this.get('branding.logo.url') + ") center no-repeat; height: " + this.get('branding.logo.height'));
+      return Ember.String.htmlSafe("background-image: url(" + this.get('branding.logo.url') + "); height: " + this.get('branding.logo.height'));
     })
 });
