@@ -18,7 +18,10 @@
                 <div class="row">
                     {{#each typeList as |type|}}
                         <div class="col-xs-3 text-center">
-                            <div class="pointer m-b-md p-md box-round {{if (eq selectedType type) 'osf-box-dk' 'osf-box'}} " {{action 'updateType' type}}> {{type}}</div>
+                            <div class="pointer m-b-md p-md box-round osf-box {{if (eq selectedType type) 'osf-box-lt coll-active' 'osf-box'}} " {{action 'updateType' type}}>
+                                <div class="coll-radio"></div>
+                                {{type}}
+                            </div>
                         </div>
                     {{/each}}
                 </div>
