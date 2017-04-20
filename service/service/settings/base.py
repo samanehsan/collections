@@ -28,9 +28,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'oauth2_provider',
     'rest_framework',
     'corsheaders',
-    'guardian'
+    'guardian',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'osf_oauth2_adapter'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -58,6 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'allauth.account.context_processors.account',
+                # 'allauth.socialaccount.context_processors.socialaccount',
             ],
         },
     },
@@ -66,7 +74,44 @@ TEMPLATES = [
 WSGI_APPLICATION = 'service.wsgi.application'
 
 
+# auth and allauth settings
+OAUTH2_PROVIDER = {
+    'SCOPES': {
+        'read': 'Read scope',
+        'write': 'Write scope',
+        # 'groups': 'Access to your groups',
+        # 'upload_normalized_manuscript': 'Upload Normalized Manuscript',
+        # 'upload_raw_data': 'Upload Raw Data',
+        # 'approve_changesets': 'Approve ChangeSets'
+    }
+}
 
+LOGIN_REDIRECT_URL = os.environ.get('LOGIN_REDIRECT_URL', 'http://localhost:4200')
+SOCIALACCOUNT_ADAPTER = 'osf_oauth2_adapter.views.OSFOAuth2Adapter'
+SOCIALACCOUNT_PROVIDERS = \
+    {'osf':
+        {
+            'METHOD': 'oauth2',
+            'SCOPE': ['osf.users.profile_read'],
+            'AUTH_PARAMS': {'access_type': 'offline'},
+            # 'FIELDS': [
+            #     'id',
+            #     'email',
+            #     'name',
+            #     'first_name',
+            #     'last_name',
+            #     'verified',
+            #     'locale',
+            #     'timezone',
+            #     'link',
+            #     'gender',
+            #     'updated_time'],
+            # 'EXCHANGE_TOKEN': True,
+            # 'LOCALE_FUNC': 'path.to.callable',
+            # 'VERIFIED_EMAIL': False,
+            # 'VERSION': 'v2.4'
+        }
+     }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -122,7 +167,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'auth.authentication.OSFAuthentication',
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+        # 'auth.authentication.OSFAuthentication',
         'rest_framework.authentication.SessionAuthentication'
     )
 }
@@ -130,7 +176,8 @@ REST_FRAMEWORK = {
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'guardian.backends.ObjectPermissionBackend'
+    'guardian.backends.ObjectPermissionBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
 CORS_PREFLIGHT_MAX_AGE = 1
@@ -140,3 +187,5 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 AUTH_USER_MODEL = 'api.User'
+
+SITE_ID = 1
