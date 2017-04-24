@@ -43,7 +43,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
@@ -79,20 +79,16 @@ OAUTH2_PROVIDER = {
     'SCOPES': {
         'read': 'Read scope',
         'write': 'Write scope',
-        # 'groups': 'Access to your groups',
-        # 'upload_normalized_manuscript': 'Upload Normalized Manuscript',
-        # 'upload_raw_data': 'Upload Raw Data',
-        # 'approve_changesets': 'Approve ChangeSets'
     }
 }
 
-LOGIN_REDIRECT_URL = os.environ.get('LOGIN_REDIRECT_URL', 'http://localhost:4200')
+LOGIN_REDIRECT_URL = os.environ.get('LOGIN_REDIRECT_URL', 'http://localhost:4200/')
 SOCIALACCOUNT_ADAPTER = 'osf_oauth2_adapter.views.OSFOAuth2Adapter'
 SOCIALACCOUNT_PROVIDERS = \
     {'osf':
         {
             'METHOD': 'oauth2',
-            'SCOPE': ['osf.users.profile_read'],
+            'SCOPE': ['osf.full_read'],
             'AUTH_PARAMS': {'access_type': 'offline'},
             # 'FIELDS': [
             #     'id',
@@ -167,9 +163,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
-        # 'auth.authentication.OSFAuthentication',
-        'rest_framework.authentication.SessionAuthentication'
+        'oauth2_provider.ext.rest_framework.authentication.OAuth2Authentication',
+        'rest_framework.authentication.SessionAuthentication',
     )
 }
 

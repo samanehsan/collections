@@ -17,4 +17,6 @@ urlpatterns = [
 
     url(r'^items/$', api.views.ItemList.as_view(), name='item-list'),
     url(r'^items/(?P<item_id>\w+)/$', api.views.ItemDetail.as_view(), name='item-detail'),
+
+    url(r'^userinfo/$', api.views.CurrentUser.as_view(), name='current-user'),
 ]

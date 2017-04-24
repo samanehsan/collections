@@ -5,25 +5,37 @@ from rest_framework_json_api import serializers
 from api.models import Collection, Group, Item, User
 from api.base.serializers import RelationshipField
 from guardian.shortcuts import assign_perm
+from allauth.socialaccount.models import SocialAccount, SocialToken
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class UserSerializer(serializers.Serializer):
+
+    def __init__(self, *args, **kwargs):
+        super(UserSerializer, self).__init__(*args, **kwargs)
+        self.fields.update({
+            'token': serializers.SerializerMethodField()
+        })
+
     id = serializers.CharField(read_only=True)
-    username = serializers.CharField()
-    email = serializers.EmailField()
 
     class Meta:
         model = User
+        fields = (
+            'username', 'first_name', 'last_name', 'email', 'date_joined', 'last_login',
+            'is_active', 'gravatar', 'locale', 'time_zone'
+        )
 
     class JSONAPIMeta:
         resource_name = 'users'
 
-    def create(self, validated_data):
-        return User.objects.create_user(
-            password='password',
-            **validated_data
-        )
-
+    def get_token(self, obj):
+        try:
+            account = SocialAccount.objects.get(user=obj)
+            token = SocialToken.objects.get(account=account).token
+        except ObjectDoesNotExist:
+            return None
+        return token
 
 class ItemSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
