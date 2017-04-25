@@ -34,7 +34,10 @@ export default BaseAuthenticator.extend({
                 } else {
                     resolve({
                         user: response,
-                        csrfToken: this.csrfToken()
+                        csrfToken: this.csrfToken(),
+                        attributes: {
+                            accessToken: response.token
+                        }
                     });
                 }
             });
