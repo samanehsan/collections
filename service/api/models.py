@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     id = models.TextField(primary_key=True)
+    gravatar = models.URLField(blank=True)
 
 
 class Collection(models.Model):

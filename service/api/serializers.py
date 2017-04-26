@@ -9,7 +9,7 @@ from allauth.socialaccount.models import SocialAccount, SocialToken
 from django.core.exceptions import ObjectDoesNotExist
 
 
-class UserSerializer(serializers.Serializer):
+class UserSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
         super(UserSerializer, self).__init__(*args, **kwargs)
@@ -19,11 +19,12 @@ class UserSerializer(serializers.Serializer):
 
     id = serializers.CharField(read_only=True)
 
+
     class Meta:
         model = User
         fields = (
-            'username', 'first_name', 'last_name', 'email', 'date_joined', 'last_login',
-            'is_active', 'gravatar', 'locale', 'time_zone'
+            'id', 'username', 'first_name', 'last_name', 'email', 'date_joined', 'last_login',
+            'is_active', 'gravatar'
         )
 
     class JSONAPIMeta:
