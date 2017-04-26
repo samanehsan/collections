@@ -1,11 +1,13 @@
 import Ember from 'ember';
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
-
-export default Ember.Route.extend({
+export default Ember.Route.extend(ApplicationRouteMixin, {
     session: Ember.inject.service(),
-    model(){
-        let model = {};
-        model.authenticated =  this.get('session.isAuthenticated');
-        return model;
+
+    beforeModel() {
+        let session = this.get('session');
+        if (!session.get('isAuthenticated')) {
+            session.authenticate('authenticator:osf-token', false).catch(() => {});
+        }
     }
 });

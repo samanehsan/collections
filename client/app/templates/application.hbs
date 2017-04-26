@@ -1,5 +1,5 @@
 {{osf-navbar loginAction=(action 'login') hideSearch=true}}
-{{#unless model.authenticated}}
+{{#unless session.isAuthenticated}}
     <div class="coll-alert"> Collections demo requires signing in to an osf account. Sign in or sign up above. </div>
 {{/unless}}
 
