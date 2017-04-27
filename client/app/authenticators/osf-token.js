@@ -28,7 +28,7 @@ export default BaseAuthenticator.extend({
                 response = response.data.attributes;
                 if (!response || !response.token) {
                     if (redirectToLogin) {
-                        return window.location = `${ENV.apiBaseUrl}/accounts/osf/login/?${Ember.$.param({ next: window.location.pathname + window.location.search })}`;
+                        return window.location = `${ENV.apiBaseUrl}/accounts/osf/login/?${Ember.$.param({ next: 'http://localhost:4200/'})}`;
                     }
                     reject('not logged in');
                 } else {
