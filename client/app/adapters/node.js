@@ -24,6 +24,7 @@ export default DS.JSONAPIAdapter.extend({
         hash.xhrFields = { withCredentials: false };
         hash.headers = hash.headers || {};
         hash.headers['AUTHORIZATION'] = 'Bearer ' + getToken();
+        hash.headers['X-CSRFTOKEN'] = this.get('session.data.authenticated.csrfToken');
         return this._super(url, method, hash);
     },
     buildURL() {

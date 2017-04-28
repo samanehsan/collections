@@ -49,7 +49,10 @@ export default BaseAuthenticator.extend({
             method: 'POST',
             url: `${ENV.apiBaseUrl}/accounts/logout/`,
             crossDomain: true,
-            xhrFields: { withCredentials: true }
+            xhrFields: { withCredentials: true },
+            headers: {
+              'X-CSRFTOKEN': this.get('session.data.authenticated.csrfToken')
+            }
         });
     },
 
