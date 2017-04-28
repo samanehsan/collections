@@ -10,21 +10,14 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class UserSerializer(serializers.ModelSerializer):
-
-    def __init__(self, *args, **kwargs):
-        super(UserSerializer, self).__init__(*args, **kwargs)
-        self.fields.update({
-            'token': serializers.SerializerMethodField()
-        })
-
     id = serializers.CharField(read_only=True)
-
+    token = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = (
             'id', 'username', 'first_name', 'last_name', 'email', 'date_joined', 'last_login',
-            'is_active', 'gravatar'
+            'is_active', 'gravatar', 'token'
         )
 
     class JSONAPIMeta:
@@ -37,6 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
         except ObjectDoesNotExist:
             return None
         return token
+
 
 class ItemSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
