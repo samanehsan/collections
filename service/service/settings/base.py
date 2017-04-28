@@ -88,23 +88,7 @@ SOCIALACCOUNT_PROVIDERS = \
         {
             'METHOD': 'oauth2',
             'SCOPE': ['osf.full_read'],
-            'AUTH_PARAMS': {'access_type': 'offline'},
-            # 'FIELDS': [
-            #     'id',
-            #     'email',
-            #     'name',
-            #     'first_name',
-            #     'last_name',
-            #     'verified',
-            #     'locale',
-            #     'timezone',
-            #     'link',
-            #     'gender',
-            #     'updated_time'],
-            # 'EXCHANGE_TOKEN': True,
-            # 'LOCALE_FUNC': 'path.to.callable',
-            # 'VERIFIED_EMAIL': False,
-            # 'VERSION': 'v2.4'
+            'AUTH_PARAMS': {'access_type': 'offline'}
         }
      }
 
