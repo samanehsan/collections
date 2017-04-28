@@ -167,3 +167,11 @@ class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
         except ObjectDoesNotExist:
             raise drf_exceptions.NotFound
         return item
+
+
+class CurrentUser(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user

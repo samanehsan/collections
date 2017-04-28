@@ -16,8 +16,14 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from osf_oauth2_adapter import views as osf_oauth2_adapter_views
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include('api.urls'))
+    url(r'^api/', include('api.urls')),
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url(r'^accounts/social/login/cancelled/', osf_oauth2_adapter_views.login_errored_cancelled),
+    url(r'^accounts/social/login/error/', osf_oauth2_adapter_views.login_errored_cancelled),
+    url(r'^accounts/', include('allauth.urls')),
 ]

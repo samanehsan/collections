@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     id = models.TextField(primary_key=True)
+    gravatar = models.URLField(blank=True)
 
 
 class Collection(models.Model):
@@ -14,7 +15,7 @@ class Collection(models.Model):
     created_by = models.ForeignKey(User)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    settings = models.TextField()
+    settings = models.TextField(default={})
 
     class Meta:
         permissions = (

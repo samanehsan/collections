@@ -5,6 +5,8 @@ module.exports = function(environment) {
     modulePrefix: 'collections',
     environment: environment,
     rootURL: '/',
+    apiBaseUrl: 'http://localhost:8000',
+    csrfCookie: 'csrftoken',
     locationType: 'auto',
     authorizationType: 'token',
     EmberENV: {
@@ -19,7 +21,7 @@ module.exports = function(environment) {
       // when it is created
       usingCors: true,
       corsWithCreds: true,
-      apiURL: 'http://127.0.0.1:8000'
+      apiURL: 'http://localhost:8000/api'
     }
   };
 
