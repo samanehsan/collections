@@ -68,7 +68,7 @@ oauth2_callback = OAuth2CallbackView.adapter_view(OSFOAuth2Adapter)
 
 
 class LoginErroredCancelledView(TemplateView):
-    template_name = ("allauth/login_errored_cancelled.html")
+    template_name = ("login_errored_cancelled.html")
 
 
 login_errored_cancelled = LoginErroredCancelledView.as_view()
