@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import NavbarAuthDropdown from 'ember-osf/components/navbar-auth-dropdown/component';
 
 
