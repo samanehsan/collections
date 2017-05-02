@@ -2,6 +2,21 @@
 
 Collections is a prototype project at the Center for Open Science. This project is experimental, scope, technologies, code and functionality may change. 
 
+# Login Configuration
+1. Create a developer app at [https://staging.osf.io/settings/applications/](https://staging.osf.io/settings/applications/) with the following settings:
+    * Project homepage URL: http://localhost:8000/
+    * Callback URL: http://localhost:8000/accounts/osf/login/callback/
+
+2. In the django admin panel, create a new Site with domain name: http://localhost:8000/
+    * Note: The site id must match the `SITE_ID` variable defined in `collections/service/service/settings/base.py`
+    or `SITE_ID` should be set to the site id in `collections/service/service/settings/local.py`
+
+3. In the django admin panel, create a SocialAccount:
+    * Set provider to "Open Science Framework"
+    * Set the client id and secret key to the ones defined in your developer app
+    * Select http://localhost:8000/ as the site
+
+
 # Django Instructions
 Run the server with this command:
 
