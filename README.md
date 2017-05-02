@@ -8,7 +8,8 @@ Collections is a prototype project at the Center for Open Science. This project 
     * Callback URL: http://localhost:8000/accounts/osf/login/callback/
 
 2. In the django admin panel, create a new Site with domain name: http://localhost:8000/
-    * Note: The site id must match SITE_ID defined in the django app settings
+    * Note: The site id must match the `SITE_ID` variable defined in `collections/service/service/settings/base.py`
+    or `SITE_ID` should be set to the site id in `collections/service/service/settings/local.py`
 
 3. In the django admin panel, create a SocialAccount:
     * Set provider to "Open Science Framework"
