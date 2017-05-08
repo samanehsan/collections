@@ -40,7 +40,7 @@ class ItemSerializer(serializers.Serializer):
     status = serializers.ChoiceField(choices=['approved', 'pending', 'rejected'])
     url = serializers.URLField()
     created_by = UserSerializer(read_only=True)
-    metadata = serializers.CharField(allow_blank=True)
+    metadata = serializers.JSONField(required=False)
     date_added = serializers.DateTimeField(read_only=True, allow_null=True)
     date_submitted = serializers.DateTimeField(read_only=True)
 
@@ -57,9 +57,8 @@ class ItemSerializer(serializers.Serializer):
 
         allow_all = None
         if collection.settings:
-            collection_settings = json.loads(collection.settings)
-            allow_all = collection_settings.get('allow_all', None)
-            collection_type = collection_settings.get('type', None)
+            allow_all = collection.settings.get('allow_all', None)
+            collection_type = collection.settings.get('type', None)
             if collection_type and validated_data['type'] != collection_type:
                 raise ValueError('Collection only accepts items of type ' + collection_type)
 
@@ -102,7 +101,7 @@ class ItemSerializer(serializers.Serializer):
 
         item_type = validated_data.get('type', item.type)
         if collection.settings:
-            collection_type = json.loads(collection.settings).get('type', None)
+            collection_type = collection.settings.get('type', None)
             if collection_type and item_type != collection_type:
                 raise ValueError('Collection only accepts items of type ' + collection_type)
 
@@ -159,7 +158,8 @@ class CollectionSerializer(serializers.Serializer):
     title = serializers.CharField(required=True)
     description = serializers.CharField(allow_blank=True)
     tags = serializers.CharField(allow_blank=True)
-    settings = serializers.CharField(required=False)
+    settings = serializers.JSONField(required=False)
+    submission_settings = serializers.JSONField(required=False)
     created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
@@ -189,5 +189,6 @@ class CollectionSerializer(serializers.Serializer):
         collection.description = validated_data.get('description', collection.description)
         collection.tags = validated_data.get('tags', collection.tags)
         collection.settings = validated_data.get('settings', collection.settings)
+        collection.submission_settings = validated_data.get('submission_settings', collection.submission_settings)
         collection.save()
         return collection
