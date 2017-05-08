@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.postgres.fields import JSONField
 
 
 class User(AbstractUser):
@@ -15,7 +16,7 @@ class Collection(models.Model):
     created_by = models.ForeignKey(User)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    settings = models.TextField(default={})
+    settings = JSONField()
 
     class Meta:
         permissions = (
@@ -56,6 +57,6 @@ class Item(models.Model):
     collection = models.ForeignKey(to='Collection', related_name='items')
     group = models.ForeignKey(to='Group', null=True, blank=True, default=None, related_name='items')
     created_by = models.ForeignKey(User)
-    metadata = models.TextField()
+    metadata = JSONField()
     date_added = models.DateTimeField(null=True, blank=True, default=None)
     date_submitted = models.DateTimeField(auto_now_add=True)
