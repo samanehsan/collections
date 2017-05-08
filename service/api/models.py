@@ -16,6 +16,7 @@ class Collection(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     settings = models.TextField(default={})
+    submission_settings = models.TextField(default={})
 
     class Meta:
         permissions = (
