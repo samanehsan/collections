@@ -17,6 +17,7 @@ class Collection(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     settings = JSONField()
+    submission_settings = JSONField()
 
     class Meta:
         permissions = (
