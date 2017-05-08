@@ -16,8 +16,8 @@ class Collection(models.Model):
     created_by = models.ForeignKey(User)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    settings = JSONField()
-    submission_settings = JSONField()
+    settings = JSONField(default={})
+    submission_settings = JSONField(default={})
 
     class Meta:
         permissions = (
