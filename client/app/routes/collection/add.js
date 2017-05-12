@@ -36,29 +36,17 @@ export default Ember.Route.extend({
                 preprint_file_upload_widget: {
                     state: ['undefined'],
                     value: undefined
+                },
+                preprint_title_widget: {
+                    state: ['undefined'],
+                    value: undefined
+                },
+                save_upload_section_widget: {
+                    state: ['undefined'],
+                    value: undefined
                 }
             },
             actions: [{
-                type: 'create_widget',
-                parameters: {
-                    widget_component: 'text-field',
-                    description: 'Enter the title for this preprint',
-                    section: 'upload'
-                },
-                output: 'preprint_title_widget',
-                conditions: [{
-                    all: [{
-                        parameter: 'preprint_file_upload_widget',
-                        state: 'undefined',
-                    }, {
-                        parameter: 'preprint_file_data',
-                        state: 'defined',
-                    }, {
-                        parameter: 'upload_section',
-                        state: 'editing',
-                    }],
-                }]
-            }, {
                 type: 'create_widget',
                 parameters: {
                     widget_component: 'file-uploader',
@@ -76,6 +64,51 @@ export default Ember.Route.extend({
                         state: 'undefined'
                     }]
                 }]
+            }, {
+                type: 'create_widget',
+                parameters: {
+                    widget_component: 'text-field',
+                    description: 'Enter the title for this preprint',
+                    section: 'upload',
+                    output: 'preprint_file_name'
+                },
+                output: 'preprint_title_widget',
+                conditions: [{
+                    all: [{
+                        parameter: 'preprint_title_widget',
+                        state: 'undefined',
+                    }, {
+                        parameter: 'preprint_file_data',
+                        state: 'defined',
+                    }, {
+                        parameter: 'upload_section',
+                        state: 'editing',
+                    }],
+                }]
+            }, {
+                type: 'create_widget',
+                parameters: {
+                    widget_component: 'button-widget',
+                    description: 'Save this section',
+                    section: 'upload',
+                    output: 'upload_section'
+                },
+                output: 'save_upload_section_widget',
+                conditions: [{
+                    all: [{
+                        parameter: 'save_upload_section_widget',
+                        state: 'undefined',
+                    }, {
+                        parameter: 'preprint_file_data',
+                        state: 'defined',
+                    }, {
+                        parameter: 'preprint_file_name',
+                        state: 'defined'
+                    }, {
+                        parameter: 'upload_section',
+                        state: 'editing',
+                    }],
+                }]
             }]
         };
     },
@@ -85,6 +118,7 @@ export default Ember.Route.extend({
         controller.set('actions', model.actions);
         controller.set('sections', model.sections);
         controller.set('state', model.initial_state);
+        controller.run_update()
     }
 
 });

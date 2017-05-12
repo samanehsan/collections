@@ -1,24 +1,22 @@
 <div class="coll-add-choice">
     <div class="container">
         <h3> Add content </h3>
-        <div class="add-panel m-t-lg p-md">
-            {{#if (eq model.settings.collectionType 'Website')}}
-                {{add-website model=model transition=(action "transition")}}
-            {{else}}
-                {{#each sections as |section|}}
+        {{#if (eq model.settings.collectionType 'Website')}}
+            {{add-website model=model transition=(action "transition")}}
+        {{else}}
+            {{#each sections as |section|}}
 
-                    <div style="border: 1px solid red; padding: 10px">{{section}}
+                <div class="add-panel m-t-lg p-md">
 
-                        {{#each widgets as |widget|}}
-                            {{#if (eq widget.section section)}}
-                                {{component widget.widget_component saveParameter=(action saveParameter state widget.output)}}
-                            {{/if}}
-                        {{/each}}
+                    {{#each widgets as |widget|}}
+                        {{#if (eq widget.section section)}}
+                            {{component widget.widget_component saveParameter=(action saveParameter state widget.output)}}
+                        {{/if}}
+                    {{/each}}
 
-                    </div>
+                </div>
 
-                {{/each}}
-            {{/if}}
-        </div>
+            {{/each}}
+        {{/if}}
     </div>
 </div>

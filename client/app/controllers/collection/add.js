@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 function updateState() {
+    console.log('updating state');
     const state = this.get('state')
     this.get('actions').forEach((action) => {
 
@@ -91,12 +92,12 @@ export default Ember.Controller.extend({
     widgets: [],
 
     create_widget: function(parameters) {
-        alert('action fired');
         return parameters;
     },
 
-    updateWidgets: Ember.observer('state', updateState),
-
+    run_update: function () {
+        updateState.call(this);
+    },
 
     //refresh() {
 
