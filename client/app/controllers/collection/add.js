@@ -20,6 +20,10 @@ export default Ember.Controller.extend({
 
             function condition_dispatcher(condition) {
 
+                console.log('Checking Condition');
+                console.log('condition.parameter: ' + condition.parameter);
+                console.log('condition.state: ' + condition.state);
+
                 // Check if its a regular condition
                 if (condition.parameter !== undefined &&
                     typeof condition.state === 'array'
@@ -58,17 +62,21 @@ export default Ember.Controller.extend({
             }
 
             function check_all(conditions) {
+                console.log(conditions);
                 // if any conditions fail, the whole check fails.
-                !action.condition.some((condition) => !condition_dispatcher);
+                return !action.conditions.some((condition) => !condition_dispatcher(condition));
             }
 
             function check_any(conditions) {
                 // if any conditions are met, the whole check passes.
-                action.condition.some(condition_dispatcher)
+                return action.conditions.some(condition_dispatcher)
             }
 
             // check if the action can fire.
+            console.log('Checking if action can fire.');
             const may_fire = check_all(action.conditions);
+
+            if (!may_fire) { return; }
 
             // action may fire
             var return_value = this.get(action.type)(action.parameters);
