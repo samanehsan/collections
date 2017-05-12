@@ -18,9 +18,58 @@ export default Ember.Controller.extend({
     updateWidgets: Ember.observer('state', function() {
         this.get('actions').forEach((action) => {
 
+            function condition_dispatcher(condition) {
+
+                // Check if its a regular condition
+                if (condition.parameter !== undefined &&
+                    typeof condition.state === 'array'
+                ) {
+                    // actualy check the condition is met;
+                    // the parameter has to have the given state.
+                    return this.get('state.' + condition.parameter).state
+                        // check that the state exists for this item
+                        .some((state_item) => state_item === condition.state)
+                }
+
+                // Check if its an 'all' composite condition
+                if (condition.all !== undefined &&
+                    typeof condition.all === 'array'
+                ) {
+                    // if any conditions fail, the whole check fails.
+                    return check_all(condition.all);
+                }
+
+                // Check if its an 'any' composite condition
+                if (condition.any !== undefined &&
+                    typeof condition.any === 'array'
+                ) {
+                    // if any conditions are met, the whole check passes.
+                    return check_any(condition.any);
+                }
+
+                // Check if its a 'none' composite condition
+                if (condition.none !== undefined &&
+                    typeof condition.none ==='array'
+                ) {
+                    // if any conditions are met, the whole check fails.
+                    return !check_any(condition.none);
+                }
+
+            }
+
+            function check_all(conditions) {
+                // if any conditions fail, the whole check fails.
+                !action.condition.some((condition) => !condition_dispatcher);
+            }
+
+            function check_any(conditions) {
+                // if any conditions are met, the whole check passes.
+                action.condition.some(condition_dispatcher)
+            }
+
             // check if the action can fire.
-            console.log(action);
-            action.conditions;
+            const may_fire = check_all(action.conditions);
+
             // action may fire
             var return_value = this.get(action.type)(action.parameters);
             console.log(return_value);
