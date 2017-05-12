@@ -16,28 +16,38 @@ export default Ember.Controller.extend({
     },
 
     updateWidgets: Ember.observer('state', function() {
+        const state = this.get('state')
         this.get('actions').forEach((action) => {
 
             function condition_dispatcher(condition) {
 
+
                 console.log('Checking Condition');
                 console.log('condition.parameter: ' + condition.parameter);
                 console.log('condition.state: ' + condition.state);
+                console.log(condition);
+                console.log(condition.all);
 
                 // Check if its a regular condition
-                if (condition.parameter !== undefined &&
-                    typeof condition.state === 'array'
-                ) {
+                if (condition.parameter !== undefined) {
                     // actualy check the condition is met;
                     // the parameter has to have the given state.
-                    return this.get('state.' + condition.parameter).state
-                        // check that the state exists for this item
-                        .some((state_item) => state_item === condition.state)
+                    console.log('Checking a real condition');
+                    debugger;
+                    if (state[condition.parameter] === undefined) {
+                        state[condition.parameter] = {};
+                    }
+                    if (state[condition.parameter].state === undefined) {
+                        state[condition.parameter].state = [];
+                    }
+                    const parameter_state = state[condition.parameter].state
+                    // check that the state exists for this item
+                    return parameter_state.some((state_item) => state_item === condition.state)
                 }
 
                 // Check if its an 'all' composite condition
                 if (condition.all !== undefined &&
-                    typeof condition.all === 'array'
+                    condition.all.constructor === Array
                 ) {
                     // if any conditions fail, the whole check fails.
                     return check_all(condition.all);
@@ -45,7 +55,7 @@ export default Ember.Controller.extend({
 
                 // Check if its an 'any' composite condition
                 if (condition.any !== undefined &&
-                    typeof condition.any === 'array'
+                    condition.any.constructor === Array
                 ) {
                     // if any conditions are met, the whole check passes.
                     return check_any(condition.any);
@@ -53,18 +63,22 @@ export default Ember.Controller.extend({
 
                 // Check if its a 'none' composite condition
                 if (condition.none !== undefined &&
-                    typeof condition.none ==='array'
+                    condition.none.constructor ===Array
                 ) {
                     // if any conditions are met, the whole check fails.
                     return !check_any(condition.none);
                 }
+
+                return false;
 
             }
 
             function check_all(conditions) {
                 console.log(conditions);
                 // if any conditions fail, the whole check fails.
-                return !action.conditions.some((condition) => !condition_dispatcher(condition));
+                return !conditions.some(function(condition) {
+                    return !condition_dispatcher(condition);
+                });
             }
 
             function check_any(conditions) {
