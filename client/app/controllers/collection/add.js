@@ -21,19 +21,10 @@ export default Ember.Controller.extend({
 
             function condition_dispatcher(condition) {
 
-
-                console.log('Checking Condition');
-                console.log('condition.parameter: ' + condition.parameter);
-                console.log('condition.state: ' + condition.state);
-                console.log(condition);
-                console.log(condition.all);
-
                 // Check if its a regular condition
                 if (condition.parameter !== undefined) {
                     // actualy check the condition is met;
                     // the parameter has to have the given state.
-                    console.log('Checking a real condition');
-                    debugger;
                     if (state[condition.parameter] === undefined) {
                         state[condition.parameter] = {};
                     }
@@ -74,7 +65,6 @@ export default Ember.Controller.extend({
             }
 
             function check_all(conditions) {
-                console.log(conditions);
                 // if any conditions fail, the whole check fails.
                 return !conditions.some(function(condition) {
                     return !condition_dispatcher(condition);
@@ -87,9 +77,7 @@ export default Ember.Controller.extend({
             }
 
             // check if the action can fire.
-            console.log('Checking if action can fire.');
             const may_fire = check_all(action.conditions);
-
             if (!may_fire) { return; }
 
             // action may fire
