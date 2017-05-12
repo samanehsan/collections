@@ -32,6 +32,10 @@ export default Ember.Route.extend({
                 submit_button: {
                     state: ['disabled'],
                     value: undefined
+                },
+                preprint_file_upload_widget: {
+                    state: ['undefined'],
+                    value: undefined
                 }
             },
             actions: [{
@@ -44,25 +48,32 @@ export default Ember.Route.extend({
                 output: 'preprint_title_widget',
                 conditions: [{
                     all: [{
-                        parameter: 'file_url',
+                        parameter: 'preprint_file_upload_widget',
+                        state: 'undefined',
+                    }, {
+                        parameter: 'preprint_file_data',
                         state: 'defined',
                     }, {
                         parameter: 'upload_section',
-                        state: 'editing'
+                        state: 'editing',
                     }],
                 }]
             }, {
                 type: 'create_widget',
                 parameters: {
-                    widget_component: 'text-field',
+                    widget_component: 'file-uploader',
                     description: 'Choose the preprint file to upload',
                     section: 'upload',
+                    output: 'preprint_file_data'
                 },
                 output: 'preprint_file_upload_widget',
                 conditions: [{
                     all: [{
                         parameter: 'upload_section',
                         state: 'unsaved',
+                    }, {
+                        parameter: 'preprint_file_upload_widget',
+                        state: 'undefined'
                     }]
                 }]
             }]

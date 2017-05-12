@@ -7,13 +7,15 @@
             {{else}}
                 {{#each sections as |section|}}
 
-                    <div style="border: 1px solid red; padding: 10px">{{section}}</div>
+                    <div style="border: 1px solid red; padding: 10px">{{section}}
 
-                    {{#each widgets as |widget|}}
-                        {{#if (eq widget.section section)}}
-                            {{component widget.widget_component}}
-                        {{/if}}
-                    {{/each}}
+                        {{#each widgets as |widget|}}
+                            {{#if (eq widget.section section)}}
+                                {{component widget.widget_component saveParameter=(action saveParameter state widget.output)}}
+                            {{/if}}
+                        {{/each}}
+
+                    </div>
 
                 {{/each}}
             {{/if}}
