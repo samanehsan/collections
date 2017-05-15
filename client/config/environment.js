@@ -6,6 +6,7 @@ module.exports = function(environment) {
     environment: environment,
     rootURL: '/',
     apiBaseUrl: 'http://localhost:8000',
+    osfHostUrl: 'http://localhost:8000',
     csrfCookie: 'csrftoken',
     locationType: 'auto',
     authorizationType: 'token',
@@ -34,6 +35,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
 
+    ENV['osfHostUrl'] = 'http://staging-api.osf.io';
     ENV['ember-cli-mirage'] = {
       enabled: false
     };
@@ -51,6 +53,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+    ENV['osfHostUrl'] = 'http://api.osf.io';
 
   }
 
