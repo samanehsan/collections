@@ -43,12 +43,11 @@
         </ul>
     </div>
 </div>
-
 <div class="row">
-    <div class="col-md-12">
-        <div class="pull-right">
-            <button {{action 'discardSubjects'}} class="btn btn-default" disabled={{unless disciplineChanged true}}>Discard</button>
-            <button {{action 'saveSubjects'}} class="btn btn-primary" disabled={{unless disciplineValid true}} >Save and Continue</button>
-        </div>
-    </div>
+  <div class="col-md-12">
+      <div class="pull-right">
+          <button {{action 'discardSubjects'}} class="btn btn-default" disabled={{unless disciplineChanged true}}>Discard</button>
+          <button {{action 'saveSubjects'}} class="btn btn-primary" disabled={{unless disciplineValid true}} >Save and Continue</button>
+      </div>
+  </div>
 </div>

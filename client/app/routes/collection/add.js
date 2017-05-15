@@ -5,7 +5,7 @@ var settings = {
     {
       title: 'subject-picker',
       settings: {
-        selected: ['math', 'science', 'art']
+        subjects: []
       }
     }
   ],
@@ -17,6 +17,6 @@ var settings = {
 
 export default Ember.Route.extend({
     model() {
-      return settings;
+      return settings.sections[0].settings;
     }
 });

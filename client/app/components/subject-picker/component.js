@@ -39,7 +39,7 @@ function arrayStartsWith(arr, prefix) {
  * ```handlebars
  * {{subject-picker
  *      editMode=editMode
- *      selected=subjectsList
+ *      selected=selected
  *      disciplineModifiedToggle=disciplineModifiedToggle
  *      save=(action 'setSubjects')
  *}}
@@ -97,11 +97,20 @@ export default Ember.Component.extend({
     selection3: null,
     disciplineModifiedToggle: false,
     disciplineValid: Ember.computed.notEmpty('selected'),
-    subjectsList: [{subject: 'math'}, {subject:'science'}],
-    // Are there any unsaved changes in the discipline section?
-    //disciplineChanged: Ember.computed('subjectsList.@each.subject', 'disciplineModifiedToggle',  function() {
-    //    return !(disciplineArraysEqual(subjectIdMap(this.get('model.subjects')), subjectIdMap(this.get('subjectsList'))));
-    //}),
+
+    // Pending subjects
+    selected: Ember.computed('model.subjects.@each', function() {
+        return this.get('model.subjects') ? Ember.$.extend(true, [], this.get('model.subjects')) : Ember.A();
+    }),
+
+    // Flattened subject list
+    disciplineReduced: Ember.computed('model.subjects', function() {
+        return Ember.$.extend(true, [], this.get('model.subjects')).reduce((acc, val) => acc.concat(val), []).uniqBy('id');
+    }),
+
+    disciplineChanged: Ember.computed('selected.@each.subject', 'disciplineModifiedToggle',  function() {
+        return !(disciplineArraysEqual(subjectIdMap(this.get('model.subjects')), subjectIdMap(this.get('selected'))));
+    }),
 
     querySubjects(parents = 'null', tier = 0) {
         this.get('theme.provider')
@@ -126,14 +135,15 @@ export default Ember.Component.extend({
         this.querySubjects();
     },
 
+    setSubjects(subjects) {
+        // Sets selected with pending subjects. Does not save.
+        let disciplineModifiedToggle = this.get('disciplineModifiedToggle');
+        this.set('disciplineModifiedToggle', !disciplineModifiedToggle); // Need to observe if discipline in nested array has changed. Toggling this will force 'disciplineChanged' to be recalculated
+        this.set('selected', subjects);
+    },
+
     actions: {
         deselect(subject) {
-            //Ember.get(this, 'metrics')
-            //    .trackEvent({
-            //        category: 'button',
-            //        action: 'click',
-            //        label: `${this.get('editMode') ? 'Edit' : 'Submit'} - Discipline Remove`
-            //    });
             let index;
             if (subject.length === 1) {
                 index = 0;
@@ -157,10 +167,11 @@ export default Ember.Component.extend({
             }
 
             for (let i = wipe; i < 4; i++) {
-                this.set(`_tier${i}`, null);
-                this.set(`selection${i}`, null);
+              this.set(`_tier${i}`, null);
+              this.set(`selection${i}`, null);
             }
-            this.sendAction('save', this.get('selected'), 'subject-picker');
+            this.setSubjects(this.get('selected'));
+            //this.sendAction('save', this.get('selected'));
         },
         select(selected, tier) {
             tier = parseInt(tier);
@@ -189,7 +200,8 @@ export default Ember.Component.extend({
                     this.get('selected').pushObject(selection);
             }
 
-            this.sendAction('save', this.get('selected'));
+            this.setSubjects(this.get('selected'));
+            //this.sendAction('save', this.get('selected'));
 
             if (tier === 3) return;
 
@@ -199,8 +211,16 @@ export default Ember.Component.extend({
             // TODO: Fires a network request every time clicking here, instead of only when needed?
             this.querySubjects(selected.id, tier);
         },
+        discardSubjects() {
+            // Discards changes to subjects. (No requests sent, front-end only.)
+            this.set('selected', Ember.$.extend(true, [], this.get('model.subjects')));
+        },
         saveSubjects() {
-          this.sendAction('saveSubjects');
+          let currentSubjects = Ember.$.extend(true, [], this.get('model.subjects'));
+          let subjectMap = subjectIdMap(this.get('selected'));
+          let disciplineChanged = this.get('disciplineChanged');
+          //this.sendAction('save', currentSubjects, subjectMap, disciplineChanged);
         }
+
     }
 });

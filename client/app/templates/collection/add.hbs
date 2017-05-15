@@ -17,7 +17,7 @@
                         {{/if}}
                         {{#if (eq addMethod 'create')}}
                           <div class="p-md">
-                            {{subject-picker selected=subjectsList disciplineModifiedToggle=disciplineModifiedToggle save=(action 'updateData') saveSubjects=(action 'save')}}
+                            {{subject-picker model=model save=(action 'saveSubjects')}}
                           </div>
                         {{/if}}
                 {{else}}
