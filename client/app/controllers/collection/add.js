@@ -21,19 +21,18 @@ export default Ember.Controller.extend({
           let model = this.get('model');
             // Current subjects saved so UI can be restored in case of failure
           if (disciplineChanged) {
-              model.set('subjects', subjectMap);
-              model.save()
-                  .then(() => {
-                      this.send('next', this.get('_names.1'));
-                  })
-                  .catch(() => {
-                      model.set('subjects', currentSubjects);
-                      //this.get('toast').error(this.get('i18n').t('submit.disciplines_error'));
-                  });
+              this.set('model', 'subjects', subjectMap);
+              //model.save()
+              //    .then(() => {
+              //        this.send('next', this.get('_names.1'));
+              //    })
+              //    .catch(() => {
+              //        model.set('subjects', currentSubjects);
+              //        this.get('toast').error(this.get('i18n').t('submit.disciplines_error'));
+              //    });
           } else {
               this.send('next', this.get('_names.1'));
           }
-          //model.values[componentName] = subjectMap;
         }
     }
 });

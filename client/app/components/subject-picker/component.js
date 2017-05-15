@@ -171,7 +171,6 @@ export default Ember.Component.extend({
               this.set(`selection${i}`, null);
             }
             this.setSubjects(this.get('selected'));
-            //this.sendAction('save', this.get('selected'));
         },
         select(selected, tier) {
             tier = parseInt(tier);
@@ -201,7 +200,6 @@ export default Ember.Component.extend({
             }
 
             this.setSubjects(this.get('selected'));
-            //this.sendAction('save', this.get('selected'));
 
             if (tier === 3) return;
 
@@ -219,7 +217,7 @@ export default Ember.Component.extend({
           let currentSubjects = Ember.$.extend(true, [], this.get('model.subjects'));
           let subjectMap = subjectIdMap(this.get('selected'));
           let disciplineChanged = this.get('disciplineChanged');
-          //this.sendAction('save', currentSubjects, subjectMap, disciplineChanged);
+          this.sendAction('save', currentSubjects, subjectMap, disciplineChanged);
         }
 
     }
