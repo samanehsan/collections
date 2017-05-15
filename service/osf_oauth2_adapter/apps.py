@@ -15,5 +15,7 @@ class OsfOauth2AdapterConfig(AppConfig):
 
     osf_api_url = os.environ.get('OSF_API_URL', api_url).rstrip('/') + '/'
     osf_accounts_url = os.environ.get('OSF_ACCOUNTS_URL', accounts_url).rstrip('/') + '/'
+    osf_api_url = os.environ.get('OSF_API_URL', 'https://api.osf.io').rstrip('/') + '/'
+    osf_accounts_url = os.environ.get('OSF_ACCOUNTS_URL', 'https://accounts.osf.io').rstrip('/') + '/'
     default_scopes = ['osf.full_read', ]
     humans_group_name = 'OSF_USERS'
