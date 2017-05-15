@@ -53,11 +53,11 @@ module.exports = function(environment) {
   }
 
   if (environment === 'stage') {
-    ENV['osfHostUrl'] = 'http://staging-api.osf.io';
+    ENV['osfHostUrl'] = 'https://staging-api.osf.io';
 
   }
   if (environment === 'production') {
-    ENV['osfHostUrl'] = 'http://api.osf.io';
+    ENV['osfHostUrl'] = 'https://api.osf.io';
 
   }
 
