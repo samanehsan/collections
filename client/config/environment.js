@@ -52,6 +52,10 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
 
+  if (environment === 'stage') {
+    ENV['osfHostUrl'] = 'http://staging-api.osf.io';
+
+  }
   if (environment === 'production') {
     ENV['osfHostUrl'] = 'http://api.osf.io';
 
