@@ -35,7 +35,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
 
-    ENV['osfHostUrl'] = 'http://staging-api.osf.io';
+    ENV['osfHostUrl'] = 'https://staging-api.osf.io';
     ENV['ember-cli-mirage'] = {
       enabled: false
     };
