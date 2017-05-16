@@ -1,5 +1,20 @@
 import Ember from 'ember';
 
+var settings = {
+  sections: [
+    {
+      title: 'subject-picker',
+      settings: {
+        subjects: []
+      }
+    }
+  ],
+  values: {
+    'subject-picker': {},
+    'contributors': {}
+  }
+};
+
 export default Ember.Route.extend({
 
     model() {
@@ -42,6 +57,10 @@ export default Ember.Route.extend({
                     value: undefined
                 },
                 save_upload_section_widget: {
+                    state: ['undefined'],
+                    value: undefined
+                },
+                subject_picker_widget: {
                     state: ['undefined'],
                     value: undefined
                 }
@@ -107,6 +126,21 @@ export default Ember.Route.extend({
                     }, {
                         parameter: 'upload_section',
                         state: 'editing',
+                    }],
+                }]
+            }, {
+                type: 'create_widget',
+                parameters: {
+                    widget_component: 'subject-picker',
+                    description: 'Save this section',
+                    section: 'disciplines',
+                    output: 'selected_subjects'
+                },
+                output: 'subject_picker_widget',
+                conditions: [{
+                    all: [{
+                        parameter: 'subject_picker_widget',
+                        state: 'undefined',
                     }],
                 }]
             }]

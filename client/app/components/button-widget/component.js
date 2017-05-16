@@ -6,15 +6,9 @@ export default Ember.Component.extend({
     buttonString: 'Save',
 
     actions: {
-
         pressButton() {
-            this.attrs.saveParameter({
-                state: ['defined'],
-                value: this.get('textFieldValue')
-            });
-
+            this.attrs.action();
         }
-
     }
 
 });

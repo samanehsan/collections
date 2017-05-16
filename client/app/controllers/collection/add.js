@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
+
 function updateState() {
     console.log('updating state');
     const state = this.get('state')
@@ -67,17 +68,10 @@ function updateState() {
         if (!may_fire) { return; }
 
         // action may fire
-        var return_value = this.get(action.type)(action.parameters);
-        console.log(return_value);
-        if (action.type === 'create_widget') {
-            let wdgs =  this.get('widgets');
-            wdgs.pushObject(return_value);
-            this.set('state.'+action.output, {
-                value: return_value,
-                state: ['defined']
-            });
-            console.log(wdgs);
-        }
+        this.set('state.'+action.output, {
+            value: this.get(action.type).call(this, (action.parameters)),
+            state: ['defined']
+        });
     });
 }
 
@@ -91,13 +85,31 @@ export default Ember.Controller.extend({
 
     widgets: [],
 
-    create_widget: function(parameters) {
+    create_widget(parameters) {
+        debugger;
+        this.get('widgets').pushObject(parameters);
         return parameters;
     },
 
     run_update: function () {
         updateState.call(this);
     },
+
+    //save_section: function(section) {
+    //    return function() {
+    //        widgets.filter((widget) => {
+    //            return widget.section == section;
+    //        }).map(widget) => {
+    //            return this.get('state.' + widget.output);
+    //        });
+    //    };
+    //}
+
+    //widgetActions: Ember.computed('widgets.@each.actions', function() {
+    //   return this.get('widgets').map((widget) => {
+    //        widget._action = this.get(widget.action).apply(this, widget.
+    //    });
+    //}),
 
     //refresh() {
 
@@ -109,6 +121,24 @@ export default Ember.Controller.extend({
         debugger;
         updateState.call(this);
         //this.get('refresh')();
+    },
+    saveSubjects(currentSubjects, subjectMap, disciplineChanged) {
+      // Update section data
+      let model = this.get('model');
+        // Current subjects saved so UI can be restored in case of failure
+      if (disciplineChanged) {
+          this.set('model', 'subjects', subjectMap);
+          //model.save()
+          //    .then(() => {
+          //        this.send('next', this.get('_names.1'));
+          //    })
+          //    .catch(() => {
+          //        model.set('subjects', currentSubjects);
+          //        this.get('toast').error(this.get('i18n').t('submit.disciplines_error'));
+          //    });
+      } else {
+          this.send('next', this.get('_names.1'));
+      }
     },
 
     actions: {
