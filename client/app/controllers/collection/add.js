@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 
 function updateState() {
-    console.log('updating state');
     const state = this.get('state')
     this.get('actions').forEach((action) => {
 
@@ -86,7 +85,6 @@ export default Ember.Controller.extend({
     widgets: [],
 
     create_widget(parameters) {
-        debugger;
         this.get('widgets').pushObject(parameters);
         return parameters;
     },
@@ -118,7 +116,6 @@ export default Ember.Controller.extend({
 
     saveParameter(state, parameter, value) {
         state[parameter] = value;
-        debugger;
         updateState.call(this);
         //this.get('refresh')();
     },
