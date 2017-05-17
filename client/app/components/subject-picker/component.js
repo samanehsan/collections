@@ -99,17 +99,17 @@ export default Ember.Component.extend({
     disciplineValid: Ember.computed.notEmpty('selected'),
 
     // Pending subjects
-    subjectsList: Ember.computed('model.subjects.@each', function() {
-        return this.get('model.subjects') ? Ember.$.extend(true, [], this.get('model.subjects')) : Ember.A();
+    subjectsList: Ember.computed('subjects.@each', function() {
+        return this.get('subjects') ? Ember.$.extend(true, [], this.get('subjects')) : Ember.A();
     }),
 
     // Flattened subject list
-    disciplineReduced: Ember.computed('model.subjects', function() {
-        return Ember.$.extend(true, [], this.get('model.subjects')).reduce((acc, val) => acc.concat(val), []).uniqBy('id');
+    disciplineReduced: Ember.computed('subjects', function() {
+        return Ember.$.extend(true, [], this.get('subjects')).reduce((acc, val) => acc.concat(val), []).uniqBy('id');
     }),
 
-    disciplineChanged: Ember.computed('model.subjects.@each.subject', 'selected.@each.subject', 'disciplineModifiedToggle',  function() {
-        return !(disciplineArraysEqual(subjectIdMap(this.get('model.subjects')), subjectIdMap(this.get('selected'))));
+    disciplineChanged: Ember.computed('subjects.@each.subject', 'selected.@each.subject', 'disciplineModifiedToggle',  function() {
+        return !(disciplineArraysEqual(subjectIdMap(this.get('subjects')), subjectIdMap(this.get('selected'))));
     }),
 
     editMode: true,
@@ -133,6 +133,7 @@ export default Ember.Component.extend({
 
     init() {
         this._super(...arguments);
+        this.set('subjects', []);
         this.set('selected', this.get('subjectsList'));
         this.querySubjects();
     },
@@ -213,14 +214,18 @@ export default Ember.Component.extend({
         },
         discardSubjects() {
             // Discards changes to subjects. (No requests sent, front-end only.)
-            this.set('selected', Ember.$.extend(true, [], this.get('model.subjects')));
+            this.set('selected', Ember.$.extend(true, [], this.get('subjects')));
         },
         saveSubjects() {
-          let currentSubjects = Ember.$.extend(true, [], this.get('model.subjects'));
-          let subjectMap = this.get('selected');
-          let disciplineChanged = this.get('disciplineChanged');
-          this.sendAction('save', currentSubjects, subjectMap, disciplineChanged);
-          this.set('editMode', false);
+            let currentSubjects = Ember.$.extend(true, [], this.get('subjects'));
+            let subjectMap = this.get('selected');
+            let disciplineChanged = this.get('disciplineChanged');
+            this.attrs.saveParameter({
+                value: subjectMap,
+                state: ['defined']
+            });
+            //this.sendAction('save', currentSubjects, subjectMap, disciplineChanged);
+            this.set('editMode', false);
         }
 
     }
