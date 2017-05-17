@@ -218,13 +218,14 @@ export default Ember.Component.extend({
         },
         saveSubjects() {
             let currentSubjects = Ember.$.extend(true, [], this.get('subjects'));
-            let subjectMap = this.get('selected');
+            let subjectMap = Ember.$.extend(true, [], this.get('selected'));
             let disciplineChanged = this.get('disciplineChanged');
             this.attrs.saveParameter({
                 value: subjectMap,
                 state: ['defined']
             });
-            //this.sendAction('save', currentSubjects, subjectMap, disciplineChanged);
+            // Update subjects with selected subjects
+            this.set('subjects', Ember.$.extend(true, [], subjectMap));
             this.set('editMode', false);
         }
 

@@ -122,15 +122,6 @@ export default Ember.Controller.extend({
         updateState.call(this);
         //this.get('refresh')();
     },
-    saveSubjects(currentSubjects, subjectMap, disciplineChanged) {
-      // Update section data
-      let subjects = Ember.$.extend(true, [], subjectMap);
-      // TODO: Restore UI to current subjects in case of failure
-      if (disciplineChanged) {
-          this.set('model.subjects', subjects);
-      }
-
-    },
 
     actions: {
 
