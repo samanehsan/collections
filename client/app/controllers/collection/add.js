@@ -20,8 +20,9 @@ export default Ember.Controller.extend({
           // Update section data
           let model = this.get('model');
             // Current subjects saved so UI can be restored in case of failure
+          let subjects = Ember.$.extend(true, [], subjectMap);
           if (disciplineChanged) {
-              this.set('model', 'subjects', subjectMap);
+              this.set('model.subjects', subjects);
               //model.save()
               //    .then(() => {
               //        this.send('next', this.get('_names.1'));
@@ -30,9 +31,10 @@ export default Ember.Controller.extend({
               //        model.set('subjects', currentSubjects);
               //        this.get('toast').error(this.get('i18n').t('submit.disciplines_error'));
               //    });
-          } else {
-              this.send('next', this.get('_names.1'));
           }
+          //else {
+          //    this.send('next', this.get('_names.1'));
+          //}
         }
     }
 });

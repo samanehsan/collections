@@ -39,7 +39,7 @@ function arrayStartsWith(arr, prefix) {
  * ```handlebars
  * {{subject-picker
  *      editMode=editMode
- *      selected=selected
+ *      selected=subjectList
  *      disciplineModifiedToggle=disciplineModifiedToggle
  *      save=(action 'setSubjects')
  *}}
@@ -99,7 +99,7 @@ export default Ember.Component.extend({
     disciplineValid: Ember.computed.notEmpty('selected'),
 
     // Pending subjects
-    selected: Ember.computed('model.subjects.@each', function() {
+    subjectsList: Ember.computed('model.subjects.@each', function() {
         return this.get('model.subjects') ? Ember.$.extend(true, [], this.get('model.subjects')) : Ember.A();
     }),
 
@@ -108,9 +108,11 @@ export default Ember.Component.extend({
         return Ember.$.extend(true, [], this.get('model.subjects')).reduce((acc, val) => acc.concat(val), []).uniqBy('id');
     }),
 
-    disciplineChanged: Ember.computed('selected.@each.subject', 'disciplineModifiedToggle',  function() {
+    disciplineChanged: Ember.computed('model.subjects.@each.subject', 'selected.@each.subject', 'disciplineModifiedToggle',  function() {
         return !(disciplineArraysEqual(subjectIdMap(this.get('model.subjects')), subjectIdMap(this.get('selected'))));
     }),
+
+    editMode: true,
 
     querySubjects(parents = 'null', tier = 0) {
         this.get('theme.provider')
@@ -131,7 +133,7 @@ export default Ember.Component.extend({
 
     init() {
         this._super(...arguments);
-        this.set('selected', []);
+        this.set('selected', this.get('subjectsList'));
         this.querySubjects();
     },
 
@@ -215,9 +217,10 @@ export default Ember.Component.extend({
         },
         saveSubjects() {
           let currentSubjects = Ember.$.extend(true, [], this.get('model.subjects'));
-          let subjectMap = subjectIdMap(this.get('selected'));
+          let subjectMap = this.get('selected');
           let disciplineChanged = this.get('disciplineChanged');
           this.sendAction('save', currentSubjects, subjectMap, disciplineChanged);
+          this.set('editMode', false);
         }
 
     }
