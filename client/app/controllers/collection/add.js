@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 
 function updateState() {
-    console.log('updating state');
     const state = this.get('state')
     this.get('actions').forEach((action) => {
 
@@ -86,7 +85,6 @@ export default Ember.Controller.extend({
     widgets: [],
 
     create_widget(parameters) {
-        debugger;
         this.get('widgets').pushObject(parameters);
         return parameters;
     },
@@ -118,27 +116,8 @@ export default Ember.Controller.extend({
 
     saveParameter(state, parameter, value) {
         state[parameter] = value;
-        debugger;
         updateState.call(this);
         //this.get('refresh')();
-    },
-    saveSubjects(currentSubjects, subjectMap, disciplineChanged) {
-      // Update section data
-      let model = this.get('model');
-        // Current subjects saved so UI can be restored in case of failure
-      if (disciplineChanged) {
-          this.set('model', 'subjects', subjectMap);
-          //model.save()
-          //    .then(() => {
-          //        this.send('next', this.get('_names.1'));
-          //    })
-          //    .catch(() => {
-          //        model.set('subjects', currentSubjects);
-          //        this.get('toast').error(this.get('i18n').t('submit.disciplines_error'));
-          //    });
-      } else {
-          this.send('next', this.get('_names.1'));
-      }
     },
 
     actions: {
@@ -153,5 +132,4 @@ export default Ember.Controller.extend({
         },
 
     }
-
 });
