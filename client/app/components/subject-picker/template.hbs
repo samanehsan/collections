@@ -1,3 +1,4 @@
+{{preprint-form-header disciplineSaveState=disciplineSaveState name='Discipline' valid=(not disciplineChanged) isValidationActive=hasOpened}}
 <div id="preprint-form-subjects">
     {{#if editMode}}
         <div class="row">
@@ -60,8 +61,6 @@
                 {{#each disciplineReduced as |subject|}}
                     <span class="subject-preview">{{subject.text}}</span>
                 {{/each}}
-            {{else}}
-                <span>None</span>
             {{/if}}
         </div>
         <i class="text-smaller m-t-md" {{action toggleProperty 'editMode'}}>Click to edit</i>

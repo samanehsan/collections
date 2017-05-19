@@ -97,6 +97,8 @@ export default Ember.Component.extend({
     selection3: null,
     disciplineModifiedToggle: false,
     disciplineValid: Ember.computed.notEmpty('selected'),
+    disciplineSaveState: false,
+    hasOpened: true,
 
     // Pending subjects
     subjectsList: Ember.computed('subjects.@each', function() {
