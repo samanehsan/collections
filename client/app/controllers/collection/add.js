@@ -3,7 +3,7 @@ import Ember from 'ember';
 
 function updateState() {
     const state = this.get('state')
-    this.get('actions').forEach((action) => {
+    this.get('formActions').forEach((action) => {
 
         function condition_dispatcher(condition) {
 
@@ -76,6 +76,13 @@ function updateState() {
 
 export default Ember.Controller.extend({
     addMethod: 'select', // 'select' or 'create'
+    panelActions: Ember.inject.service('panelActions'),
+    _names: Ember.computed('sections', function() {
+        let sections = this.get('sections');
+        return sections.map((section) => {
+          return section.name;
+        });
+    }),
     methodSelected: false,
     type: Ember.computed('model.settings', function() {
         var collectionType = this.get('model.settings.collectionType') || 'project';
@@ -83,6 +90,7 @@ export default Ember.Controller.extend({
     }),
 
     widgets: [],
+    editMode: false,
 
     create_widget(parameters) {
         this.get('widgets').pushObject(parameters);
@@ -113,7 +121,6 @@ export default Ember.Controller.extend({
 
     //},
 
-
     saveParameter(state, parameter, value) {
         state[parameter] = value;
         updateState.call(this);
@@ -130,6 +137,11 @@ export default Ember.Controller.extend({
         transition(name, id) {
             this.transitionToRoute(name, id);
         },
+
+        next(currentPanelName) {
+          this.get('panelActions').close(this.get(`_names.${this.get('_names').indexOf(currentPanelName)}`));
+          //this.get('panelActions').open(this.get(`_names.${this.get('_names').indexOf(currentPanelName) + 1}`));
+        }
 
     }
 });

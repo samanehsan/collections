@@ -1,23 +1,28 @@
 <div class="coll-add-choice">
-    <div class="container">
-        <h2>Add A Preprint</h2>
-        {{#if (eq model.settings.collectionType 'Website')}}
-            {{add-website model=model transition=(action "transition")}}
-        {{else}}
-            {{#each sections as |section|}}
-
-                <div class="add-panel m-t-lg p-md">
-
-                    <h3>{{section}}</h3>
-                    {{#each widgets as |widget|}}
-                        {{#if (eq widget.section section)}}
-                            {{component widget.widget_component saveParameter=(action saveParameter state widget.output)}}
-                        {{/if}}
-                    {{/each}}
-
+    <div class="preprint-submit-body">
+        <div class="container">
+            <div class="row m-t-lg">
+                <div class="col-xs-12 col-md-10 col-md-offset-1 ">
+                    <h2>Add A Preprint</h2>
+                    {{#if (eq model.settings.collectionType 'Website')}}
+                        {{add-website model=model transition=(action "transition")}}
+                    {{else}}
+                        {{#each sections as |section|}}
+                            {{#cp-panels accordion=true}}
+                                {{#with section.name as |name|}}
+                                    {{#preprint-form-section id=section.divId class="preprint-form-block" editMode=editMode name=name allowOpen=true as |hasOpened isOpen|}}
+                                        {{#each widgets as |widget|}}
+                                            {{#if (eq widget.section section.name)}}
+                                                {{component widget.widget_component name=name editMode=editMode isOpen=isOpen hasOpened=hasOpened open=open next=(action 'next') saveParameter=(action saveParameter state widget.output)}}
+                                            {{/if}}
+                                        {{/each}}
+                                    {{/preprint-form-section}}
+                                {{/with}}
+                            {{/cp-panels}}
+                        {{/each}}
+                    {{/if}}
                 </div>
-
-            {{/each}}
-        {{/if}}
+            </div>
+        </div>
     </div>
 </div>

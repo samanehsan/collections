@@ -16,16 +16,16 @@ var settings = {
 };
 
 export default Ember.Route.extend({
-
+    panelActions: Ember.inject.service('panelActions'),
     model() {
         return {
             submission_form_name: 'Preprints Submission Form',
             sections: [
-                'upload',
-                'disciplines',
-                'basic info',
-                'authors',
-                'submit'
+              {name: 'upload', divId: 'preprint-form-upload'},
+              {name: 'disciplines', divId: 'preprint-form-subjects'},
+              {name: 'basic info', divId: 'preprint-form-basics'},
+              {name: 'authors', divId: 'preprint-form-authors'},
+              {name: 'submit', divId: 'preprint-form-submit'}
             ],
             initial_state: {
                 upload_section: {
@@ -149,7 +149,7 @@ export default Ember.Route.extend({
 
     setupController(controller, model) {
         controller.set('form_config', model);
-        controller.set('actions', model.actions);
+        controller.set('formActions', model.actions);
         controller.set('sections', model.sections);
         controller.set('state', model.initial_state);
         controller.run_update()

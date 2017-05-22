@@ -326,3 +326,97 @@ tr.item-row-selected {
     background-position: center;
     background-repeat: no-repeat;
 }
+
+// Add preprint styles
+.preprint-form-block {
+    margin-top: 20px;
+    background: #fff;
+    padding:10px 20px 20px 20px;
+    box-shadow: 0 0 3px #ddd;
+    label {
+        width: 100%;
+    }
+    .preprint-header-preview {
+        color: #444;
+        font-size: 15px;
+        i {
+            color: #888;
+            display: block;
+        }
+        .abstract {
+            white-space: pre-line;
+        }
+    }
+}
+
+.preprint-form-section {
+    header {
+        @extend a;
+        cursor: pointer;
+        font: {
+            size: 16px;
+            font-weight: bold;
+        }
+        display: block;
+        margin: 1rem 0;
+        &:hover, &:focus {
+            text-decoration: none;
+        }
+        &:after {
+            content: "";
+            display: block;
+            width: 100%;
+            clear: both;
+        }
+        &.cp-is-open {
+            cursor: default;
+            color: #333;
+        }
+        &.valid {
+            .preprint-section-status .fa {
+                color: #488132;
+            }
+        }
+        &.invalid {
+            .preprint-section-status .fa {
+                color: #b64949;
+            }
+        }
+        &.not-validated {
+            .preprint-section-status .fa {
+                color: gray;
+            }
+        }
+        .fa {
+            font-size: 20px;
+        }
+        .preprint-section-status .fa {
+            transition: color 0.1s linear;
+        }
+    }
+    .cp-Panel-body {
+        opacity: 0;
+        overflow: hidden;
+        transition: {
+            property: height, opacity;
+            duration: 0.2s;
+            timing-function: linear;
+        }
+        &.cp-is-open {
+            opacity: 1;
+        }
+    }
+    // THESE STYLES ARE INTERFERING WITH MY STYLES.
+    // .row {
+    //     margin: 0;
+    // }
+    // label, input, textarea {
+    //     display: block;
+    // }
+    label > input, label > textarea {
+        font-weight: normal;
+    }
+    textarea {
+        resize: none;
+    }
+}
