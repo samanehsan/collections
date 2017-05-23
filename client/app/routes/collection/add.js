@@ -1,22 +1,22 @@
 import Ember from 'ember';
 
-var settings = {
-  sections: [
-    {
-      title: 'subject-picker',
-      settings: {
-        subjects: []
-      }
-    }
-  ],
-  values: {
-    'subject-picker': {},
-    'contributors': {}
-  }
-};
+// This section is not used, leftover code?
+// var settings = {
+//   sections: [
+//     {
+//       title: 'subject-picker',
+//       settings: {
+//         subjects: []
+//       }
+//     }
+//   ],
+//   values: {
+//     'subject-picker': {},
+//     'contributors': {}
+//   }
+// };
 
 export default Ember.Route.extend({
-
     model() {
         return {
             submission_form_name: 'Preprints Submission Form',
@@ -61,6 +61,10 @@ export default Ember.Route.extend({
                     value: undefined
                 },
                 subject_picker_widget: {
+                    state: ['undefined'],
+                    value: undefined
+                },
+                basic_info_widget: {
                     state: ['undefined'],
                     value: undefined
                 }
@@ -162,6 +166,26 @@ export default Ember.Route.extend({
                         state: 'undefined',
                     }, {
                         parameter: 'preprint_file_url',
+                        state: 'defined'
+                    }],
+                }]
+            },{
+                type: 'create_widget',
+                args: {
+                    widget_component: 'preprint-basics',
+                    description: 'License and other things',
+                    section: 'basic info'
+                },
+                parameters: {
+                    output_parameter: 'basic_info'
+                },
+                output_parameter: 'basic_info_widget',
+                conditions: [{
+                    all: [{
+                        parameter: 'basic_info_widget',
+                        state: 'undefined',
+                    }, {
+                        parameter: 'selected_subjects',
                         state: 'defined'
                     }],
                 }]
