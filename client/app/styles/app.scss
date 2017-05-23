@@ -1,6 +1,6 @@
 @import 'components/navbar-auth-dropdown';
+@import 'validated-input';
 @import 'components/subject-picker';
-
 
 $navbar-color: #009688;
 $light-blue-banner: #e8f0f1;
@@ -327,28 +327,8 @@ tr.item-row-selected {
     background-repeat: no-repeat;
 }
 
-// Add preprint styles
-.preprint-form-block {
-    margin-top: 20px;
-    background: #fff;
-    padding:10px 20px 20px 20px;
-    box-shadow: 0 0 3px #ddd;
-    label {
-        width: 100%;
-    }
-    .preprint-header-preview {
-        color: #444;
-        font-size: 15px;
-        i {
-            color: #888;
-            display: block;
-        }
-        .abstract {
-            white-space: pre-line;
-        }
-    }
-}
 
+/* Preprint forms -- copied over from ember-preprints repo*/
 .preprint-form-section {
     header {
         @extend a;
@@ -379,7 +359,7 @@ tr.item-row-selected {
         }
         &.invalid {
             .preprint-section-status .fa {
-                color: #b64949;
+                color: #F44336;
             }
         }
         &.not-validated {
@@ -420,3 +400,37 @@ tr.item-row-selected {
         resize: none;
     }
 }
+
+
+
+#preprint-form-basics {
+    span.required:after {
+        content: "(required)";
+        color: lighten(red, 30%);
+        font-weight: normal;
+        float: right;
+    }
+}
+
+.preprint-form-block {
+    margin-top: 20px;
+    background: #fff;
+    padding:10px 20px 20px 20px;
+    box-shadow: 0 0 3px #ddd;
+    label {
+        width: 100%;
+    }
+    .preprint-header-preview {
+        color: #444;
+        font-size: 15px;
+        i {
+            color: #888;
+            display: block;
+        }
+        .abstract {
+            white-space: pre-line;
+        }
+    }
+}
+
+/* End of Preprint forms */

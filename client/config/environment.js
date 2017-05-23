@@ -122,7 +122,6 @@ module.exports = function(environment) {
 
 
   ENV.headerAuth = process.env.HEADER_AUTH;
-  debugger;
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
@@ -150,8 +149,10 @@ module.exports = function(environment) {
 
   if (environment === 'stage') {
     ENV['osfHostUrl'] = 'https://staging-api.osf.io';
-
   }
+
+
+    ENV['sanity'] = environment;
   if (environment === 'production') {
     ENV['osfHostUrl'] = 'https://api.osf.io';
 
