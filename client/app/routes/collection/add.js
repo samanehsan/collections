@@ -7,31 +7,36 @@ export default Ember.Route.extend({
         return {
             submission_form_name: 'Preprints Submission Form',
             sections: [
-              {name: 'upload', divId: 'preprint-form-upload'},
-              {name: 'disciplines', divId: 'preprint-form-subjects'},
-              {name: 'basic info', divId: 'preprint-form-basics'},
-              {name: 'authors', divId: 'preprint-form-authors'},
-              {name: 'submit', divId: 'preprint-form-submit'}
+              {name: 'upload', divId: 'preprint-form-upload', param: 'upload_section'},
+              {name: 'disciplines', divId: 'preprint-form-subjects', param: 'disciplines_section'},
+              {name: 'basic info', divId: 'preprint-form-basics', param: 'basic_info_section'},
+              {name: 'authors', divId: 'preprint-form-authors', param: 'authors_section'},
+              {name: 'submit', divId: 'preprint-form-submit', param: 'submit_button'}
             ],
             initial_parameters: {
                 upload_section: {
                     state: ['unsaved', 'editing'],
+                    allowOpen: true,
                     value: undefined
                 },
                 disciplines_section: {
                     state: ['disabled'],
+                    allowOpen: true,
                     value: undefined
                 },
                 basic_info_section: {
                     state: ['disabled'],
+                    allowOpen: false,
                     value: undefined
                 },
                 authors_section: {
                     state:  ['disabled'],
+                    allowOpen: false,
                     value: undefined
                 },
                 submit_button: {
                     state: ['disabled'],
+                    allowOpen: false,
                     value: undefined
                 },
                 preprint_file_upload_widget: {
@@ -166,11 +171,8 @@ export default Ember.Route.extend({
                 conditions: [{
                     all: [{
                         parameter: 'basic_info_widget',
-                        state: 'undefined',
-                    }, {
-                        parameter: 'selected_subjects',
-                        state: 'defined'
-                    }],
+                        state: 'undefined'
+                    }]
                 }]
             }]
         };
