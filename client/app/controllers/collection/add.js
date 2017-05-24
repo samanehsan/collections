@@ -223,7 +223,7 @@ export default Ember.Controller.extend({
             this.transitionToRoute(name, id);
         },
 
-        next(currentPanelName) {
+        closeSection(currentPanelName) {
             this.get('panelActions').close(this.get(`_names.${this.get('_names').indexOf(currentPanelName)}`));
         }
 

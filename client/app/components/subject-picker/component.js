@@ -228,7 +228,7 @@ export default Ember.Component.extend({
             // Update subjects with selected subjects
             this.set('subjects', Ember.$.extend(true, [], subjectMap));
             this.set('editMode', false);
-            this.sendAction('next', this.get('name'));
+            this.sendAction('closeSection', this.get('name'));
         }
     }
 });
