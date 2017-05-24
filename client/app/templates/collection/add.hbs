@@ -18,14 +18,12 @@
                     {{#each sections as |section|}}
                         <!-- The step to add existing projects has to be put back here at some point. Do not remove this comment. -->
                         {{#cp-panels accordion=true}}
-                            {{#preprint-form-section id=section.divId class="preprint-form-block" editMode=editMode name=section.name allowOpen=(get (get parameters section.param) 'allowOpen') as |hasOpened isOpen|}}
+                            {{#preprint-form-section id=section.divId class="preprint-form-block" editMode=editMode name=section.name open=(get (get parameters section.param) 'open') allowOpen=(get (get parameters section.param) 'allowOpen') as |hasOpened isOpen|}}
+                                {{preprint-form-header name=section.name valid=true isValidationActive=hasOpened}}
                                 {{#each widgets as |widget|}}
                                     {{#if (eq widget.section section.name)}}
                                         {{component widget.widget_component
-                                            name=section.name
                                             isOpen=isOpen
-                                            hasOpened=hasOpened
-                                            open=open
                                             next=(action 'next')
                                             saveParameter=(action saveParameter widget.output_parameter)
                                             action=widget.action

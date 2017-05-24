@@ -1,2 +1,6 @@
-<button style='float: right; margin-top: 10px;' class='btn btn-primary' {{action "pressButton"}}>{{buttonString}}</button>
+{{#preprint-form-body}}
+  {{#if isOpen}}
+      <button style='float: right; margin-top: 10px;' class='btn btn-primary' {{action "pressButton"}}>{{buttonString}}</button>
+  {{/if}}
+{{/preprint-form-body}}
 {{yield}}
