@@ -60,6 +60,14 @@ export default Ember.Controller.extend({
     formActions: [],
     editMode: false,
 
+    init: function () {
+        this._super();
+        this.set('content', Em.Object.create({
+            info: null
+        }));
+        this.saveParameter = this.saveParameter.bind(this);
+    },
+
     // Fire enabled actions.
     updateState: function(actions) {
         actions.forEach((action) => {
@@ -69,7 +77,7 @@ export default Ember.Controller.extend({
             // Action may fire if execution has reached this point.
             // Call the action and set its result and any
             // changes to its state on `controller.parameters`.
-            console.log('stop here');
+            console.log('Firing action: ' + action.type);
             action.output_parameter['value'] = action.action.apply(this, action.arg_arr);
             action.output_parameter['state'] = ['defined'];
         });
@@ -92,7 +100,8 @@ export default Ember.Controller.extend({
             conditions: action.conditions,
             parameters: action.parameters,
             args: action.args,
-            output_parameter: parameters[action.output_parameter]
+            output_parameter: parameters[action.output_parameter],
+            then: action.then
         };
         hydrated_action['arg_arr'] = cons_arg_arr.call(this, hydrated_action);
         return hydrated_action;
@@ -102,22 +111,31 @@ export default Ember.Controller.extend({
 
     create_widget_signature: ['widget_component', 'description',
                                         'section', 'output_parameter', 'action_id'],
-    // `this` must be lexically bound for `create_widget`, as
-    // `create_widget` requires access to the controller.
+    // `this` must be bound to the controller for `create_widget`, as
+    // `create_widget` requires access to the controller, and does so through `this`.
     create_widget: function(widget_component, description, section, output_parameter, action_id) {
         let action;
-        if (typeof action_id === "string") {
-            action = async (context) => {
-                let action_obj = this.get('formActions')
-                    // If a user uses the same id for multiple actions,
-                    // fire the first that matches.
-                    .find(action => action.id == action_id)
 
-                return await action_obj.action.apply(context, action_obj.arg_arr);
+        let actions = this.get('formActions');
+
+        async function fire_actions(action_id) {
+            if (typeof action_id === "string") {
+
+                let action_obj = actions.find(action => action.id == action_id);
+                if (typeof action_obj.action === 'function') {
+                    let result = await action_obj.action.apply(this, action_obj.arg_arr);
+                    if (typeof action_obj.then === 'string') {
+                        fire_actions.call(this, action_obj.then);
+                    }
+                    return result;
+                }
+            } else {
+                return;
             }
-        } else {
-            action = () => {};
         }
+
+        action = (context) => fire_actions.call(context, action_id);
+
         const widget = {
             widget_component,
             description,
@@ -125,10 +143,17 @@ export default Ember.Controller.extend({
             output_parameter,
             action
         };
-        console.log("\n *** CREATING WIDGET *** \n");
-        console.log(widget);
         this.get('widgets').pushObject(widget);
         return widget;
+    },
+
+
+    // Delete widget and resets state
+    delete_widget_signature: ['widget_object'],
+    delete_widget: function(widget_object) {
+        this.get('widgets').removeObject(widget_object.value);
+        widget_object.value = undefined;
+        widget_object.state = ['undefined'];
     },
 
 
@@ -136,7 +161,7 @@ export default Ember.Controller.extend({
     upload_file: async function(file_name, file_data, node) {
         if (typeof file_name.value === 'undefined') return;
         if (typeof file_data.value === 'undefined') return;
-        if (typeof node.value === 'undefined') node.value = 'h8d72';
+        if (typeof node.value === 'undefined') node.value = ENV.node_guid;
         const uri = ENV.OSF.waterbutlerUrl + "v1/resources/" + node.value +
             "/providers/osfstorage/?kind=file&name=" + file_name.value;
         const xhr = new XMLHttpRequest();
@@ -168,18 +193,21 @@ export default Ember.Controller.extend({
     //refresh() {
 
     //},
-
-
-    saveParameter(parameter, updated_parameter) {
-        parameter.value = updated_parameter.value;
-        parameter.state = updated_parameter.state
+    saveParameter_signature: ['parameter', 'updated_parameter'],
+    saveParameter: function(parameter, updated_parameter) {
+        if (typeof updated_parameter.value !== undefined) {
+            parameter.value = updated_parameter.value;
+        }
+        if (typeof updated_parameter.state !== undefined) {
+            parameter.state = updated_parameter.state;
+        }
         this.get('updateState').call(this, this.get('formActions'));
     },
 
 
     widgetActions: Ember.computed('widgets.@each.actions', function() {
         return this.get('widgets').map((widget) => {
-            widget._action = this.get(widget.action).apply(this, widget.parameters)
+            widget.action = this.get(widget.action).apply(this, widget.parameters);
         });
     }),
 
@@ -289,7 +317,7 @@ function cons_arg_arr(action) {
         }
         // If an arg is defined, it takes priority.
         if (typeof action.args === 'object' &&
-            typeof action.args[key] === 'string'
+            action.args[key] !== undefined
         ) {
             value = action.args[key];
         }

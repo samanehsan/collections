@@ -23,16 +23,18 @@
                                 {{#each widgets as |widget|}}
                                     {{#if (eq widget.section section.name)}}
                                         {{component widget.widget_component
-                                            isOpen=isOpen
-                                            next=(action 'next')
                                             saveParameter=(action saveParameter widget.output_parameter)
                                             action=widget.action
+                                            description=widget.description
+                                            name=section.name
+                                            isOpen=isOpen
+                                            next=(action 'next')
                                         }}
                                     {{/if}}
                                 {{/each}}
-                            {{/preprint-form-section}}
+                              {{/preprint-form-section}}
                         {{/cp-panels}}
-                    {{/each}}
+                      {{/each}}
                     {{/if}}
                 </div>
             </div>
