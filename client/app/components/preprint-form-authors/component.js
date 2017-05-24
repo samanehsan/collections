@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import CpPanelBodyComponent from 'ember-collapsible-panel/components/cp-panel-body';
 import { permissionSelector } from 'ember-osf/const/permissions';
 import NodeActionsMixin from 'ember-osf/mixins/node-actions';
 import ENV from '../../config/environment';
@@ -16,7 +15,7 @@ import ENV from '../../config/environment';
  * that are not allowed are disabled (for example, you cannot remove the sole bibliographic author).
  * @class preprint-form-authors
  */
-export default CpPanelBodyComponent.extend( NodeActionsMixin, {
+export default Ember.Component.extend( NodeActionsMixin, {
     i18n: Ember.inject.service(),
 
     // Variables that used to pass in from Controller
