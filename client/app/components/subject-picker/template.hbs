@@ -1,9 +1,11 @@
 {{#if (not isOpen)}}
     {{#if disciplineReduced}}
     <div class="row">
+        <div class="col-xs-12">
             {{#each disciplineReduced as |subject|}}
                 <span class="subject-preview">{{subject.text}}</span>
             {{/each}}
+        </div>
     </div>
     <i class="text-smaller m-t-md" {{action toggleProperty 'editMode'}}>Click to edit</i>
     {{/if}}
