@@ -106,6 +106,7 @@ export default Ember.Component.extend(BasicsValidations, {
                 state: ['defined']
             });
             this.set('editMode', false);
+            this.sendAction('closeSection', this.get('name'));
 
             // Promise.all([
             //     node.save(),

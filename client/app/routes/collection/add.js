@@ -1,51 +1,52 @@
 import Ember from 'ember';
 
-// This section is not used, leftover code?
-// var settings = {
-//   sections: [
-//     {
-//       title: 'subject-picker',
-//       settings: {
-//         subjects: []
-//       }
-//     }
-//   ],
-//   values: {
-//     'subject-picker': {},
-//     'contributors': {}
-//   }
-// };
 
 export default Ember.Route.extend({
+    panelActions: Ember.inject.service('panelActions'),
     model() {
         return {
             submission_form_name: 'Preprints Submission Form',
             sections: [
-                'upload',
-                'disciplines',
-                'basic info',
-                'authors',
-                'submit'
+              {name: 'upload', divId: 'preprint-form-upload', param: 'upload_section'},
+              {name: 'disciplines', divId: 'preprint-form-subjects', param: 'disciplines_section'},
+              {name: 'basic info', divId: 'preprint-form-basics', param: 'basic_info_section'},
+              {name: 'authors', divId: 'preprint-form-authors', param: 'authors_section'},
+              {name: 'submit', divId: 'preprint-form-submit', param: 'submit_button'}
             ],
             initial_parameters: {
                 upload_section: {
                     state: ['unsaved', 'editing'],
+                    allowOpen: true,
+                    open: true,
+                    showValidationIndicator: true,
                     value: undefined
                 },
                 disciplines_section: {
                     state: ['disabled'],
+                    allowOpen: true,
+                    open: false,
+                    showValidationIndicator: true,
                     value: undefined
                 },
                 basic_info_section: {
                     state: ['disabled'],
+                    allowOpen: true,
+                    open: false,
+                    showValidationIndicator: true,
                     value: undefined
                 },
                 authors_section: {
                     state:  ['disabled'],
+                    allowOpen: true,
+                    open: false,
+                    showValidationIndicator: true,
                     value: undefined
                 },
                 submit_button: {
                     state: ['disabled'],
+                    allowOpen: true,
+                    open: false,
+                    showValidationIndicator: false,
                     value: undefined
                 },
                 preprint_file_upload_widget: {
@@ -233,11 +234,8 @@ export default Ember.Route.extend({
                 conditions: [{
                     all: [{
                         parameter: 'subject_picker_widget',
-                        state: 'undefined',
-                    }, {
-                        parameter: 'preprint_file_url',
-                        state: 'defined'
-                    }],
+                        state: 'undefined'
+                    }]
                 }]
             }, {
                 type: 'create_widget',
@@ -253,11 +251,8 @@ export default Ember.Route.extend({
                 conditions: [{
                     all: [{
                         parameter: 'basic_info_widget',
-                        state: 'undefined',
-                    }, {
-                        parameter: 'selected_subjects',
-                        state: 'defined'
-                    }],
+                        state: 'undefined'
+                    }]
                 }]
             }, {
                 type: 'delete_widget',
@@ -286,10 +281,6 @@ export default Ember.Route.extend({
                     all: [{
                         parameter: 'authors_widget',
                         state: 'undefined',
-                    },
-                    {
-                        parameter: 'basic_info',
-                        state: 'defined'
                     }
                     ],
                 }]

@@ -354,7 +354,7 @@ tr.item-row-selected {
         }
         &.valid {
             .preprint-section-status .fa {
-                color: #009688;
+                color: #488132;
             }
         }
         &.invalid {
@@ -409,6 +409,27 @@ tr.item-row-selected {
         color: lighten(red, 30%);
         font-weight: normal;
         float: right;
+    }
+}
+
+.preprint-form-block {
+    margin-top: 20px;
+    background: #fff;
+    padding:10px 20px 20px 20px;
+    box-shadow: 0 0 3px #ddd;
+    label {
+        width: 100%;
+    }
+    .preprint-header-preview {
+        color: #444;
+        font-size: 15px;
+        i {
+            color: #888;
+            display: block;
+        }
+        .abstract {
+            white-space: pre-line;
+        }
     }
 }
 

@@ -8,25 +8,36 @@
     text-align: center;
 ">Add Preprint</h1>
 <div class="coll-add-choice">
-    <div class="container">
-        {{#if (eq model.settings.collectionType 'Website')}}
-            {{add-website model=model transition=(action "transition")}}
-        {{else}}
-            {{#each sections as |section|}}
-                <div class="add-panel m-t-lg p-md" style='overflow: hidden'>
-                    <!-- The step to add existing projects has to be put back here at some point. Do not remove this comment. -->
-                    <h3>{{section}}</h3>
-                    {{#each widgets as |widget|}}
-                        {{#if (eq widget.section section)}}
-                            {{component widget.widget_component 
-                                saveParameter=(action saveParameter widget.output_parameter)
-                                action=widget.action
-                                description=widget.description
-                            }}
-                        {{/if}}
-                    {{/each}}
+    <div class="preprint-submit-body">
+        <div class="container">
+            <div class="row m-t-lg">
+                <div class="col-xs-12 col-md-10 col-md-offset-1 ">
+                    {{#if (eq model.settings.collectionType 'Website')}}
+                        {{add-website model=model transition=(action "transition")}}
+                    {{else}}
+                    {{#each sections as |section|}}
+                        <!-- The step to add existing projects has to be put back here at some point. Do not remove this comment. -->
+                        {{#cp-panels accordion=true}}
+                            {{#preprint-form-section id=section.divId class="preprint-form-block" editMode=editMode name=section.name open=(get (get parameters section.param) 'open') allowOpen=(get (get parameters section.param) 'allowOpen') as |hasOpened isOpen|}}
+                                {{preprint-form-header name=section.name valid=true showValidationIndicator=(get (get parameters section.param) 'showValidationIndicator') isValidationActive=hasOpened}}
+                                {{#each widgets as |widget|}}
+                                    {{#if (eq widget.section section.name)}}
+                                        {{component widget.widget_component
+                                            saveParameter=(action saveParameter widget.output_parameter)
+                                            action=widget.action
+                                            description=widget.description
+                                            name=section.name
+                                            isOpen=isOpen
+                                            closeSection=(action 'closeSection')
+                                        }}
+                                    {{/if}}
+                                {{/each}}
+                              {{/preprint-form-section}}
+                        {{/cp-panels}}
+                      {{/each}}
+                    {{/if}}
                 </div>
-            {{/each}}
-        {{/if}}
+            </div>
+        </div>
     </div>
 </div>

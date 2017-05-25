@@ -44,15 +44,21 @@ export default Ember.Controller.extend({
 
 
     addMethod: 'select', // 'select' or 'create'
+    panelActions: Ember.inject.service('panelActions'),
+    _names: Ember.computed('sections', function() {
+        let sections = this.get('sections');
+        return sections.map((section) => {
+            return section.name;
+        });
+    }),
     methodSelected: false,
     type: Ember.computed('model.settings', function() {
         var collectionType = this.get('model.settings.collectionType') || 'project';
         return collectionType.toLowerCase();
     }),
-
-
     widgets: [],
     formActions: [],
+    editMode: false,
 
     init: function () {
         this._super();
@@ -129,7 +135,7 @@ export default Ember.Controller.extend({
         }
 
         action = (context) => fire_actions.call(context, action_id);
-        
+
         const widget = {
             widget_component,
             description,
@@ -217,6 +223,9 @@ export default Ember.Controller.extend({
             this.transitionToRoute(name, id);
         },
 
+        closeSection(currentPanelName) {
+            this.get('panelActions').close(this.get(`_names.${this.get('_names').indexOf(currentPanelName)}`));
+        }
 
     }
 

@@ -97,6 +97,7 @@ export default Ember.Component.extend({
     selection3: null,
     disciplineModifiedToggle: false,
     disciplineValid: Ember.computed.notEmpty('selected'),
+    disciplineSaveState: false,
 
     // Pending subjects
     subjectsList: Ember.computed('subjects.@each', function() {
@@ -112,7 +113,7 @@ export default Ember.Component.extend({
         return !(disciplineArraysEqual(subjectIdMap(this.get('subjects')), subjectIdMap(this.get('selected'))));
     }),
 
-    editMode: true,
+    editMode: false,
 
     querySubjects(parents = 'null', tier = 0) {
         this.get('theme.provider')
@@ -227,7 +228,7 @@ export default Ember.Component.extend({
             // Update subjects with selected subjects
             this.set('subjects', Ember.$.extend(true, [], subjectMap));
             this.set('editMode', false);
+            this.sendAction('closeSection', this.get('name'));
         }
-
     }
 });
