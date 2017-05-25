@@ -332,6 +332,7 @@ tr.item-row-selected {
 .preprint-form-section {
     header {
         @extend a;
+        color: #337ab7;
         cursor: pointer;
         font: {
             size: 16px;
