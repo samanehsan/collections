@@ -63,7 +63,6 @@ export default Ember.Component.extend(BasicsValidations, {
     basicsDOI: null,
     basicsLicense: null,
     actions: {
-
         addTag(tag) {
             this.get('basicsTags').pushObject(tag);
         },
@@ -75,8 +74,8 @@ export default Ember.Component.extend(BasicsValidations, {
         },
         discardBasics() {
             // Discards changes to basic fields. (No requests sent, front-end only.)
-            this.set('basicsTags', this.get('node.tags').slice(0).map(fixSpecialChar));
-            this.set('basicsAbstract', this.get('node.description'));
+            this.set('basicsTags', []);
+            this.set('basicsAbstract', '');
             this.set('basicsDOI', null);
             this.set('basicsLicense', null);
         },

@@ -188,3 +188,18 @@
         </div>
     {{/if}}
 {{/preprint-form-body}}
+
+{{#if (not isOpen)}}
+        <div class="row">
+            <div class="col-xs-12">
+                {{#if contributors}}
+                    <ul class="comma-list">
+                        {{#each contributors as |c| }}
+                            <li>{{c.users.fullName}}</li>
+                        {{/each}}
+                    </ul>
+                {{/if}}
+
+            </div>
+        </div>
+{{/if}}
