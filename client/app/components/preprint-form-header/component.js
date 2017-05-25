@@ -27,6 +27,9 @@ export default CpPanelToggleComponent.extend({
     showValidationIndicator: true,
     valid: null,
     isValidationActive: false,
+    displayName: Ember.computed('name', function() {
+        return this.get('name').capitalize();
+    }),
 
     // Calculated properties
     invalid: Ember.computed('valid', 'isValidationActive', function() {
