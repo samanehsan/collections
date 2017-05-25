@@ -39,7 +39,7 @@ class ItemSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     source_id = serializers.CharField()
     title = serializers.CharField(required=True)
-    type = serializers.ChoiceField(choices=['project', 'preprint', 'registration', 'file', 'website'])
+    type = serializers.ChoiceField(choices=['project', 'preprint', 'registration', 'meeting', 'website'])
     status = serializers.ChoiceField(choices=['approved', 'pending', 'rejected'])
     url = serializers.URLField()
     created_by = UserSerializer(read_only=True)

@@ -42,7 +42,7 @@ class Item(models.Model):
         ('project', 'project'),
         ('preprint', 'preprint'),
         ('registration', 'registration'),
-        ('file', 'file'),
+        ('meeting', 'meeting'),
         ('website', 'website')
     )
     STATUS = (
