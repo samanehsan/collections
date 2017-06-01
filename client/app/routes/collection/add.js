@@ -19,35 +19,40 @@ export default Ember.Route.extend({
                     allowOpen: true,
                     open: true,
                     showValidationIndicator: true,
-                    value: undefined
+                    value: undefined,
+                    isSectionValid: false
                 },
                 disciplines_section: {
                     state: ['disabled'],
                     allowOpen: true,
                     open: false,
                     showValidationIndicator: true,
-                    value: undefined
+                    value: undefined,
+                    isSectionValid: false
                 },
                 basic_info_section: {
                     state: ['disabled'],
                     allowOpen: true,
                     open: false,
                     showValidationIndicator: true,
-                    value: undefined
+                    value: undefined,
+                    isSectionValid: false
                 },
                 authors_section: {
                     state:  ['disabled'],
                     allowOpen: true,
                     open: false,
                     showValidationIndicator: true,
-                    value: undefined
+                    value: undefined,
+                    isSectionValid: false
                 },
                 submit_button: {
                     state: ['disabled'],
                     allowOpen: true,
                     open: false,
                     showValidationIndicator: false,
-                    value: undefined
+                    value: undefined,
+                    isSectionValid: false
                 },
                 preprint_file_upload_widget: {
                     state: ['undefined'],
