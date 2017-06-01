@@ -110,7 +110,9 @@ export default Ember.Component.extend({
     }),
 
     disciplineChanged: Ember.computed('subjects.@each.subject', 'selected.@each.subject', 'disciplineModifiedToggle',  function() {
-        return !(disciplineArraysEqual(subjectIdMap(this.get('subjects')), subjectIdMap(this.get('selected'))));
+        let changed = !(disciplineArraysEqual(subjectIdMap(this.get('subjects')), subjectIdMap(this.get('selected'))));
+        this.set('isSectionValid', !changed);
+        return changed;
     }),
 
     editMode: false,
@@ -220,7 +222,6 @@ export default Ember.Component.extend({
         saveSubjects() {
             let currentSubjects = Ember.$.extend(true, [], this.get('subjects'));
             let subjectMap = Ember.$.extend(true, [], this.get('selected'));
-            let disciplineChanged = this.get('disciplineChanged');
             this.attrs.saveParameter({
                 value: subjectMap,
                 state: ['defined']
@@ -228,7 +229,10 @@ export default Ember.Component.extend({
             // Update subjects with selected subjects
             this.set('subjects', Ember.$.extend(true, [], subjectMap));
             this.set('editMode', false);
-            this.sendAction('closeSection', this.get('name'));
+            // Prevent closing the section until it is valid
+            if (!this.get('disciplineChanged')) {
+                this.sendAction('closeSection', this.get('name'));
+            }
         }
     }
 });
