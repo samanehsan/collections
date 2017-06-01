@@ -45,11 +45,13 @@
         <p>Date updated : {{model.dateUpdated}}</p>
         <p>Settings : {{settingsString}}</p>
 
+      {{#if session.isAuthenticated}}
         <div class="pull-right">
             <button class="btn btn-danger btn-collection" {{action toggleProperty 'showDeleteConfirmation'}}> <i class="fa fa-times"></i> Delete </button>
 
             <button class="btn btn-info btn-collection" {{action 'showEdit'}}> <i class="fa fa-pencil"></i> Edit</button>
         </div>
+      {{/if}}
     {{/if}}
 
     </div>
