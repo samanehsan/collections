@@ -32,12 +32,10 @@ export default Ember.Component.extend( NodeActionsMixin, {
     contributors: Ember.computed('node', function(){
         return this.get('node.contributors');
     }),
-
-
-    valid: Ember.computed('newContributorId', function() {
-        let newContributorId = this.get('newContributorId');
-        this.set('isSectionValid', newContributorId);
-        return newContributorId;
+    valid: Ember.observer('contributors.length', function() {
+        let hasContributors = this.get('contributors.length');
+        this.set('isSectionValid', hasContributors);
+        return hasContributors;
     }),
     authorModification: false,
     currentPage: 1,
