@@ -72,7 +72,7 @@ export default Ember.Component.extend(BasicsValidations, {
         let values = {
             basicsDOI: null,
             basicsLicense: null,
-            basicsTags: node.get('tags').map(function(a){ return a;} ),
+            basicsTags: node.get('tags').map(fixSpecialChar),
             basicsAbstract: node.get('description')
         }
         return values ;
@@ -82,7 +82,7 @@ export default Ember.Component.extend(BasicsValidations, {
       let doiChanged = saved.basicsDOI !== this.get('basicsDOI');
       let licenseChanged = saved.basicsLicense !== this.get('basicsLicense') && this.get('applyLicense');
       let abstractChanged = saved.basicsAbstract ? saved.basicsAbstract !== this.get('basicsAbstract') : true ;
-      let tagsChanged = saved.basicsTags ? saved.basicsTags.length !== this.get('basicsTags') || saved.basicsTags.some((v,i) => v !== this.get('basicsTags')[i])  : true ;
+      let tagsChanged = saved.basicsTags ? saved.basicsTags.length !== this.get('basicsTags').length || saved.basicsTags.some((v,i) => v !== this.get('basicsTags')[i])  : true ;
       return doiChanged || licenseChanged || abstractChanged || tagsChanged;
     }),
 
@@ -99,11 +99,13 @@ export default Ember.Component.extend(BasicsValidations, {
             this.set('applyLicense', apply);
         },
         discardBasics() {
-            // Discards changes to basic fields. (No requests sent, front-end only.)
-            this.set('basicsTags', []);
-            this.set('basicsAbstract', '');
-            this.set('basicsDOI', null);
-            this.set('basicsLicense', null);
+            // Discard changes since load or last save
+            let saved = this.get('savedValues');
+
+            this.set('basicsTags', saved.basicsTags );
+            this.set('basicsAbstract', saved.basicsAbstract);
+            this.set('basicsDOI', saved.basicsDOI);
+            this.set('basicsLicense', saved.basicsLicense);
         },
         preventDefault(e) {
             e.preventDefault();
