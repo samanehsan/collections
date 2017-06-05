@@ -4,7 +4,9 @@
            <div class="text-center m-t-lg col-xs-12">
                 <h2>{{model.title}}</h2>
                 <p class="p-v-md">{{model.description}}</p>
-                {{#link-to "collection.add" class="btn btn-success btn-lg"}}Add to Collection {{/link-to}}
+                {{#if session.isAuthenticated}}
+                   {{#link-to "collection.add" class="btn btn-success btn-lg"}}Add to Collection {{/link-to}}
+                {{/if}}
            </div>
        </div>
    </div>
