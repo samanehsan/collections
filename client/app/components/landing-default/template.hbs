@@ -11,9 +11,11 @@
        </div>
    </div>
 </div>
-<div class="landing-default-footer p-xl text-center">
-    <div class="container">
-        <h4> Customize your landing page</h4>
-        <p> You can add details to your landing page by changing settings to add layout layers. Visit Edit page to make changes. </p>
-    </div>
-</div>
+{{#if session.isAuthenticated}}
+  <div class="landing-default-footer p-xl text-center">
+      <div class="container">
+          <h4> Customize your landing page</h4>
+          <p> You can add details to your landing page by changing settings to add layout layers. Visit Edit page to make changes. </p>
+      </div>
+  </div>
+{{/if}}
