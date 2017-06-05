@@ -128,6 +128,16 @@ export default Ember.Component.extend(BasicsValidations, {
                 return;
             }
 
+            // Save locally
+            let values = {
+                basicsDOI:  this.get('basicsDOI'),
+                basicLicense: this.get('basicsLicense'),
+                basicsTags: this.get('basicsTags'),
+                basicsAbstract: this.get('basicsAbstract')
+            };
+            this.set('savedValues', values);
+
+
             this.attrs.saveParameter({
                 value: this.get('basicsAbstract'),
                 state: ['defined']
