@@ -89,6 +89,10 @@ export default Ember.Route.extend({
                     state: ['undefined'],
                     value: undefined
                 },
+                edit_authors_section_widget: {
+                    state: ['undefined'],
+                    value: undefined
+                },
                 submit_button_widget: {
                     state: ['undefined'],
                     value: undefined
@@ -366,7 +370,7 @@ export default Ember.Route.extend({
                     action_id: '60d11fd0-c2da-4fdd-9d08-0310aa17a3e4'
                 },
                 parameters: {
-                    output_parameter: 'authors_section',
+                    parameter: 'authors_section',
                 },
                 output_parameter: 'save_authors_section_widget',
                 conditions: [{
@@ -389,7 +393,7 @@ export default Ember.Route.extend({
                     action_id: '0dcc508a-9946-437a-a0b2-73c7f88aa2fe'
                 },
                 parameters: {
-                    output_parameter: 'authors_section',
+                    parameter: 'authors_section',
                 },
                 output_parameter: 'edit_authors_section_widget',
                 then: '3f5d1d8e-a01c-4c22-bbba-c7d5ad385a88'

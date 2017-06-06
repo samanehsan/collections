@@ -256,9 +256,8 @@ export default Ember.Controller.extend({
             });
         };
     },
-    //refresh() {
 
-    //},
+
     saveParameter_signature: ['parameter', 'updated_parameter'],
     saveParameter: function(parameter, updated_parameter, parameters) {
         if (typeof updated_parameter.value !== 'undefined') {
@@ -280,23 +279,18 @@ export default Ember.Controller.extend({
         this.get('updateState').call(this, this.get('formActions'));
     },
 
+
     openSection_signature: ['sectionName'],
     openSection: function(sectionName, parameters) {
         this.get('panelActions').open(this.get(`_names.${this.get('_names').indexOf(sectionName)}`));
         this.get('parameters')[this.get('sections').find(section => section.name === sectionName).param].state = ['open', 'editing'];
     },
 
+
     browserAlert_signature: ['alertString'],
     browserAlert: function(alertString) {
         alert(alertString);
     },
-
-
-    widgetActions: Ember.computed('widgets.@each.actions', function() {
-        return this.get('widgets').map((widget) => {
-            widget.action = this.get(widget.action).apply(this, widget.parameters);
-        });
-    }),
 
 
     actions: {
