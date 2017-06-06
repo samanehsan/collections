@@ -30,7 +30,12 @@ export default Ember.Component.extend( NodeActionsMixin, {
     canEdit: true, // defaults, need update
     node: null,
     contributors: Ember.computed('node', function(){
-        return this.get('node.contributors');
+        let contribs = this.get('node.contributors');
+        this.attrs.saveParameter(this.attrs.widget.value.parameters.authors_list, {
+            value: contribs,
+            state: ['defined']
+        })
+        return contribs;
     }),
 
 
@@ -82,7 +87,7 @@ export default Ember.Component.extend( NodeActionsMixin, {
         this._super(...arguments);
         this.get('store').findRecord('node', ENV.node_guid).then((result)=>{
             this.set('node', result);
-         });
+        });
     },
     /**
      * findContributors method.  Queries APIv2 users endpoint on any of a set of name fields.  Fetches specified page of results.

@@ -100,12 +100,14 @@ export default Ember.Component.extend(BasicsValidations, {
                 return;
             }
 
-            this.attrs.saveParameter({
-                value: this.get('basicsAbstract'),
-                state: ['defined']
+            this.get('action')(this).then((result) => {
+                this.attrs.saveParameter(this.attrs.widget.value.parameters.basicInfo ,{
+                    value: this.get('basicsAbstract'),
+                    state: ['defined']
+                });
+                this.set('editMode', false);
+                this.attrs.closeSection(this.get('name'));
             });
-            this.set('editMode', false);
-            this.sendAction('closeSection', this.get('name'));
 
             // Promise.all([
             //     node.save(),
