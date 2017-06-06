@@ -77,12 +77,13 @@ export default Ember.Component.extend(BasicsValidations, {
         }
         return values ;
     }),
-    basicsChanged:  Ember.computed('basicsDOI', 'basicsLicense', 'basicsTags.@each', 'basicsAbstract', function() {
-      let saved = this.get('savedValues');
-      let doiChanged = saved.basicsDOI !== this.get('basicsDOI');
-      let licenseChanged = saved.basicsLicense !== this.get('basicsLicense') && this.get('applyLicense');
-      let abstractChanged = saved.basicsAbstract ? saved.basicsAbstract !== this.get('basicsAbstract') : true ;
-      let tagsChanged = saved.basicsTags ? saved.basicsTags.length !== this.get('basicsTags').length || saved.basicsTags.some((v,i) => v !== this.get('basicsTags')[i])  : true ;
+    basicsChanged:  Ember.computed('basicsDOI', 'basicsLicense', 'basicsTags.@each', 'basicsAbstract', 'applyLicense', function() {
+        let saved = this.get('savedValues');
+        let doiChanged = saved.basicsDOI !== this.get('basicsDOI');
+        let licenseChanged = saved.basicsLicense !== this.get('basicsLicense') && this.get('applyLicense');
+        let abstractChanged = saved.basicsAbstract ? saved.basicsAbstract !== this.get('basicsAbstract') : true ;
+        let tagsChanged = saved.basicsTags ? saved.basicsTags.length !== this.get('basicsTags').length || saved.basicsTags.some((v,i) => v !== this.get('basicsTags')[i])  : true ;
+
       return doiChanged || licenseChanged || abstractChanged || tagsChanged;
     }),
 
@@ -106,6 +107,7 @@ export default Ember.Component.extend(BasicsValidations, {
             this.set('basicsAbstract', saved.basicsAbstract);
             this.set('basicsDOI', saved.basicsDOI);
             this.set('basicsLicense', saved.basicsLicense);
+            this.set('applyLicense', false);
         },
         preventDefault(e) {
             e.preventDefault();
@@ -179,7 +181,7 @@ export default Ember.Component.extend(BasicsValidations, {
     },
     init(){
         this._super(...arguments);
-        this.get('store').findRecord('node', ENV.node_guid).then((result)=>{
+        this.get('store').findRecord('node', ENV.node_guid, {include: 'license'}).then((result)=>{
             this.set('node', result);
         });
     }
