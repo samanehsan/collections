@@ -30,6 +30,11 @@
     }
 
 </style>
+
+{{#if (not isOpen)}}
+    Filename: {{filename}}
+{{/if}}
+
 {{#preprint-form-body}}
     {{#if isOpen}}
         <div class='submission-upload'>

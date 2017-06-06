@@ -10,12 +10,12 @@ export default Ember.Component.extend({
     },
 
     textFieldValueObserver: Ember.observer('textFieldValue', function() {
-
-        this.attrs.saveParameter({
+        const saveParameter = this.attrs.saveParameter;
+        const parameters = this.attrs.widget.value.parameters;
+        saveParameter(parameters.output, {
             state: ['defined'],
             value: this.get('textFieldValue')
-        })
-
+        });
     }),
 
 });
