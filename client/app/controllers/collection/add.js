@@ -292,11 +292,11 @@ export default Ember.Controller.extend({
     },
 
 
-    widgetActions: Ember.computed('widgets.@each.actions', function() {
-        return this.get('widgets').map((widget) => {
-            widget.action = this.get(widget.action).apply(this, widget.parameters);
-        });
-    }),
+    //widgetActions: Ember.computed('widgets.@each.actions', function() {
+    //    return this.get('widgets').map((widget) => {
+    //        widget.action = this.get(widget.action).apply(this, widget.parameters);
+    //    });
+    //}),
 
 
     actions: {
