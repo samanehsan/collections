@@ -57,8 +57,9 @@ class ItemSerializer(serializers.Serializer):
 
         allow_all = None
         if collection.settings:
-            allow_all = collection.settings.get('allow_all', None)
-            collection_type = collection.settings.get('type', None)
+            collection_settings = json.loads(collection.settings)
+            allow_all = collection_settings.get('allow_all', None)
+            collection_type = collection_settings.get('type', None)
             if collection_type and validated_data['type'] != collection_type:
                 raise ValueError('Collection only accepts items of type ' + collection_type)
 
@@ -101,7 +102,8 @@ class ItemSerializer(serializers.Serializer):
 
         item_type = validated_data.get('type', item.type)
         if collection.settings:
-            collection_type = collection.settings.get('type', None)
+            collection_settings = json.loads(collection.settings)
+            collection_type = collection_settings.get('type', None)
             if collection_type and item_type != collection_type:
                 raise ValueError('Collection only accepts items of type ' + collection_type)
 
