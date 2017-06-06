@@ -102,7 +102,7 @@ export default Ember.Component.extend(BasicsValidations, {
             // Discard changes since load or last save
             let saved = this.get('savedValues');
 
-            this.set('basicsTags', saved.basicsTags );
+            this.set('basicsTags', saved.basicsTags.map(function(a){return a;}) );
             this.set('basicsAbstract', saved.basicsAbstract);
             this.set('basicsDOI', saved.basicsDOI);
             this.set('basicsLicense', saved.basicsLicense);
@@ -132,7 +132,7 @@ export default Ember.Component.extend(BasicsValidations, {
             let values = {
                 basicsDOI:  this.get('basicsDOI'),
                 basicLicense: this.get('basicsLicense'),
-                basicsTags: this.get('basicsTags'),
+                basicsTags: this.get('basicsTags').map(function(a){ return a;}),
                 basicsAbstract: this.get('basicsAbstract')
             };
             this.set('savedValues', values);
