@@ -182,7 +182,7 @@ export default Ember.Component.extend(BasicsValidations, {
     },
     init(){
         this._super(...arguments);
-        this.get('store').findRecord('node', ENV.node_guid, {include: 'license'}).then((result)=>{
+        this.get('store').findRecord('node', ENV.node_guid).then((result)=>{
             this.set('node', result);
         });
     }
