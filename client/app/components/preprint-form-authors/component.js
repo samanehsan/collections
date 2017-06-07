@@ -89,6 +89,11 @@ export default Ember.Component.extend( NodeActionsMixin, {
             this.set('node', result);
         });
     },
+    elementsLoaded: Ember.observer('isOpen', function(){
+        if(this.get('isOpen')){
+          Ember.run.once(this.get('applyPopovers').bind(this));
+        }
+    }),
     /**
      * findContributors method.  Queries APIv2 users endpoint on any of a set of name fields.  Fetches specified page of results.
      *
@@ -282,32 +287,31 @@ export default Ember.Component.extend( NodeActionsMixin, {
             }
         }
     },
-    // TODO find alternative to jquery selectors. Temporary popover content for authors page.
-    didInsertElement: function() {
+    applyPopovers(){
         this.$('#permissions-popover').popover({
-            container: 'body',
-            content: '<dl>' +
-                '<dt>Read</dt>' +
-                    '<dd><ul><li>View preprint</li></ul></dd>' +
-                '<dt>Read + Write</dt>' +
-                    '<dd><ul><li>Read privileges</li> ' +
-                        '<li>Add and configure preprint</li> ' +
-                        '<li>Add and edit content</li></ul></dd>' +
-                '<dt>Administrator</dt><dd><ul>' +
-                    '<li>Read and write privileges</li>' +
-                    '<li>Manage authors</li>' +
-                    '<li>Public-private settings</li></ul></dd>' +
-                '</dl>'
+          container: 'body',
+          content: '<dl>' +
+          '<dt>Read</dt>' +
+          '<dd><ul><li>View preprint</li></ul></dd>' +
+          '<dt>Read + Write</dt>' +
+          '<dd><ul><li>Read privileges</li> ' +
+          '<li>Add and configure preprint</li> ' +
+          '<li>Add and edit content</li></ul></dd>' +
+          '<dt>Administrator</dt><dd><ul>' +
+          '<li>Read and write privileges</li>' +
+          '<li>Manage authors</li>' +
+          '<li>Public-private settings</li></ul></dd>' +
+          '</dl>'
         });
         this.$('#bibliographic-popover').popover({
-            container: 'body',
-            content: 'Only checked authors will be included in preprint citations. ' +
-            'Authors not in the citation can read and modify the preprint as normal.'
+          container: 'body',
+          content: 'Only checked authors will be included in preprint citations. ' +
+          'Authors not in the citation can read and modify the preprint as normal.'
         });
         this.$('#author-popover').popover({
-            container: 'body',
-            content: 'Preprints must have at least one registered administrator and one author showing in the citation at all times.  ' +
-            'A registered administrator is a user who has both confirmed their account and has administrator privileges.'
+          container: 'body',
+          content: 'Preprints must have at least one registered administrator and one author showing in the citation at all times.  ' +
+          'A registered administrator is a user who has both confirmed their account and has administrator privileges.'
         });
     },
 
