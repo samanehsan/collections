@@ -134,7 +134,7 @@ export default Ember.Component.extend(BasicsValidations, {
             let values = {
                 basicsDOI:  this.get('basicsDOI'),
                 basicLicense: this.get('basicsLicense'),
-                basicsTags: this.get('basicsTags').map(function(a){ return a;}),
+                basicsTags: this.get('basicsTags').slice(),
                 basicsAbstract: this.get('basicsAbstract')
             };
             this.set('savedValues', values);
