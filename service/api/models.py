@@ -5,7 +5,7 @@ from django.contrib.postgres.fields import JSONField
 
 
 class User(AbstractUser):
-    id = models.TextField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     gravatar = models.URLField(blank=True)
 
 
