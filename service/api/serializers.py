@@ -1,6 +1,8 @@
 import json
+from collections import OrderedDict
 from django.utils import timezone
 from rest_framework import exceptions
+from rest_framework import serializers as rest_serializers
 from rest_framework_json_api import serializers
 from api.models import Collection, Group, Item, User
 from api.base.serializers import RelationshipField
@@ -10,7 +12,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class UserSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(read_only=True)
+    # id = serializers.CharField(read_only=True)
     token = serializers.SerializerMethodField()
 
     class Meta:
@@ -24,12 +26,22 @@ class UserSerializer(serializers.ModelSerializer):
         resource_name = 'users'
 
     def get_token(self, obj):
+        if not obj.id:
+            return None
         try:
             account = SocialAccount.objects.get(user=obj)
             token = SocialToken.objects.get(account=account).token
         except ObjectDoesNotExist:
             return None
         return token
+
+    # http://stackoverflow.com/questions/27015931/remove-null-fields-from-django-rest-framework-response
+    # def to_representation(self, instance):
+    #     def not_none(value):
+    #         return value is not None
+    #     ret = super(UserSerializer, self).to_representation(instance)
+    #     ret = OrderedDict(list(filter(lambda x: not_none(x[1]), ret.items())))
+    #     return ret
 
 
 class ItemSerializer(serializers.Serializer):
@@ -162,7 +174,10 @@ class CollectionSerializer(serializers.Serializer):
     tags = serializers.CharField(allow_blank=True)
     settings = serializers.JSONField(required=False)
     submission_settings = serializers.JSONField(required=False)
-    created_by = UserSerializer(read_only=True)
+    created_by = RelationshipField(
+        related_view='user-detail',
+        related_view_kwargs={'user_id': '<created_by.pk>'},
+    )
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
     groups = RelationshipField(

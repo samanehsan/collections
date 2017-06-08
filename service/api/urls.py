@@ -19,4 +19,7 @@ urlpatterns = [
     url(r'^items/(?P<item_id>\w+)/$', api.views.ItemDetail.as_view(), name='item-detail'),
 
     url(r'^userinfo/$', api.views.CurrentUser.as_view(), name='current-user'),
+    url(r'^users/$', api.views.UserList.as_view(), name='user-list'),
+    url(r'^users/(?P<user_id>\w+)/$', api.views.UserDetail.as_view(), name='user-detail'),
+
 ]
