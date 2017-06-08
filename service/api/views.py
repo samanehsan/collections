@@ -175,3 +175,25 @@ class CurrentUser(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class UserList(generics.ListAPIView):
+    """View list of users. """
+    serializer_class = UserSerializer
+    # permission_classes = (drf_permissions.IsAuthenticatedOrReadOnly, )
+
+    def get_queryset(self):
+        return User.objects.all()
+
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    """View user detail. """
+    serializer_class = UserSerializer
+    # permission_classes = (drf_permissions.IsAuthenticatedOrReadOnly, )
+
+    def get_object(self):
+        try:
+            user = User.objects.get(id=self.kwargs['user_id'])
+        except ObjectDoesNotExist:
+            raise drf_exceptions.NotFound
+        return user
