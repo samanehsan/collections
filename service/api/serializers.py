@@ -12,7 +12,6 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class UserSerializer(serializers.ModelSerializer):
-    # id = serializers.CharField(read_only=True)
     token = serializers.SerializerMethodField()
 
     class Meta:
@@ -34,14 +33,6 @@ class UserSerializer(serializers.ModelSerializer):
         except ObjectDoesNotExist:
             return None
         return token
-
-    # http://stackoverflow.com/questions/27015931/remove-null-fields-from-django-rest-framework-response
-    # def to_representation(self, instance):
-    #     def not_none(value):
-    #         return value is not None
-    #     ret = super(UserSerializer, self).to_representation(instance)
-    #     ret = OrderedDict(list(filter(lambda x: not_none(x[1]), ret.items())))
-    #     return ret
 
 
 class ItemSerializer(serializers.Serializer):
