@@ -66,10 +66,15 @@ export default Ember.Controller.extend({
             info: null
         }));
         this.saveParameter = this.saveParameter.bind(this);
+        this.closeSection = this.closeSection.bind(this);
+        this.openSection = this.openSection.bind(this);
+        this.create_widget = this.create_widget.bind(this);
+        this.delete_widget = this.delete_widget.bind(this);
     },
 
     // Fire enabled actions.
     updateState: function(actions) {
+        let controller = this;
         actions.forEach((action) => {
             // Check if the action can fire.
             const may_fire = check_all.call(this, action.conditions);
@@ -77,9 +82,24 @@ export default Ember.Controller.extend({
             // Action may fire if execution has reached this point.
             // Call the action and set its result and any
             // changes to its state on `controller.parameters`.
-            console.log('Firing action: ' + action.type);
-            action.output_parameter['value'] = action.action.apply(this, action.arg_arr);
-            action.output_parameter['state'] = ['defined'];
+            //
+            async function fire_actions(action_id) {
+                if (typeof action_id === "string") {
+
+                    let action_obj = actions.find(action => action.id == action_id);
+                    if (typeof action_obj.action === 'function') {
+                        let result = await action_obj.action.apply(this, action_obj.arg_arr);
+                        if (typeof action_obj.then === 'string') {
+                            fire_actions.call(this, action_obj.then);
+                        }
+                        action_obj.output_parameter.value = result;
+                        action_obj.output_parameter.state = ['defined'];
+                        controller.notifyPropertyChange('parameters');
+                    }
+                }
+            }
+
+            fire_actions.call(this, action.id);
         });
     },
 
@@ -91,6 +111,9 @@ export default Ember.Controller.extend({
         if (typeof parameters[action.output_parameter] !== 'object') {
             parameters[action.output_parameter] = {};
         }
+        if (typeof action.parameters !== 'object') {
+            action.parameters = {};
+        }
         // Create a new object as not to modify the object returned from the model
         const hydrated_action = {
             id: action.id,
@@ -98,23 +121,33 @@ export default Ember.Controller.extend({
             signature: this.get(action.type + '_signature'),
             action: this.get(action.type),
             conditions: action.conditions,
-            parameters: action.parameters,
+            parameters: Object.keys(action.parameters).reduce((result, key) => {
+                if (typeof parameters[action.parameters[key]] !== 'object') {
+                    parameters[action.parameters[key]] = {
+                        state: ['undefined'],
+                        value: undefined
+                    };
+                }
+                result[key] = parameters[action.parameters[key]]
+                return result;
+            }, {}),
             args: action.args,
             output_parameter: parameters[action.output_parameter],
             then: action.then
         };
-        hydrated_action['arg_arr'] = cons_arg_arr.call(this, hydrated_action);
+        hydrated_action['arg_arr'] = constructArgArr.call(this, hydrated_action);
         return hydrated_action;
 
     },
 
 
-    create_widget_signature: ['widget_component', 'description',
-                                        'section', 'output_parameter', 'action_id'],
+    create_widget_signature: ['widget_component', 'description', 'disabled',
+                                        'css_classes', 'section', 'output_parameter', 'action_id'],
     // `this` must be bound to the controller for `create_widget`, as
     // `create_widget` requires access to the controller, and does so through `this`.
-    create_widget: function(widget_component, description, section, output_parameter, action_id) {
+    create_widget: function(widget_component, description, disabled, css_classes, section, output_parameter, action_id, parameters) {
         let action;
+        let controller = this;
 
         let actions = this.get('formActions');
 
@@ -127,6 +160,8 @@ export default Ember.Controller.extend({
                     if (typeof action_obj.then === 'string') {
                         fire_actions.call(this, action_obj.then);
                     }
+                    action_obj.output_parameter.value = result;
+                    controller.notifyPropertyChange('parameters');
                     return result;
                 }
             } else {
@@ -138,7 +173,10 @@ export default Ember.Controller.extend({
 
         const widget = {
             widget_component,
+            parameters,
             description,
+            disabled,
+            css_classes,
             section,
             output_parameter,
             action
@@ -150,15 +188,43 @@ export default Ember.Controller.extend({
 
     // Delete widget and resets state
     delete_widget_signature: ['widget_object'],
-    delete_widget: function(widget_object) {
+    delete_widget: function(widget_object, parameters) {
         this.get('widgets').removeObject(widget_object.value);
-        widget_object.value = undefined;
-        widget_object.state = ['undefined'];
+        Ember.set(widget_object, 'value', undefined);
+        Ember.set(widget_object, 'state', ['undefined']);
+    },
+
+
+    disableWidget_signature: ['widget_object'],
+    disableWidget: function(widget_object, parameters) {
+        Ember.set(widget_object, 'value.disabled', true);
+    },
+
+
+    enableWidget_signature: ['widget_object'],
+    enableWidget: function(widget_object, parameters) {
+        Ember.set(widget_object, 'value.disabled', false);
+        Ember.run.next(this, function() {
+            this.get('updateState').call(this, this.get('formActions'));
+        });
+    },
+
+
+    toggleWidget_signature: ['widget_object'],
+    toggleWidget: function(widget_object, parameters) {
+        if (widget_object.value.disabled === false) {
+            Ember.set(widget_object, 'value.disabled', true);
+        } else {
+            Ember.set(widget_object, 'value.disabled', false);
+        }
+        Ember.run.next(this, function() {
+            this.get('updateState').call(this, this.get('formActions'));
+        });
     },
 
 
     upload_file_signature: ['file_name', 'file_data', 'node'],
-    upload_file: async function(file_name, file_data, node) {
+    upload_file: async function(file_name, file_data, node, parameters) {
         if (typeof file_name.value === 'undefined') return;
         if (typeof file_data.value === 'undefined') return;
         if (typeof node.value === 'undefined') node.value = ENV.node_guid;
@@ -190,26 +256,41 @@ export default Ember.Controller.extend({
             });
         };
     },
-    //refresh() {
 
-    //},
+
     saveParameter_signature: ['parameter', 'updated_parameter'],
-    saveParameter: function(parameter, updated_parameter) {
-        if (typeof updated_parameter.value !== undefined) {
-            parameter.value = updated_parameter.value;
+    saveParameter: function(parameter, updated_parameter, parameters) {
+        if (typeof updated_parameter.value !== 'undefined') {
+            Ember.set(parameter, 'value', updated_parameter.value);
         }
-        if (typeof updated_parameter.state !== undefined) {
-            parameter.state = updated_parameter.state;
+        if (typeof updated_parameter.state !== 'undefined') {
+            Ember.set(parameter, 'state', updated_parameter.state);
         }
+        Ember.run.next(this, function() {
+            this.get('updateState').call(this, this.get('formActions'));
+        });
+    },
+
+
+    closeSection_signature: ['sectionName'],
+    closeSection: function(sectionName, parameters) {
+        this.get('panelActions').close(this.get(`_names.${this.get('_names').indexOf(sectionName)}`));
+        this.get('parameters')[this.get('sections').find(section => section.name === sectionName).param].state = ['closed', 'saved'];
         this.get('updateState').call(this, this.get('formActions'));
     },
 
 
-    widgetActions: Ember.computed('widgets.@each.actions', function() {
-        return this.get('widgets').map((widget) => {
-            widget.action = this.get(widget.action).apply(this, widget.parameters);
-        });
-    }),
+    openSection_signature: ['sectionName'],
+    openSection: function(sectionName, parameters) {
+        this.get('panelActions').open(this.get(`_names.${this.get('_names').indexOf(sectionName)}`));
+        this.get('parameters')[this.get('sections').find(section => section.name === sectionName).param].state = ['open', 'editing'];
+    },
+
+
+    browserAlert_signature: ['alertString'],
+    browserAlert: function(alertString) {
+        alert(alertString);
+    },
 
 
     actions: {
@@ -223,9 +304,6 @@ export default Ember.Controller.extend({
             this.transitionToRoute(name, id);
         },
 
-        closeSection(currentPanelName) {
-            this.get('panelActions').close(this.get(`_names.${this.get('_names').indexOf(currentPanelName)}`));
-        }
 
     }
 
@@ -300,31 +378,75 @@ function check_any(conditions) {
 }
 
 
-function cons_arg_arr(action) {
+// Constructs an array containing the parameters or arguments that are used by an
+// action function. Based on the action function's signature, which is an array of
+// strings that describe how to map the parameters from their keys on the controller
+// to the position in the function's arguments. This function constructs the array
+// that the action function gets applied with
+//
+// Future improvements:
+//
+// - Pass in only the signature, args, and parameters objects to the function;
+//   the function does not require the whole action object.
+
+function constructArgArr(action) {
+
     const parameters = this.get('parameters');
+
+    // The signature is an array of keys that descripbe the position of parameters.
     let argarr = action.signature.map((key) => {
+
         // Default to undefined.
         var value = undefined;
+
         // First try to use the parameter.
+        if (typeof action.parameters === 'object' &&
+            typeof action.parameters[key] === 'object'
+        ) {
+
+            let exists = false;
+            let parameterKeys = Object.keys(parameters);
+
+
+            // There was a bug here where the parameters weren't matching up right;
+            // this check ensures parameters aren't duplicated and the like.
+            parameterKeys.forEach((parameterKey) => {
+                if (parameters[parameterKey] === action.parameters[key]) {
+                    value = parameters[parameterKey];
+                    exists = true;
+                }
+            });
+
+            if (!exists) console.log("No action with that key exists in the controller's action array. client/app/controllers/collection/add.js, line 421]");
+
+        }
+
         if (typeof action.parameters === 'object' &&
             typeof action.parameters[key] === 'string'
         ) {
+
             if (typeof parameters[action.parameters[key]] !== 'object') {
-                console.log('no parameter, initializing with empty object');
                 parameters[action.parameters[key]] = {};
             }
+
             value = parameters[action.parameters[key]];
+
         }
+
         // If an arg is defined, it takes priority.
         if (typeof action.args === 'object' &&
             action.args[key] !== undefined
         ) {
             value = action.args[key];
         }
+
         return value;
+
     });
-    console.log(argarr);
+
+    argarr.push(action.parameters);
     return argarr;
+
 }
 
 

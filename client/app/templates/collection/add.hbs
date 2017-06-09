@@ -23,13 +23,15 @@
                                 {{#each widgets as |widget|}}
                                     {{#if (eq widget.section section.name)}}
                                         {{component widget.widget_component
-                                            saveParameter=(action saveParameter widget.output_parameter)
+                                            saveParameter=(action saveParameter)
                                             action=widget.action
                                             description=widget.description
                                             name=section.name
                                             isOpen=isOpen
                                             isSectionValid=section.isSectionValid
-                                            closeSection=(action 'closeSection')
+                                            closeSection=(action closeSection)
+                                            disabled=widget.disabled
+                                            widget=widget
                                         }}
                                     {{/if}}
                                 {{/each}}
