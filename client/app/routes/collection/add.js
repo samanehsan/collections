@@ -20,7 +20,7 @@ export default Ember.Route.extend({
                     open: true,
                     showValidationIndicator: true,
                     value: undefined,
-                    isSectionValid: false
+                    isSectionSaved: false
                 },
                 disciplinesSection: {
                     state: ['disabled'],
@@ -28,7 +28,7 @@ export default Ember.Route.extend({
                     open: false,
                     showValidationIndicator: true,
                     value: undefined,
-                    isSectionValid: false
+                    isSectionSaved: false
                 },
                 basicInfoSection: {
                     state: ['disabled'],
@@ -36,7 +36,7 @@ export default Ember.Route.extend({
                     open: false,
                     showValidationIndicator: true,
                     value: undefined,
-                    isSectionValid: false
+                    isSectionSaved: false
                 },
                 authorsSection: {
                     state:  ['disabled'],
@@ -44,7 +44,7 @@ export default Ember.Route.extend({
                     open: false,
                     showValidationIndicator: true,
                     value: undefined,
-                    isSectionValid: false
+                    isSectionSaved: false
                 },
                 submitButton: {
                     state: ['disabled'],
@@ -52,7 +52,7 @@ export default Ember.Route.extend({
                     open: false,
                     showValidationIndicator: false,
                     value: undefined,
-                    isSectionValid: false
+                    isSectionSaved: false
                 },
                 preprintFileUploadWidget: {
                     state: ['undefined'],
