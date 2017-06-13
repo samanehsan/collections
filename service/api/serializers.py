@@ -169,6 +169,7 @@ class CollectionSerializer(serializers.Serializer):
         related_view='user-detail',
         related_view_kwargs={'user_id': '<created_by.pk>'},
     )
+    created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
     groups = RelationshipField(
