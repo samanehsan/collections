@@ -23,8 +23,103 @@ module.exports = function(environment) {
       usingCors: true,
       corsWithCreds: true,
       apiURL: 'http://localhost:8000/api'
-    }
+    },
+    PREPRINTS: {
+            defaultProvider: 'osf',
+            // Logos are needed for open graph sharing meta tags (Facebook, LinkedIn, etc) and must be at least 200x200
+            providers: [
+                // OSF must be the first provider
+                {
+                    id: 'osf',
+                    domain: 'osf.io',
+                    logoSharing: {
+                        path: '/assets/img/provider_logos/osf-dark.png',
+                        type: 'image/png',
+                        width: 363,
+                        height: 242
+                    },
+                    permissionLanguage: 'no_trademark'
+                },
+                {
+                    id: 'engrxiv',
+                    domain: 'engrxiv.org',
+                    logoSharing: {
+                        path: '/assets/img/provider_logos/engrxiv-sharing.png',
+                        type: 'image/png',
+                        width: 1200,
+                        height: 488
+
+                    },
+                    permissionLanguage: 'arxiv_non_endorsement'
+                },
+                {
+                    id: 'socarxiv',
+                    domain: 'socarxiv.org',
+                    logoSharing: {
+                        path: '/assets/img/provider_logos/socarxiv-sharing.png',
+                        type: 'image/png',
+                        width: 1200,
+                        height: 488
+                    },
+                    permissionLanguage: 'arxiv_trademark_license'
+                },
+                {
+                    id: 'psyarxiv',
+                    domain: 'psyarxiv.com',
+                    logoSharing: {
+                        path: '/assets/img/provider_logos/psyarxiv-sharing.png',
+                        type: 'image/png',
+                        width: 1200,
+                        height: 488
+                    },
+                    permissionLanguage: 'arxiv_trademark_license'
+                },
+                {
+                    id: 'bitss',
+                    logoSharing: {
+                        path: '/assets/img/provider_logos/bitss-small.png',
+                        type: 'image/png',
+                        width: 1500,
+                        height: 1500
+                    },
+                    permissionLanguage: 'no_trademark'
+                },
+                {
+                    id: 'scielo',
+                    // domain: 'scielo.org', // Temporarily disabling until ready
+                    logoSharing: {
+                        path: '/assets/img/provider_logos/scielo-logo.png',
+                        type: 'image/png',
+                        width: 1200,
+                        height: 488
+                    },
+                    permissionLanguage: 'no_trademark'
+                },
+                {
+                    id: 'agrixiv',
+                    domain: 'agrixiv.org',
+                    logoSharing: {
+                        path: 'assets/img/provider_logos/agrixiv-banner.svg',
+                        type: 'image/png',
+                        width: 1200,
+                        height: 488
+                    },
+                    permissionLanguage: 'arxiv_non_endorsement'
+                },
+                {
+                    id: 'lawarxiv',
+                    logoSharing: {
+                        path: 'assets/img/provider_logos/lawarxiv-logo.png',
+                        type: 'image/png',
+                        width: 1200,
+                        height: 488
+                    },
+                    permissionLanguage: 'arxiv_non_endorsement'
+                }
+            ]
+        }
   };
+
 
   ENV.headerAuth = process.env.HEADER_AUTH;
 
@@ -39,6 +134,7 @@ module.exports = function(environment) {
     ENV['ember-cli-mirage'] = {
       enabled: false
     };
+    ENV['nodeGuid'] = '6yptj';
   }
 
   if (environment === 'test') {
@@ -54,10 +150,17 @@ module.exports = function(environment) {
 
   if (environment === 'stage') {
     ENV['osfHostUrl'] = 'https://staging-api.osf.io';
-
+    ENV['nodeGuid'] = '6yptj';
   }
+
+    if (process.env.BACKEND === "prod") {
+        ENV['osfHostUrl'] = 'https://api.osf.io';
+        ENV['nodeGuid'] = 'h8d72';
+
+    }
   if (environment === 'production') {
     ENV['osfHostUrl'] = 'https://api.osf.io';
+    ENV['nodeGuid'] = 'h8d72';
 
   }
 
