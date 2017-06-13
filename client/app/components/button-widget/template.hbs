@@ -1,6 +1,3 @@
-{{#preprint-form-body}}
-    {{#if isOpen}}
-        <button class='btn btn-primary {{buttonStyle}}' {{action "pressButton"}}>{{description}}</button>
-    {{/if}}
-{{/preprint-form-body}}
-{{yield}}
+<button class='btn btn-primary {{widgetClassString}}' {{action "pressButton"}} 
+disabled={{if disabled "disabled" null}}
+>{{description}}</button>

@@ -22,13 +22,15 @@
                                 {{preprint-form-header name=section.name valid=true showValidationIndicator=(get (get parameters section.param) 'showValidationIndicator') isValidationActive=hasOpened}}
                                 {{#each widgets as |widget|}}
                                     {{#if (eq widget.section section.name)}}
-                                        {{component widget.widget_component
-                                            saveParameter=(action saveParameter widget.output_parameter)
+                                        {{component widget.widgetComponent
+                                            saveParameter=(action saveParameter) 
                                             action=widget.action
                                             description=widget.description
                                             name=section.name
                                             isOpen=isOpen
-                                            closeSection=(action 'closeSection')
+                                            closeSection=(action closeSection)
+                                            disabled=widget.disabled
+                                            widget=widget
                                         }}
                                     {{/if}}
                                 {{/each}}

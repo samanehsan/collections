@@ -1,6 +1,8 @@
 import json
+from collections import OrderedDict
 from django.utils import timezone
 from rest_framework import exceptions
+from rest_framework import serializers as rest_serializers
 from rest_framework_json_api import serializers
 from api.models import Collection, Group, Item, User
 from api.base.serializers import RelationshipField
@@ -10,7 +12,6 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class UserSerializer(serializers.ModelSerializer):
-    id = serializers.CharField(read_only=True)
     token = serializers.SerializerMethodField()
 
     class Meta:
@@ -24,6 +25,8 @@ class UserSerializer(serializers.ModelSerializer):
         resource_name = 'users'
 
     def get_token(self, obj):
+        if not obj.id:
+            return None
         try:
             account = SocialAccount.objects.get(user=obj)
             token = SocialToken.objects.get(account=account).token
@@ -40,7 +43,7 @@ class ItemSerializer(serializers.Serializer):
     status = serializers.ChoiceField(choices=['approved', 'pending', 'rejected'])
     url = serializers.URLField()
     created_by = UserSerializer(read_only=True)
-    metadata = serializers.CharField(allow_blank=True)
+    metadata = serializers.JSONField(required=False)
     date_added = serializers.DateTimeField(read_only=True, allow_null=True)
     date_submitted = serializers.DateTimeField(read_only=True)
 
@@ -102,7 +105,8 @@ class ItemSerializer(serializers.Serializer):
 
         item_type = validated_data.get('type', item.type)
         if collection.settings:
-            collection_type = json.loads(collection.settings).get('type', None)
+            collection_settings = json.loads(collection.settings)
+            collection_type = collection_settings.get('type', None)
             if collection_type and item_type != collection_type:
                 raise ValueError('Collection only accepts items of type ' + collection_type)
 
@@ -159,7 +163,12 @@ class CollectionSerializer(serializers.Serializer):
     title = serializers.CharField(required=True)
     description = serializers.CharField(allow_blank=True)
     tags = serializers.CharField(allow_blank=True)
-    settings = serializers.CharField(required=False)
+    settings = serializers.JSONField(required=False)
+    submission_settings = serializers.JSONField(required=False)
+    created_by = RelationshipField(
+        related_view='user-detail',
+        related_view_kwargs={'user_id': '<created_by.pk>'},
+    )
     created_by = UserSerializer(read_only=True)
     date_created = serializers.DateTimeField(read_only=True)
     date_updated = serializers.DateTimeField(read_only=True)
@@ -189,5 +198,6 @@ class CollectionSerializer(serializers.Serializer):
         collection.description = validated_data.get('description', collection.description)
         collection.tags = validated_data.get('tags', collection.tags)
         collection.settings = validated_data.get('settings', collection.settings)
+        collection.submission_settings = validated_data.get('submission_settings', collection.submission_settings)
         collection.save()
         return collection
