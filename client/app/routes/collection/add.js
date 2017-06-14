@@ -4,7 +4,8 @@ import Ember from 'ember';
 export default Ember.Route.extend({
     panelActions: Ember.inject.service('panelActions'),
     model() {
-        let collectionType = this.modelFor('collection').get('settings.collectionType');
+        let collectionSettings = this.modelFor('collection').get('settings');
+        let collectionType = JSON.parse(collectionSettings).collectionType;
         let preprintForm = {
             submissionFormType: collectionType,
             submissionFormName: 'Preprints Submission Form',
