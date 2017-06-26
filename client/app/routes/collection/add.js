@@ -198,7 +198,7 @@ export default Ember.Route.extend({
                 type: 'createWidget',
                 args: {
                     widgetComponent: 'button-widget',
-                    description: 'Save this section',
+                    description: 'Save and continue',
                     section: 'upload',
                     cssClasses: ['section-submit-button'],
                     actionId: '5db3456b-cef7-4c87-bb60-16a04ee89bad'
@@ -373,7 +373,7 @@ export default Ember.Route.extend({
                 args: {
                     widgetComponent: 'button-widget',
                     cssClasses: ['section-submit-button'],
-                    description: 'Save this section',
+                    description: 'Save and continue',
                     section: 'authors',
                     actionId: '60d11fd0-c2da-4fdd-9d08-0310aa17a3e4'
                 },
