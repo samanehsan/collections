@@ -18,8 +18,7 @@ export default Ember.Controller.extend({
             collection.save().then((record) => {
                 this.set('newCollectionTitle', '');
                 this.transitionToRoute('collection', record);
-            },
-            );
+            });
         },
         updateType (value) {
             this.set('selectedType', value);

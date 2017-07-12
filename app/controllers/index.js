@@ -31,8 +31,7 @@ export default Ember.Controller.extend({
                 this.set('newCollectionTitle', '');
                 this.set('filterText', '');
                 this.transitionToRoute('collection', record);
-            },
-            );
+            });
         },
         clearFilter() {
             this.set('filterText', '');
