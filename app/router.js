@@ -22,6 +22,7 @@ Router.map(function() {
   });
   this.route('create');
   this.route('not-found', { path: '/*path' });
+  this.route('create_meeting');
 });
 
 export default Router;
