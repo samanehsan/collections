@@ -1,8 +1,9 @@
 import Ember from 'ember';
 
+
 export default Ember.Controller.extend({
     title: '',
-    selectedType: 'Preprint',
+    selectedType: 'Meeting',
     description: '',
     location: '',
     startDate: null,
