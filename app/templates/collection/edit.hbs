@@ -15,6 +15,20 @@
             <label for="collectionTags">Tags</label>
             {{input class="form-control" value=modelCache.tags placeholder="Enter comma separated tags" id="collectionTags"}}
         </div>
+        {{#if (eq model.settings.collection_type 'Meeting')}}
+            <div class="form-group">
+                <label for="location">Location</label>
+                {{input class="form-control" value=modelCache.location placeholder="Enter location" id="location"}}
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date</label>
+                {{input class="form-control" value=modelCache.startDate placeholder="Enter start date" id="startDate"}}
+            </div>
+            <div class="form-group">
+                <label for="endDate">End Date</label>
+                {{input class="form-control" value=modelCache.endDate placeholder="Enter end date" id="endDate"}}
+            </div>
+        {{/if}}
         <div class="form-group">
             <label for="collectionSettings">Settings</label>
             {{textarea class="form-control" value=modelCache.settings id="collectionSettings" rows=12}}
@@ -39,11 +53,16 @@
                 <span class="coll-item-tag">{{tag}}</span>
             {{/each}}
         </div>
-        <p>Type: {{model.settings.collectionType}}</p>
+        <p>Type: {{model.settings.collection_type}}</p>
         <p>Created by: {{model.createdBy.firstName}} {{model.createdBy.lastName}}</p>
         <p>Date created: {{model.dateCreated}} </p>
         <p>Date updated : {{model.dateUpdated}}</p>
-        <p>Settings : {{settingsString}}</p>
+        {{#if (eq model.settings.collection_type 'Meeting')}}
+            <p>Location: {{model.location}}</p>
+            <p>Start Date: {{model.startDate}}</p>
+            <p>End Date: {{model.endDate}}</p>
+        {{/if}}
+        <p>Settings: {{settingsString}}</p>
 
       {{#if session.isAuthenticated}}
         <div class="pull-right">
