@@ -5,7 +5,7 @@ export default Ember.Route.extend({
         return this.store.findRecord('collection', params.collection_id).then((data) => {
             return data;
         }).catch(() => {
-            this.store.findRecord('meeting', params.collection_id).then((data) => {
+            return this.store.findRecord('meeting', params.collection_id).then((data) => {
                 return data;
             }).catch(() => {
                 this.transitionTo('/not-found');
