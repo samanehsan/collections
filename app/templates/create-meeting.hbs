@@ -1,0 +1,45 @@
+<div class="coll-create-header p-xl">
+    <div class="text-center">
+        <h2> Create a Meeting </h2>
+    </div>
+</div>
+<div class="coll-create">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1 m-t-lg">
+                <h4>1. Add title  </h4>
+                {{input class="form-control" value=title placeholder="Enter collection name"}}
+            </div>
+        </div>
+        <hr class="soften" />
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h4> 2. Add description <span class="text-muted">Optional </span></h4>
+                {{textarea class="form-control" value=description rows="6"}}
+            </div>
+        </div>
+        <hr class="soften" />
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <h4> 3. Add Location </h4>
+                {{input class="form-control" value=location placeholder="Enter meeting location"}}
+            </div>
+        </div>
+        <hr class="soften" />
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-1">
+                <h4> 4. Add Meeting Dates </h4>
+                Start Date:
+                {{input class="form-control" value=startDate placeholder="Enter start date"}}
+                End Date:
+                {{input class="form-control" value=end placeholder="Enter end date"}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 m-t-lg text-center">
+                {{#link-to 'index' class="btn btn-default"}}Cancel {{/link-to}} <button class="btn btn-primary {{unless title 'disabled'}}" {{action 'addCollection'}}>Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+

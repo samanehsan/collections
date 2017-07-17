@@ -21,24 +21,8 @@ export default Ember.Controller.extend({
                 return item.get('title').toLowerCase().includes(text);
             }));
         },
-        addCollection () {
-            const collection = this.store.createRecord('collection', {
-                title: this.get('newCollectionTitle'),
-                tags: '',
-                description: '',
-            });
-            collection.save().then((record) => {
-                this.set('newCollectionTitle', '');
-                this.set('filterText', '');
-                this.transitionToRoute('collection', record);
-            },
-            );
-        },
         clearFilter() {
             this.set('filterText', '');
-        },
-        enterPress() {
-            this.get('actions').addCollection.call(this);
         },
         loadMore() {
             this.set('loadingMore', true);
@@ -53,5 +37,5 @@ export default Ember.Controller.extend({
                 this.set('loadingMore', false);
             });
         },
-    },
+    }
 });

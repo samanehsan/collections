@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
     selectedType: 'Preprint',
     description: '',
 
-    typeList: Ember.A(['Project', 'Registration', 'Preprint', 'Website', 'Meeting']),
+    typeList: Ember.A(['Project', 'Registration', 'Preprint', 'Website']),
 
     actions: {
         addCollection () {
@@ -18,8 +18,7 @@ export default Ember.Controller.extend({
             collection.save().then((record) => {
                 this.set('newCollectionTitle', '');
                 this.transitionToRoute('collection', record);
-            },
-            );
+            });
         },
         updateType (value) {
             this.set('selectedType', value);

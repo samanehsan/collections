@@ -28,6 +28,9 @@ export default Ember.Controller.extend({
             description: model.get('description'),
             tags: model.get('tags'),
             settings: JSON.stringify(model.get('settings')),
+            location: model.get('location'),
+            startDate: model.get('startDate'),
+            endDate: model.get('endDate')
         };
     },
 
@@ -41,16 +44,23 @@ export default Ember.Controller.extend({
         },
         saveEdit () {
             const model = this.get('model');
+            const location = this.get('modelCache.location');
+            const startDate = this.get('modelCache.startDate');
+            const endDate = this.get('modelCache.endDate');
+
             model.set('settings', JSON.parse(this.get('modelCache.settings')));
             model.set('title', this.get('modelCache.title'));
             model.set('description', this.get('modelCache.description'));
             model.set('tags', this.get('modelCache.tags'));
+            model.set('location', location);
+            model.set('startDate', startDate);
+            model.set('endDate', endDate);
             model.save();
             this.set('editMode', false);
         },
         deleteCollection() {
             this.get('model').destroyRecord().then(() => this.transitionToRoute('/'));
-        },
-    },
+        }
+    }
 
 });
