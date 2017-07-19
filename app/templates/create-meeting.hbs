@@ -30,16 +30,15 @@
             <div class="col-sm-3 col-sm-offset-1">
                 <h4> 4. Add Meeting Dates </h4>
                 Start Date:
-                {{input class="form-control" value=startDate placeholder="Enter start date"}}
+                {{datetime-picker pickerValue=startDate}}
                 End Date:
-                {{input class="form-control" value=end placeholder="Enter end date"}}
+                {{datetime-picker pickerValue=endDate}}
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 col-sm-offset-3 m-t-lg text-center">
+            <div class="col-sm-6 col-sm-offset-3 m-t-lg m-b-lg text-center">
                 {{#link-to 'index' class="btn btn-default"}}Cancel {{/link-to}} <button class="btn btn-primary {{unless title 'disabled'}}" {{action 'addCollection'}}>Continue</button>
             </div>
         </div>
     </div>
 </div>
-
