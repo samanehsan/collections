@@ -21,8 +21,8 @@ export default Ember.Controller.extend({
                     settings: {collectionType: selectedType},
                     description: this.get('description'),
                     location: this.get('location'),
-                    startDate: start,
-                    endDate: end
+                    startDate: startDate,
+                    endDate: endDate
                 });
             meeting.save().then((record) => {
                 this.set('newCollectionTitle', '');
