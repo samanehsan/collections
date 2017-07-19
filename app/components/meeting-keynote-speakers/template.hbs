@@ -1,0 +1,48 @@
+<style>
+    .speaker-pic-thumbnail {
+        width: 60px;
+        height: 60px;
+        margin-right: 20px;
+        float: left;
+    }
+
+    .speaker-detail {
+        padding: 30px 20px 30px 20px;
+        max-height:90px;
+        max-width:250px;
+    }
+    .section-title {
+        margin-bottom: 50px;
+    }
+    .affiliation {
+        font-weight: lighter;
+    }
+    .speaker-name {
+        font-weight: 600;
+    }
+</style>
+<div class="meeting-keynote-speakers-container p-xl" style="{{containerStyle}}">
+    <div class="container">
+        <div class="row text-center section-title">
+            <h2>{{layout.title}}</h2>
+        </div>
+        <div class="row">
+            <div class="row">
+                {{# each data as |speaker| }}
+                    <div class="col-xl-1 col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <div class="speaker-detail">
+                            {{#if speaker.img_url}}
+                                <img class="speaker-pic-thumbnail" src="{{speaker.img_url}}"/>
+                            {{else}}
+                                <img class="speaker-pic-thumbnail" src="https://udayton.edu/0/img/generic-profile.png"/>
+                            {{/if}}
+                            <p class="speaker-name">{{speaker.first_name}} {{speaker.last_name}}<br>
+                                <span class="affiliation">{{speaker.affiliation}}</span>
+                            </p>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

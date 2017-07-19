@@ -1,0 +1,31 @@
+<style>
+    .presentation-detail {
+        padding: 20px 10px 20px 10px;
+        max-height:90px;
+        max-width:200px;
+    }
+    .section-title {
+        margin-bottom: 50px;
+    }
+</style>
+
+<div class="meeting-keynote-speakers-container p-xl" style="{{containerStyle}}">
+    <div class="container">
+        <div class="row text-center section-title">
+            <h2>{{layout.title}}</h2>
+        </div>
+        <div class="row">
+            <div class="row">
+                {{# each data as |presentation| }}
+                    <div class="col-xl-1 col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <div class="presentation-detail">
+                            <p class="presentation-name text-center"><strong>{{presentation.title}}</strong><br>
+                                <small>{{presentation.presenter}}</small>
+                            </p>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
