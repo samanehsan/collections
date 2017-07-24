@@ -1,0 +1,27 @@
+<style>
+.sponsor-logo {
+    max-width: 150px;
+    max-height: 70px;
+    mix-blend-mode: luminosity;
+}
+</style>
+
+<div class="p-xl" style="{{containerStyle}}">
+    <div class="container">
+        <div class="row text-center">
+            <h2>{{layout.title}}</h2>
+        </div>
+        <div class="row">
+            {{#each data as |categorySponsors|}}
+                <div class="row">
+                <h3>{{categorySponsors.category}}</h3>
+                {{#each categorySponsors.sponsors as |sponsor|}}
+                    <div class="col-xl-1 col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                        <img class="sponsor-logo" src="{{sponsor.img_url}}"/>
+                    </div>
+                {{/each}}
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
