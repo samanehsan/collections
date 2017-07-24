@@ -10,4 +10,5 @@ export default Model.extend({
     firstName: attr('string'),
     lastName: attr('string'),
     fullName: attr('string'),
+    gravatar: attr('string')
 });
