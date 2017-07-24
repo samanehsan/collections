@@ -20,9 +20,12 @@
       "tagline": "For your teeth, and ours."
     },
     {
+      "type": "meeting-schedule",
+      "settings": null
+    },
+    {
       "type": "meeting-keynote-speakers",
       "title": "Speakers",
-      "tagline": "Speakers for DAYS",
       "data": "speakers",
       "settings": null
     },

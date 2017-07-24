@@ -31,6 +31,7 @@
     "ember-cli-htmlbars": "^1.0.3",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
     "ember-cli-inject-live-reload": "^1.4.0",
+    "ember-cli-moment-shim": "3.3.3",
     "ember-cli-qunit": "^2.1.0",
     "ember-cli-release": "^0.2.9",
     "ember-cli-sass": "6.1.1",
@@ -47,7 +48,9 @@
     "ember-i18n": "4.3.1",
     "ember-load-initializers": "^0.5.1",
     "ember-lodash": "^4.17.3",
+    "ember-moment": "7.3.1",
     "ember-osf": "^0.5.4",
+    "ember-promise-helpers": "1.0.3",
     "ember-resolver": "^2.0.3",
     "ember-sortable": "1.8.2",
     "ember-toastr": "1.4.1",
@@ -64,6 +67,7 @@
     "ember-cli": "2.11.1",
     "ember-cli-eslint": "^4.0.0",
     "eslint-config-cos-ember": "^0.5.0",
+    "moment": "^2.18.1",
     "regenerator": "^0.8.46"
   }
 }

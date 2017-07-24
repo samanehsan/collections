@@ -1,0 +1,111 @@
+<style>
+    #schedule-window {
+        /*height: 500px;*/
+        /*overflow: auto;*/
+        padding: 15px;
+    }
+
+    td.right-cell {
+        text-align: right;
+        width: 45%;
+        padding: 0 10px 0 0;
+    }
+
+    td.left-cell {
+        width: 50%;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    td.top-row {
+        padding: 5px 0 2px 0;
+    }
+
+    td.bottom-row {
+        padding: 0 0 5px 0;
+    }
+
+    .time-slot {
+        padding: 0 0 15px 0;
+    }
+
+    .time-slot-header {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 3px;
+    }
+
+    .item-detail {
+        padding: 5px 30px 5px 5px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div id="schedule-window">
+            <div id="schedule-header">
+                {{input value=filterString placeholder="Filter schedule"}} | Filter by:
+                <select>
+                    <option selected>Track</option>
+                    <option>Track 1</option>
+                    <option>Track 2</option>
+                    <option>Track 3</option>
+                    <option>Track 4</option>
+                </select>
+                <select>
+                    <option selected>Room</option>
+                    <option>Room 1</option>
+                    <option>Room 2</option>
+                    <option>Room 3</option>
+                    <option>Room 4</option>
+                </select>
+            </div>
+            {{#each (await items) as |itemlist|}}
+                <h4 class="time-slot-header">{{itemlist.[0].startTimeFormatted}}</h4>
+                <table class="time-slot">
+                    {{#each itemlist as |item|}}
+                        {{#if (logic-or (contains-substring item.scheduleFilterText filterString)
+                                        (contains-substring (await item.createdBy.computedFullName) filterString))}}
+                            <tr>
+                                <td class="top-row left-cell event-title"><strong>{{item.title}}</strong></td>
+                                <td class="top-row right-cell event-location">{{item.location}}</td>
+                            </tr>
+                            <tr>
+                                <td class="bottom-row left-cell event-presenter">{{await
+                                        item.createdBy.computedFullName}}</td>
+                                <td class="bottom-row right-cell event-end-time">Ends at {{item.endTimeFormatted}}</td>
+                            </tr>
+                        {{/if}}
+                    {{/each}}
+                </table>
+                <br>
+            {{/each}}
+            <br><br>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="item-detail">
+            <h2>Is Science Scientific?<br>
+                <small>Cameron Blandford</small>
+            </h2>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+                rem
+                aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                explicabo.
+                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+                dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia
+                dolor
+                sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
+                dolore
+                magnam aliquam quaerat voluptatem.
+                Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
+                aliquid ex
+                ea commodi consequatur?
+                Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
+                vel
+                illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+            <p><a href="#">Link to author</a> | <a href="#">Link to presentation</a></p>
+        </div>
+    </div>
+</div>
