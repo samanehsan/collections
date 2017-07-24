@@ -4,6 +4,8 @@
         height: 60px;
         margin-right: 20px;
         float: left;
+        border: 1px solid #CDCDCD;
+        border-radius: 50%;
     }
 
     .speaker-detail {
@@ -42,11 +44,10 @@
                 {{else if users}}
                     {{#each users as |speaker|}}
                         <div class="col-xl-1 col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                            <div class="speaker-detail">
-                                <img class="speaker-pic-thumbnail" src="{{speaker.gravatar}}"/>
-                                <p class="speaker-name">{{speaker.firstName}} {{speaker.lastName}}<br>
-                                </p>
-                            </div>
+                            <span class="osf-gravatar">
+                                <img alt="User gravatar" src="{{speaker.gravatar}}"/>
+                            </span>
+                            <p class="speaker-name p-t-xs">{{speaker.firstName}} {{speaker.lastName}}</p>
                         </div>
                     {{/each}}
                 {{/if}}
