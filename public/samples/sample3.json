@@ -38,6 +38,11 @@
       "type": "meeting-presentations",
       "title": "Presentations",
       "data": "presentations"
+    },
+    {
+      "type": "landing-sponsors",
+      "title": "Sponsors",
+      "data": "sponsor_categories"
     }
   ],
   "data": {
@@ -1143,6 +1148,103 @@
         "firstName": "Terri",
         "lastName": "Vaughn",
         "affiliation": "Xinware"
+      }
+    ],
+    "sponsorCategories": [
+      {
+        "category": "Gold",
+        "sponsors": [
+          {
+            "name": "Accenture",
+            "website_url": "http://accenture.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/accenture-logo-199.png"
+          },
+          {
+            "name": "Capital One",
+            "website_url": "http://jobs.capitalone.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/capital-one-300.png"
+          },
+          {
+            "name": "Google",
+            "website_url": "http://google.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/google-new-302-300x99.png"
+          },
+          {
+            "name": "Microsoft",
+            "website_url": "http://microsoft.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/new-microsoft.jpg"
+          }
+        ]
+      },
+      {
+        "category": "Silver",
+        "sponsors": [
+          {
+            "name": "Amazon",
+            "website_url": "http://amazon.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/amazon-160.png "
+          },
+          {
+            "name": "Qualcomm",
+            "website_url": "http://qualcomm.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/qualcomm-logo-185.png"
+          },
+          {
+            "name": "LinkedIn",
+            "website_url": "http://linkedin.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/linkedin-160.png "
+          },
+          {
+            "name": "Yahoo",
+            "website_url": "http://yahoo.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/yahoo-168.png"
+          }
+        ]
+      },
+      {
+        "category": "Bronze",
+        "sponsors": [
+          {
+            "name": "Twitter",
+            "website_url": "http://twitter.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/twitter-88.png"
+          },
+          {
+            "name": "PayPal",
+            "website_url": "http://paypal.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/paypal-logo-with-name-210.png"
+          },
+          {
+            "name": "Salesforce",
+            "website_url": "http://salesforce.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/salesforce-96.png"
+          },
+          {
+            "name": "Accenture",
+            "website_url": "http://accenture.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/accenture-logo-199.png"
+          },
+          {
+            "name": "Amazon",
+            "website_url": "http://amazon.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/amazon-160.png "
+          },
+          {
+            "name": "Qualcomm",
+            "website_url": "http://qualcomm.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/qualcomm-logo-185.png"
+          },
+          {
+            "name": "LinkedIn",
+            "website_url": "http://linkedin.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/linkedin-160.png "
+          },
+          {
+            "name": "Yahoo",
+            "website_url": "http://yahoo.com",
+            "img_url": "https://anitaborg.org/wp-content/uploads/2013/09/yahoo-168.png"
+          }
+        ]
       }
     ]
   }
