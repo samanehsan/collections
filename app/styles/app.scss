@@ -1,4 +1,3 @@
-@import 'components/navbar-auth-dropdown';
 @import 'validated-input';
 @import 'components/subject-picker';
 
@@ -10,6 +9,11 @@ $dark-banner: #607D8B;
 
 /* Global */
 
+.osf-gravatar > img {
+  border: 1px solid #CDCDCD;
+  border-radius: 50%;
+  margin-right: 5px;
+}
 
 .submit_button {
     display: block;
