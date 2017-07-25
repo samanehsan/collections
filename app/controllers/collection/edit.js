@@ -29,6 +29,7 @@ export default Ember.Controller.extend({
             tags: model.get('tags'),
             settings: JSON.stringify(model.get('settings')),
             location: model.get('location'),
+            address: model.get('address'),
             startDate: model.get('startDate'),
             endDate: model.get('endDate')
         };
@@ -45,6 +46,7 @@ export default Ember.Controller.extend({
         saveEdit () {
             const model = this.get('model');
             const location = this.get('modelCache.location');
+            const address = this.get('modelCache.address');
             const startDate = this.get('modelCache.startDate');
             const endDate = this.get('modelCache.endDate');
 
@@ -53,6 +55,7 @@ export default Ember.Controller.extend({
             model.set('description', this.get('modelCache.description'));
             model.set('tags', this.get('modelCache.tags'));
             model.set('location', location);
+            model.set('address', address);
             model.set('startDate', startDate);
             model.set('endDate', endDate);
             model.save();
