@@ -13,5 +13,6 @@ export default Model.extend({
     fullName: attr('string'),
     computedFullName: Ember.computed('firstName', 'lastName', function () {
         return this.get('firstName') + " " + this.get('lastName');
-    })
+    }),
+    gravatar: attr('string')
 });
