@@ -7,6 +7,7 @@ export default Ember.Controller.extend({
     selectedType: 'Meeting',
     description: '',
     location: '',
+    address: '',
     startDate: null,
     endDate: null,
     actions: {
@@ -21,6 +22,7 @@ export default Ember.Controller.extend({
                     settings: {collectionType: selectedType},
                     description: this.get('description'),
                     location: this.get('location'),
+                    address: this.get('address'),
                     startDate: startDate,
                     endDate: endDate
                 });
