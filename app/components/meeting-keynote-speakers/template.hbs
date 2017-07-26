@@ -10,24 +10,32 @@
 
     .speaker-detail {
         padding: 30px 20px 30px 20px;
-        max-height:90px;
-        max-width:250px;
+        max-height: 90px;
+        max-width: 250px;
     }
+
     .section-title {
         margin-bottom: 50px;
     }
+
     .affiliation {
         font-weight: lighter;
     }
+
     .speaker-name {
         font-weight: 600;
+    }
+    .meeting-keynote-speakers-container {
+        {{#if layout.backgroundcolor}}background:{{layout.backgroundcolor}}{{/if}}
     }
 </style>
 <div class="meeting-keynote-speakers-container p-xl" style="{{containerStyle}}">
     <div class="container">
-        <div class="row text-center section-title">
-            <h2>{{layout.title}}</h2>
-        </div>
+        {{#if layout.title}}
+            <div class="row text-center section-title">
+                <h2>{{layout.title}}</h2>
+            </div>
+        {{/if}}
         <div class="row">
             <div class="row">
                 {{#if data}}

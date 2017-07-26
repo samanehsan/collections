@@ -1,4 +1,15 @@
-<div class="landing-title-container p-xl" style="{{containerStyle}}">
+<style>
+    .landing-title-container {
+        {{#if layout.backgroundimage}}
+            background: url({{layout.backgroundimage}}) no-repeat left center;
+            background-size: cover;
+        {{else}}
+            {{containerStyle}}
+        {{/if}}
+    }
+</style>
+
+<div class="landing-title-container p-xl">
     <div class="container">
         <div class="row">
             <div class="text-center m-t-lg col-xs-12">

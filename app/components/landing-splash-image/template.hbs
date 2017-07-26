@@ -1,0 +1,11 @@
+<style>
+    .splash-container {
+        background: {{#if layout.img_url}}url({{layout.img_url}}){{else}}url('/img/splash-default.jpg'){{/if}} no-repeat left center;
+        background-size: cover;
+        height:{{#if layout.height}}{{layout.height}}px{{else}}300px{{/if}};
+    }
+</style>
+<div class="splash-container p-xl" style="{{containerStyle}}">
+    <div class="container">
+    </div>
+</div>
