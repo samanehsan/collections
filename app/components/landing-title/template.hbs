@@ -7,14 +7,14 @@
                     <div class="coll-hero-logo" style="{{logoStyle}}" aria-role="img"
                          aria-label="{{branding.logo.label}}"></div>
                 {{else if layout.title}}
-                    <h2>{{layout.title}}</h2>
+                    <h1 style="{{titleColor}}">{{layout.title}}</h1>
                 {{else}}
                     <h2>{{model.title}}</h2>
                 {{/if}}
                 {{#if layout.tagline}}
-                    <p class="lead">{{layout.tagline}}</p>
+                    <p class="lead" style="{{taglineColor}}">{{layout.tagline}}</p>
                 {{else}}
-                    <p class="lead">{{model.description}}</p>
+                    <p class="lead" style="{{taglineColor}}">{{model.description}}</p>
                 {{/if}}
             </div>
         </div>
