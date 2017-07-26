@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import _ from 'lodash';
 
 export default Ember.Component.extend({
     session: Ember.inject.service(),
@@ -44,16 +45,41 @@ export default Ember.Component.extend({
             return retList;
         });
     }),
-    items2: [
-        [
-            {
-                title: "item1",
-                description: "description1"
-            },
-            {
-                title: "item2",
-                description: "description2"
-            }
-        ]
-    ]
+    rooms: Ember.computed('model', function () {
+        return this.get('model.items').then((results) => {
+            let roomsList = [];
+            results.forEach(function (i) {
+                roomsList.push(i.get('location'));
+            });
+            return _.uniq(roomsList);
+        });
+    }),
+    tracks: Ember.computed('model', function () {
+        return this.get('model.items').then((results) => {
+            let tracksList = [];
+            results.forEach(function (i) {
+                if (i.get('track')) {
+                    tracksList.push(i.get('track'));
+                }
+            });
+            return _.uniq(tracksList);
+        });
+    }),
+    trackFilter: "",
+    roomFilter: "",
+    selectedItem: Ember.computed('selectedItemId', 'model', function() {
+        let id = parseInt(this.get('selectedItemId'));
+        if (id >= 0) {
+            return this.get('store').findRecord('item', id).then((i) => {
+                return i;
+            });
+        }
+    }),
+    selectedItemId: Ember.computed(function () {
+        // return this.get('model.items').then((results) => {
+        //     console.log(results.get('firstObject.id'));
+        //     return results.get('firstObject.id');
+        // });
+        return 2;
+    })
 });

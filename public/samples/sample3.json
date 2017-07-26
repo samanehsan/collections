@@ -2,10 +2,10 @@
   "collectionType": "preprint",
   "branding": {
     "colors": {
-      "primary": "#286090",
-      "secondary": "#eeeeee",
-      "background": "#aaaaaa",
-      "backgroundText": "#ffffff"
+      "primary": "#444",
+      "secondary": "#fff",
+      "background": "#000",
+      "backgroundText": "#fff"
     },
     "logo": {
       "label": "OSF Preprints",
@@ -16,28 +16,35 @@
   "layout": [
     {
       "type": "landing-title",
-      "title": "American Dental Association Conference 2017",
-      "tagline": "For your teeth, and ours."
+      "title": "SIPS 2017",
+      "tagline": "Charlottesville, VA: July 30 – August 1",
+      "settings": {
+        "titlecolor": "#fff",
+        "taglinecolor": "#fff"
+      }
+    },
+    {
+      "type": "landing-paragraph",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+    },
+    {
+      "type": "meeting-keynote-speakers",
+      "data": "speakers",
+      "settings": null
     },
     {
       "type": "meeting-schedule",
       "settings": null
     },
     {
-      "type": "meeting-keynote-speakers",
-      "title": "Speakers",
-      "data": "speakers",
-      "settings": null
-    },
-    {
       "type": "landing-paragraph",
-      "title": "Connect, learn, grow.",
-      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    },
-    {
-      "type": "meeting-presentations",
-      "title": "Presentations",
-      "data": "presentations"
+      "title": "Code of Conduct",
+      "body": "The Society for the Improvement of Psychological Science (SIPS) holds professional conferences and other events to enable its members to work to improve methods and practices in psychological science, build professional networks, and receive continuing education. SIPS is dedicated to providing a harassment-free event experience for everyone, regardless of gender, race, ethnicity, sexual orientation, gender identity, gender expression, disability, age, appearance, religion, or other group status. We do not tolerate harassment of event participants in any form. Event participants violating these rules may be sanctioned or expelled without a refund at the discretion of the SIPS Executive Committee or event organizers.",
+      "settings": {
+        "backgroundcolor": "#000",
+        "backgroundtext": "#fff"
+      }
     }
   ],
   "data": {
@@ -687,462 +694,6 @@
         "firstName": "Polly",
         "lastName": "Wooten",
         "affiliation": "Noralex"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Ortega",
-        "lastName": "Herring",
-        "affiliation": "Hairport"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Olga",
-        "lastName": "Rocha",
-        "affiliation": "Ginkogene"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Lynne",
-        "lastName": "Buck",
-        "affiliation": "Glukgluk"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Perkins",
-        "lastName": "Hunt",
-        "affiliation": "Enthaze"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Melisa",
-        "lastName": "Caldwell",
-        "affiliation": "Organica"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Cornelia",
-        "lastName": "William",
-        "affiliation": "Qaboos"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Rasmussen",
-        "lastName": "Mueller",
-        "affiliation": "Navir"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Suzanne",
-        "lastName": "Townsend",
-        "affiliation": "Quadeebo"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Gina",
-        "lastName": "Oneil",
-        "affiliation": "Deepends"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Ellison",
-        "lastName": "Cameron",
-        "affiliation": "Pyramia"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Roach",
-        "lastName": "Pope",
-        "affiliation": "Phuel"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Hinton",
-        "lastName": "Noble",
-        "affiliation": "Techmania"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Rodgers",
-        "lastName": "Marks",
-        "affiliation": "Protodyne"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Marcella",
-        "lastName": "Stevens",
-        "affiliation": "Kraggle"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Betsy",
-        "lastName": "Mooney",
-        "affiliation": "Voratak"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Merritt",
-        "lastName": "Norton",
-        "affiliation": "Zizzle"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Cabrera",
-        "lastName": "Greene",
-        "affiliation": "Collaire"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Conley",
-        "lastName": "Knapp",
-        "affiliation": "Maroptic"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Dorothy",
-        "lastName": "Good",
-        "affiliation": "Prowaste"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Henrietta",
-        "lastName": "Morales",
-        "affiliation": "Recrisys"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Petty",
-        "lastName": "Forbes",
-        "affiliation": "Rodeology"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Jewell",
-        "lastName": "Vazquez",
-        "affiliation": "Gaptec"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Bauer",
-        "lastName": "Odom",
-        "affiliation": "Singavera"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Mccarty",
-        "lastName": "Woodard",
-        "affiliation": "Jasper"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Hester",
-        "lastName": "Bray",
-        "affiliation": "Xymonk"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Snider",
-        "lastName": "Hatfield",
-        "affiliation": "Nurplex"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Roth",
-        "lastName": "Oliver",
-        "affiliation": "Reversus"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Angeline",
-        "lastName": "Gibbs",
-        "affiliation": "Overfork"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Nellie",
-        "lastName": "Pierce",
-        "affiliation": "Bugsall"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Maura",
-        "lastName": "Ray",
-        "affiliation": "Kiggle"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Quinn",
-        "lastName": "Daniel",
-        "affiliation": "Imant"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Stanton",
-        "lastName": "Huff",
-        "affiliation": "Comtours"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Mccarthy",
-        "lastName": "Rowland",
-        "affiliation": "Kindaloo"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Morales",
-        "lastName": "Potts",
-        "affiliation": "Velity"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Shepard",
-        "lastName": "Joyner",
-        "affiliation": "Extragen"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Jean",
-        "lastName": "Alvarez",
-        "affiliation": "Eventex"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Coleen",
-        "lastName": "Anderson",
-        "affiliation": "Medcom"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Watkins",
-        "lastName": "Dodson",
-        "affiliation": "Geekology"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Susan",
-        "lastName": "Richard",
-        "affiliation": "Neptide"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Ava",
-        "lastName": "Bridges",
-        "affiliation": "Suremax"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Rosanne",
-        "lastName": "Tran",
-        "affiliation": "Lumbrex"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Parker",
-        "lastName": "Snow",
-        "affiliation": "Xth"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Zamora",
-        "lastName": "Santiago",
-        "affiliation": "Fitcore"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Alta",
-        "lastName": "Ross",
-        "affiliation": "Digiprint"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Townsend",
-        "lastName": "Gates",
-        "affiliation": "Zentix"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Leach",
-        "lastName": "Mcconnell",
-        "affiliation": "Zilidium"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Bessie",
-        "lastName": "Stokes",
-        "affiliation": "Radiantix"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Sophie",
-        "lastName": "Lowe",
-        "affiliation": "Premiant"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Frank",
-        "lastName": "Vang",
-        "affiliation": "Slambda"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Tina",
-        "lastName": "Juarez",
-        "affiliation": "Chillium"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Foley",
-        "lastName": "Manning",
-        "affiliation": "Pawnagra"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Duncan",
-        "lastName": "Christian",
-        "affiliation": "Virva"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Essie",
-        "lastName": "Barry",
-        "affiliation": "Interodeo"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Valerie",
-        "lastName": "Palmer",
-        "affiliation": "Norsul"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Guthrie",
-        "lastName": "Spencer",
-        "affiliation": "Idego"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Lolita",
-        "lastName": "Carroll",
-        "affiliation": "Anivet"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Vang",
-        "lastName": "Cash",
-        "affiliation": "Helixo"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Patsy",
-        "lastName": "Jacobson",
-        "affiliation": "Medmex"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Ellis",
-        "lastName": "Hopkins",
-        "affiliation": "Isologica"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Nguyen",
-        "lastName": "Trujillo",
-        "affiliation": "Franscene"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Michelle",
-        "lastName": "Blair",
-        "affiliation": "Quarmony"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Keller",
-        "lastName": "Dotson",
-        "affiliation": "Imageflow"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Latasha",
-        "lastName": "Leon",
-        "affiliation": "Lexicondo"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Mooney",
-        "lastName": "Elliott",
-        "affiliation": "Rockyard"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Brennan",
-        "lastName": "York",
-        "affiliation": "Zaggles"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Dana",
-        "lastName": "Irwin",
-        "affiliation": "Daycore"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Clayton",
-        "lastName": "Reilly",
-        "affiliation": "Metroz"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Marcy",
-        "lastName": "Buckley",
-        "affiliation": "Atomica"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Carolyn",
-        "lastName": "White",
-        "affiliation": "Cormoran"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Patti",
-        "lastName": "Shelton",
-        "affiliation": "Renovize"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Potter",
-        "lastName": "Gross",
-        "affiliation": "Asimiline"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Lorene",
-        "lastName": "Cross",
-        "affiliation": "Viagreat"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Bond",
-        "lastName": "Lucas",
-        "affiliation": "Acium"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Madge",
-        "lastName": "Brady",
-        "affiliation": "Emoltra"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Helga",
-        "lastName": "Huffman",
-        "affiliation": "Tsunamia"
-      },
-      {
-        "img_url": "https://udayton.edu/0/img/generic-profile.png",
-        "firstName": "Terri",
-        "lastName": "Vaughn",
-        "affiliation": "Xinware"
       }
     ]
   }
