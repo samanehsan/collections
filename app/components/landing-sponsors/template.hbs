@@ -1,7 +1,12 @@
-<div class="p-xl" style="{{containerStyle}}">
+<div id="{{get-section-id layout.title}}" class="p-xl" style="{{containerStyle}}">
     <div class="container">
         <div class="row text-center">
-            <h2>{{layout.title}}</h2>
+            <h2 style="display: inline">
+                {{layout.title}}
+                <a class="headerlink" href="#{{get-section-id layout.title}}">
+                    <i class="fa fa-link"></i>
+                </a>
+            </h2>
         </div>
         <div class="row">
             {{#each data as |categorySponsors|}}
