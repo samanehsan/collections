@@ -11,6 +11,14 @@ $dark-banner: #607D8B;
 
 /* Global */
 
+h2:hover >.headerlink {
+    opacity: 1;
+}
+.headerlink {
+    opacity: 0;
+    font-size: 14px;
+}
+
 .osf-gravatar > img {
   border: 1px solid #CDCDCD;
   border-radius: 50%;
