@@ -1,0 +1,17 @@
+<div class="row">
+    <table class="coll-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each model.list as |item|}}
+                {{collection-item item=item cardView=cardView tagName='tr' toggleSelectedList=toggleSelectedList organizeMode=organizeMode}}
+            {{/each}}
+        </tbody>
+    </table>
+</div>
