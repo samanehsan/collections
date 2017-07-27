@@ -12,14 +12,14 @@ export default Ember.Component.extend({
         let bgColor = "";
         let textColor = "";
         if (!(this.get('layout.background_color'))) {
-            bgColor = this.get('branding.background_color');
+            bgColor = this.get('branding.colors.background');
         } else {
-            bgColor = this.get('layout.background_color');
+            bgColor = this.get('layout.colors.background');
         }
-        if (!(this.get('layout.text-color'))) {
-            textColor = this.get('branding.text_color');
+        if (!(this.get('layout.text_color'))) {
+            textColor = this.get('branding.colors.text');
         } else {
-            textColor = this.get('layout.text_color');
+            textColor = this.get('layout.colors.text');
         }
         return Ember.String.htmlSafe(`background-color: ${bgColor}; color: ${textColor}`);
     }),
