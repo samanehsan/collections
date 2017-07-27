@@ -3,8 +3,8 @@
         {{#if layout.backgroundimage}}
             background: url({{layout.backgroundimage}}) no-repeat left center;
             background-size: cover;
-        {{else}}
-            {{containerStyle}}
+        {{else if layout.background-color}}
+            background: {{layout.background_color}};
         {{/if}}
     }
 </style>

@@ -8,6 +8,9 @@ export default Ember.Component.extend({
         const dataSource = this.get('layout.data');
         return this.get('model.settings').data[dataSource];
     }),
+    containerStyle: Ember.computed('layout', function() {
+        return Ember.String.htmlSafe(`background-color: ${this.get('layout.background_color')}; color: ${this.get('layout.text_color')}`);
+    }),
     filterString: "",
     items: Ember.computed('model', function () {
         // fetches the items, sorts them into buckets by start time, returns them as a list

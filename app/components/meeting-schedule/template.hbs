@@ -39,12 +39,22 @@
     .item-detail {
         padding: 5px 30px 5px 5px;
     }
+
     tr {
         width: 100%;
     }
 
     tbody {
         cursor: pointer;
+    }
+
+    .meetings-schedule-container {
+        {{#if layout.background_color}}
+            background: {{layout.background_color}};
+        {{/if}}
+        {{#if layout.text_color}}
+            color: {{layout.text_color}};
+        {{/if}}
     }
 
 </style>
@@ -54,13 +64,13 @@
             <div id="schedule-header">
                 {{input value=filterString placeholder="Filter schedule"}} | Filter by:
                 <select onchange={{action (mut trackFilter) value="target.value"}}>
-                    <option value="" selected={{eq "" trackFilter}}>Track</option>
+                    <option value="" selected={{eq "" trackFilter}}>All Tracks</option>
                     {{#each (await tracks) as |track|}}
                         <option value={{track}} selected={{eq track trackFilter}}>{{track}}</option>
                     {{/each}}
                 </select>
                 <select onchange={{action (mut roomFilter) value="target.value"}}>
-                    <option value="" selected={{eq "" roomFilter}}>Room</option>
+                    <option value="" selected={{eq "" roomFilter}}>All Rooms</option>
                     {{#each (await rooms) as |room|}}
                         <option value={{room}} selected={{eq room roomFilter}}>{{room}}</option>
                     {{/each}}
@@ -75,16 +85,16 @@
                                     (contains-substring (await item.createdBy.computedFullName) filterString))
                                           (contains-substring item.location roomFilter))}}
                                 <tbody onclick={{action (mut selectedItemId) item.id}}>
-                                    <tr>
-                                        <td class="top-row left-cell event-title"><strong>{{item.title}}</strong></td>
-                                        <td class="top-row right-cell event-location">{{item.location}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bottom-row left-cell event-presenter">{{await
-                                                item.createdBy.computedFullName}}</td>
-                                        <td class="bottom-row right-cell event-end-time">Ends
-                                            at {{item.endTimeFormatted}}</td>
-                                    </tr>
+                                <tr>
+                                    <td class="top-row left-cell event-title"><strong>{{item.title}}</strong></td>
+                                    <td class="top-row right-cell event-location">{{item.location}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="bottom-row left-cell event-presenter">{{await
+                                            item.createdBy.computedFullName}}</td>
+                                    <td class="bottom-row right-cell event-end-time">Ends
+                                        at {{item.endTimeFormatted}}</td>
+                                </tr>
                                 </tbody>
                             {{/if}}
                         {{/each}}
