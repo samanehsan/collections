@@ -1,9 +1,14 @@
-<div class="landing-paragraph-container p-xl" style="{{containerStyle}}">
+<div id="{{get-section-id layout.title}}" class="landing-paragraph-container p-xl" style="{{containerStyle}}">
     <div class="container">
         <div class="row">
             <div class="text-center col-xs-12">
                 {{#if layout.title}}
-                    <h2>{{layout.title}}</h2><br>
+                    <h2 style="display: inline">
+                        {{layout.title}}
+                        <a class="headerlink" href="#{{get-section-id layout.title}}">
+                            <i class="fa fa-link"></i>
+                        </a>
+                    </h2>
                 {{/if}}
                 <p class="text-left" style="max-width:1250px; margin-left: auto; margin-right: auto;">{{layout.body}}</p>
             </div>

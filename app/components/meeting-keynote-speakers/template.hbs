@@ -31,13 +31,16 @@
         {{/if}}
     }
 </style>
-<div class="meeting-keynote-speakers-container p-xl" style="{{containerStyle}}">
+<div id="{{get-section-id layout.title}}" class="meeting-keynote-speakers-container p-xl" style="{{containerStyle}}">
     <div class="container">
-        {{#if layout.title}}
-            <div class="row text-center section-title">
-                <h2>{{layout.title}}</h2>
-            </div>
-        {{/if}}
+        <div class="row text-center section-title">
+            <h2 style="display: inline">
+                {{layout.title}}
+                <a class="headerlink" href="#{{get-section-id layout.title}}">
+                    <i class="fa fa-link"></i>
+                </a>
+            </h2>
+        </div>
         <div class="row">
             <div class="row">
                 {{#if data}}
