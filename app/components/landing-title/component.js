@@ -21,10 +21,10 @@ export default Ember.Component.extend({
         return Ember.String.htmlSafe(bg + textColor);
     }),
     titleColor: Ember.computed('layout', function() {
-        return this.get('layout.title_color') ? `color: ${this.get('layout.title_color')};` : "";
+        return Ember.String.htmlSafe(this.get('layout.title_color') ? `color: ${this.get('layout.title_color')};` : "");
     }),
     taglineColor: Ember.computed('layout', function() {
-        return this.get('layout.tagline_color') ? `color: ${this.get('layout.tagline_color')};` : "";
+        return Ember.String.htmlSafe(this.get('layout.tagline_color') ? `color: ${this.get('layout.tagline_color')};` : "");
     }),
     logoStyle: Ember.computed('branding.logo', function() {
         return Ember.String.htmlSafe(`background-image: url(${this.get('branding.logo.url')}); height: ${this.get('branding.logo.height')}`);
