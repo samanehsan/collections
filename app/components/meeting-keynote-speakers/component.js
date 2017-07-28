@@ -24,7 +24,5 @@ export default Ember.Component.extend({
             users.push(this.get('store').findRecord('user', userIDs[j]));
         }
         return users;
-    }),
-    actions: {
-    }
+    })
 });
