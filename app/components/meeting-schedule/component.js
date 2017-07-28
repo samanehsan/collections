@@ -9,7 +9,9 @@ export default Ember.Component.extend({
         return this.get('model.settings').data[dataSource];
     }),
     containerStyle: Ember.computed('layout', function() {
-        return Ember.String.htmlSafe(`background-color: ${this.get('layout.background_color')}; color: ${this.get('layout.text_color')}`);
+        let bg = this.get('layout.background_color') ? "background-color:" + this.get('layout.background_color') + ";" : "";
+        let txt = this.get('layout.text_color') ? "color: " + this.get('layout.text_color') + ";" : "";
+        return Ember.String.htmlSafe(bg + txt);
     }),
     filterString: "",
     items: Ember.computed('model', function () {

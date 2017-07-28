@@ -8,32 +8,24 @@ export default Ember.Component.extend({
     }),
     actions: {
     },
-    containerStyle: Ember.computed('branding', 'layout', function() {
-        let bgColor = "";
-        let textColor = "";
-        if (!(this.get('layout.background_color'))) {
-            bgColor = this.get('branding.colors.background');
-        } else {
-            bgColor = this.get('layout.colors.background');
-        }
-        if (!(this.get('layout.text_color'))) {
-            textColor = this.get('branding.colors.text');
-        } else {
-            textColor = this.get('layout.colors.text');
-        }
-        return Ember.String.htmlSafe(`background-color: ${bgColor}; color: ${textColor}`);
+    containerStyle: Ember.computed('layout', 'branding', function() {
+        // if image is specified for background, use that
+        // otherwise, check if a background color has been specified.
+            // if so, use that. if not, use the branding background color
+        // if text color is specified, use that. otherwise, use branding text color
+        let bgColor = this.get('layout.background_color') ? this.get('layout.background_color') : this.get('branding.colors.background');
+        let bgImage = this.get('layout.img_url');
+        let bg = bgImage ? "background:url(" + bgImage + ") no-repeat left center; background-size: cover;" : "background-color:" + bgColor + ";";
+        let textColor = this.get('layout.text_color') ? this.get('layout.text_color') : this.get('branding.colors.text');
+        textColor = "color:" + textColor + ";";
+        return Ember.String.htmlSafe(bg + textColor);
     }),
     titleColor: Ember.computed('layout', function() {
-        if (!(this.get('layout.title_color'))) {
-            return Ember.String.htmlSafe(`color: ${this.get('layout.title_color')};`);
-        }
-        else {return Ember.String.htmlSafe(`color: ${this.get('layout.title_color')};`);}
+        return this.get('layout.title_color') ? `color: ${this.get('layout.title_color')};` : "";
     }),
     taglineColor: Ember.computed('layout', function() {
-        if (!(this.get('layout.tagline_color'))) {
-            return Ember.String.htmlSafe(`color: ${this.get('layout.tagline_color')};`);
-        }
-        else {return Ember.String.htmlSafe(`color: ${this.get('layout.tagline_color')};`);}    }),
+        return this.get('layout.tagline_color') ? `color: ${this.get('layout.tagline_color')};` : "";
+    }),
     logoStyle: Ember.computed('branding.logo', function() {
         return Ember.String.htmlSafe(`background-image: url(${this.get('branding.logo.url')}); height: ${this.get('branding.logo.height')}`);
     }),

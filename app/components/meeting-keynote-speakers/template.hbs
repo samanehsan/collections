@@ -1,46 +1,15 @@
-<style>
-    .speaker-pic-thumbnail {
-        width: 60px;
-        height: 60px;
-        margin-right: 20px;
-        float: left;
-        border: 1px solid #CDCDCD;
-        border-radius: 50%;
-    }
-
-    .speaker-detail {
-        padding: 30px 20px 30px 20px;
-        max-height: 90px;
-        max-width: 250px;
-    }
-
-    .section-title {
-        margin-bottom: 50px;
-    }
-
-    .affiliation {
-        font-weight: lighter;
-    }
-
-    .speaker-name {
-        font-weight: 600;
-    }
-    .meeting-keynote-speakers-container {
-        {{#if layout.background_color}}
-            background: {{layout.background_color}};
-        {{/if}}
-    }
-</style>
 <div id="{{get-section-id layout.title}}" class="meeting-keynote-speakers-container p-xl" style="{{containerStyle}}">
     <div class="container">
-        <div class="row text-center section-title">
-            <h2 style="display: inline">
-                {{layout.title}}
-                <a class="headerlink" href="#{{get-section-id layout.title}}">
-                    <i class="fa fa-link"></i>
-                </a>
-            </h2>
-        </div>
+        {{#if layout.title}}
+            <div class="row text-center section-title">
+                <h2 style="display: inline">
+                    {{layout.title}}
+                    <a class="headerlink" href="#{{get-section-id layout.title}}">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h2>
+            </div>
+        {{/if}}
         <div class="row">
             <div class="row">
                 {{#if data}}

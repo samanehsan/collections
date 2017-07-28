@@ -8,7 +8,7 @@ export default Ember.Component.extend({
         return this.get('model.settings').data[dataSource];
     }),
     containerStyle: Ember.computed('layout', function() {
-        return Ember.String.htmlSafe(`background-color: ${this.get('layout.background_color')}; color: ${this.get('layout.text_color')}`);
+        return Ember.String.htmlSafe(`background-color: ${this.get('layout.background_color')}; color: ${this.get('layout.text_color')};`);
     }),
     users: Ember.computed('model.items', function() {
         let items = this.get('model.items');
@@ -25,7 +25,6 @@ export default Ember.Component.extend({
         }
         return users;
     }),
-
     actions: {
     }
 });

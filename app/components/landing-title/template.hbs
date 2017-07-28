@@ -1,15 +1,4 @@
-<style>
-    .landing-title-container {
-        {{#if layout.backgroundimage}}
-            background: url({{layout.backgroundimage}}) no-repeat left center;
-            background-size: cover;
-        {{else if layout.background_color}}
-            background: {{layout.background_color}};
-        {{/if}}
-    }
-</style>
-
-<div class="landing-title-container p-xl">
+<div class="landing-title-container p-xl" style="{{containerStyle}}">
     <div class="container">
         <div class="row">
             <div class="text-center m-t-lg col-xs-12">
@@ -20,7 +9,7 @@
                 {{else if layout.title}}
                     <h1 style="{{titleColor}}">{{layout.title}}</h1>
                 {{else}}
-                    <h2>{{model.title}}</h2>
+                    <h1>{{model.title}}</h1>
                 {{/if}}
                 {{#if layout.tagline}}
                     <p class="lead" style="{{taglineColor}}">{{layout.tagline}}</p>
