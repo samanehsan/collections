@@ -22,7 +22,7 @@
                         <h4 class="time-slot-header">{{itemlist.[0].startTimeFormatted}}</h4>
                         <table class="time-slot">
                             {{#each itemlist as |item|}}
-                                {{#if (logic-and (logic-or (contains-substring item.scheduleFilterText filterString)
+                                {{#if (and (or (contains-substring item.scheduleFilterText filterString)
                                         (contains-substring (await item.createdBy.computedFullName) filterString))
                                               (contains-substring item.location roomFilter))}}
                                     <tbody onclick={{action (mut selectedItemId) item.id}}>
