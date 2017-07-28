@@ -56,7 +56,7 @@ export default Ember.Component.extend({
             results.forEach(function (i) {
                 roomsList.push(i.get('location'));
             });
-            return _.uniq(roomsList);
+            return _.uniq(roomsList).sort();
         });
     }),
     tracks: Ember.computed('model', function () {
@@ -67,7 +67,7 @@ export default Ember.Component.extend({
                     tracksList.push(i.get('track'));
                 }
             });
-            return _.uniq(tracksList);
+            return _.uniq(tracksList).sort();
         });
     }),
     trackFilter: "",
