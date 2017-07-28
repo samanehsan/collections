@@ -11,7 +11,7 @@ export default Ember.Component.extend({
     containerStyle: Ember.computed('layout', 'branding', function() {
         // if image is specified for background, use that
         // otherwise, check if a background color has been specified.
-            // if so, use that. if not, use the branding background color
+        // if so, use that. if not, use the branding background color
         // if text color is specified, use that. otherwise, use branding text color
         let bgColor = this.get('layout.background_color') ? this.get('layout.background_color') : this.get('branding.colors.background');
         let bgImage = this.get('layout.img_url');
