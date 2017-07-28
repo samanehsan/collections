@@ -11,16 +11,6 @@ export default Ember.Component.extend({
     showGroupConfirmation: false, // Modal for grouping
     addingGroup: false,
     groupTitle: '',
-    // Build list
-    groups: Ember.computed('model.groups', function() {
-        if (this.get('groupView')) { return; }
-        const groups = this.get('model.groups');
-        groups.forEach(function(group) {
-            group.set('type', 'group');
-        });
-        return groups;
-    }),
-    list: Ember.computed.union('groups', 'model.items'),
     actions: {
         toggleOrganizeMode () {
             this.send('emptySelectedList');
@@ -40,7 +30,7 @@ export default Ember.Component.extend({
             this.set('addingGroup', false);
         },
         deleteSelected() {
-            const items = this.get('list');
+            const items = this.get('model.list');
             const selected = this.get('selectedItems');
             selected.forEach(item =>
                 Ember.run.once(() =>
@@ -89,7 +79,7 @@ export default Ember.Component.extend({
         },
         emptySelectedList() {
             this.get('selectedItems').clear();
-            this.get('list').setEach('selected', false);
+            this.get('model.list').setEach('selected', false);
         },
         changeView(cardView) {
             this.set('cardView', cardView);

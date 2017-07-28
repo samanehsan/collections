@@ -3,6 +3,7 @@
 @import 'components/landing-sponsors';
 @import 'components/meetings-schedule';
 @import 'components/meeting-keynote-speakers';
+@import 'components/datetime-picker';
 
 
 $navbar-color: #009688;
@@ -104,7 +105,10 @@ ul.comma-list {
         color: #fff;
     }
     td, th {
-        padding: 15px;
+        padding: 10px;
+        p {
+            margin: 0px 0px 0px;
+        }
     }
     tr {
         border-bottom: 1px solid #eee;
