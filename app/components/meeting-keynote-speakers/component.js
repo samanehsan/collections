@@ -3,7 +3,6 @@ import Ember from 'ember';
 export default Ember.Component.extend({
     store: Ember.inject.service(),
     session: Ember.inject.service(),
-    test: 4,
     data: Ember.computed('layout', function() {
         const model = this.get('model');
         const dataSource = this.get('layout.data');
@@ -23,8 +22,5 @@ export default Ember.Component.extend({
             users.push(this.get('store').findRecord('user', userIDs[j]));
         }
         return users;
-    }),
-
-    actions: {
-    }
+    })
 });
