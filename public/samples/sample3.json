@@ -37,6 +37,9 @@
       "settings": null
     },
     {
+      "type": "item-table"
+    },
+    {
       "type": "landing-sponsors",
       "title": "Sponsors",
       "data": "sponsor_categories"

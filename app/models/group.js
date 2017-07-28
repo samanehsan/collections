@@ -13,7 +13,8 @@ export default Model.extend({
     tags: attr('string'),
     dateCreated: attr('date'),
     dateUpdated: attr('date'),
-    collection: belongsTo('collection'),
+    collection: belongsTo('collection-base'),
     createdBy: belongsTo('user'),
     items: hasMany('item'),
+    list: Ember.computed.alias('items')
 });

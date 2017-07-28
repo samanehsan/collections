@@ -102,7 +102,10 @@ ul.comma-list {
         color: #fff;
     }
     td, th {
-        padding: 15px;
+        padding: 10px;
+        p {
+            margin: 0px 0px 0px;
+        }
     }
     tr {
         border-bottom: 1px solid #eee;

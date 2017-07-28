@@ -1,7 +1,7 @@
 <div class="coll-items">
     <div class="container">
         <div class="row m-b-lg">
-            {{#if list}}
+            {{#if model.list}}
                 <div class="col-xs-6">
                     {{#if organizeMode}}
                         {{#if (not groupView)}}
@@ -30,27 +30,13 @@
             {{/if}}
         </div>
         <div class="row">
-            {{#if list}}
+            {{#if model.list}}
                 {{#if cardView}}
-                    {{#each list as |item|}}
+                    {{#each model.list as |item|}}
                         {{collection-item item=item cardView=cardView toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode class="col-sm-6 col-lg-4"}}
                     {{/each}}
                 {{else}}
-                    <table class="coll-table">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Type</th>
-                                <th>Status</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each list as |item|}}
-                                {{collection-item item=item cardView=cardView tagName='tr' toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode}}
-                            {{/each}}
-                        </tbody>
-                    </table>
+                   {{item-table model=model cardView=cardView toggleSelectedList=(action 'toggleSelectedList') organizeMode=organizeMode}}
                 {{/if}}
             {{else}}
                 <p class="text-center text-muted p-xl"> You don't have any items yet. Go to "Add content" to add items</p>
