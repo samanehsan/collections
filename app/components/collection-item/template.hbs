@@ -16,7 +16,7 @@
             {{else}}
                 <h4>{{#link-to 'collection.item' item.id}}{{item.title}}{{/link-to}}</h4>
             {{/if}}
-            <p> Author: {{item.createdBy}} </p>
+            <p> Author: {{item.createdBy.computedFullName}} </p>
             <p> Type: {{item.type}} </p>
             {{#if item.status}}
                 <p> Status: {{item.status}} </p>
