@@ -35,8 +35,9 @@
         {{/if}}
         <div class="form-group">
             <label for="collectionSettings">Settings</label>
-            {{textarea class="form-control" value=modelCache.settings id="collectionSettings" rows=12}}
+            {{json-editor json=modelCache.settings onChange=(action "updateCacheSettings")}}
         </div>
+
         <div class="text-right">
             <button class="btn btn-default" {{action 'cancelEdit'}}>Cancel</button>
             <button class="btn btn-success" {{action 'saveEdit'}}>Save</button>
