@@ -32,7 +32,7 @@ export default Model.extend({
         let st = moment(this.get('endTime'));
         return st.format('h:mmA');
     }),
-    scheduleFilterText: Ember.computed('title', 'location', 'startTimeFormatted', 'userName', function () {
+    scheduleFilterText: Ember.computed('title', 'location', 'startTimeFormatted', function () {
         return this.get('title') +
             this.get('location') + this.get('startTimeFormatted') + this.get('userName');
     })
