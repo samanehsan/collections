@@ -34,7 +34,7 @@ export default Ember.Component.extend({
                     return a.get('startTime') - b.get('startTime');
                 }
             });
-            // Archived!!!:
+
             let retList = [];
             tempItems.forEach(function (i) {
                 if (retList.length == 0) {
