@@ -9,7 +9,5 @@ export default Ember.Component.extend({
         return "background: " + url + " no-repeat left center; " +
             "background-size: cover; " +
             "height: " + height + ";";
-    }),
-    actions: {
-    }
+    })
 });
