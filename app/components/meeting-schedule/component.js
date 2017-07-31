@@ -8,6 +8,11 @@ export default Ember.Component.extend({
         const dataSource = this.get('layout.data');
         return this.get('model.settings').data[dataSource];
     }),
+    containerStyle: Ember.computed('layout', function() {
+        let bg = this.get('layout.background_color') ? "background-color:" + this.get('layout.background_color') + ";" : "";
+        let txt = this.get('layout.text_color') ? "color: " + this.get('layout.text_color') + ";" : "";
+        return Ember.String.htmlSafe(bg + txt);
+    }),
     filterString: "",
     items: Ember.computed('model', function () {
         // fetches the items, sorts them into buckets by start time, returns them as a list
@@ -51,7 +56,7 @@ export default Ember.Component.extend({
             results.forEach(function (i) {
                 roomsList.push(i.get('location'));
             });
-            return _.uniq(roomsList);
+            return _.uniq(roomsList).sort();
         });
     }),
     tracks: Ember.computed('model', function () {
@@ -62,7 +67,7 @@ export default Ember.Component.extend({
                     tracksList.push(i.get('track'));
                 }
             });
-            return _.uniq(tracksList);
+            return _.uniq(tracksList).sort();
         });
     }),
     trackFilter: "",

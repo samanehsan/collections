@@ -5,7 +5,7 @@
       "primary": "#444",
       "secondary": "#fff",
       "background": "#000",
-      "backgroundText": "#fff"
+      "text": "#fff"
     },
     "logo": {
       "label": "OSF Preprints",
@@ -17,24 +17,22 @@
     {
       "type": "landing-title",
       "title": "SIPS 2017",
-      "tagline": "Charlottesville, VA: July 30 – August 1",
-      "settings": {
-        "titlecolor": "#fff",
-        "taglinecolor": "#fff"
-      }
+      "tagline": "Charlottesville, VA: July 30 – August 1"
     },
     {
       "type": "landing-paragraph",
-      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      "body": "SIPS strives for inclusivity of individuals and groups with diverse personal backgrounds, especially those who have been historically underrepresented in science. SIPS also recognizes that many activities contribute to the mission of advancing knowledge, including mentorship, pedagogy, and research."
+    },
+    {
+      "type": "landing-splash-image"
     },
     {
       "type": "meeting-keynote-speakers",
       "data": "speakers",
-      "settings": null
+      "background_color": "#fff"
     },
     {
-      "type": "meeting-schedule",
-      "settings": null
+      "type": "meeting-schedule"
     },
     {
       "type": "item-table"
@@ -42,16 +40,16 @@
     {
       "type": "landing-sponsors",
       "title": "Sponsors",
-      "data": "sponsor_categories"
+      "data": "sponsor_categories",
+      "background_color": "#fff",
+      "text_color": "#222"
     },
     {
       "type": "landing-paragraph",
       "title": "Code of Conduct",
       "body": "The Society for the Improvement of Psychological Science (SIPS) holds professional conferences and other events to enable its members to work to improve methods and practices in psychological science, build professional networks, and receive continuing education. SIPS is dedicated to providing a harassment-free event experience for everyone, regardless of gender, race, ethnicity, sexual orientation, gender identity, gender expression, disability, age, appearance, religion, or other group status. We do not tolerate harassment of event participants in any form. Event participants violating these rules may be sanctioned or expelled without a refund at the discretion of the SIPS Executive Committee or event organizers.",
-      "settings": {
-        "backgroundcolor": "#000",
-        "backgroundtext": "#fff"
-      }
+      "background_color": "#000",
+      "text_color": "#fff"
     }
   ],
   "data": {

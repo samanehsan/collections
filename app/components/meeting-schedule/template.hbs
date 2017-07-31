@@ -1,80 +1,31 @@
-<style>
-    #schedule-window {
-        height: 500px;
-        overflow: auto;
-        padding: 15px;
-    }
-
-    td.right-cell {
-        text-align: right;
-        width: 45%;
-        padding: 0 10px 0 0;
-    }
-
-    td.left-cell {
-        width: 50%;
-    }
-
-    table {
-        width: 100%;
-    }
-
-    td.top-row {
-        padding: 5px 0 2px 0;
-    }
-
-    td.bottom-row {
-        padding: 0 0 5px 0;
-    }
-
-    .time-slot {
-        padding: 0 0 15px 0;
-    }
-
-    .time-slot-header {
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 3px;
-    }
-
-    .item-detail {
-        padding: 5px 30px 5px 5px;
-    }
-    tr {
-        width: 100%;
-    }
-
-    tbody {
-        cursor: pointer;
-    }
-
-</style>
-<div class="meetings-schedule-container container p-lg">
-    <div class="row">
-        <div class="col-sm-6">
-            <div id="schedule-header">
-                {{input value=filterString placeholder="Filter schedule"}} | Filter by:
-                <select onchange={{action (mut trackFilter) value="target.value"}}>
-                    <option value="" selected={{eq "" trackFilter}}>Track</option>
-                    {{#each (await tracks) as |track|}}
-                        <option value={{track}} selected={{eq track trackFilter}}>{{track}}</option>
-                    {{/each}}
-                </select>
-                <select onchange={{action (mut roomFilter) value="target.value"}}>
-                    <option value="" selected={{eq "" roomFilter}}>Room</option>
-                    {{#each (await rooms) as |room|}}
-                        <option value={{room}} selected={{eq room roomFilter}}>{{room}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            <div id="schedule-window">
-                {{#each (await items) as |itemlist|}}
-                    <h4 class="time-slot-header">{{itemlist.[0].startTimeFormatted}}</h4>
-                    <table class="time-slot">
-                        {{#each itemlist as |item|}}
-                            {{#if (logic-and (logic-or (contains-substring item.scheduleFilterText filterString)
-                                    (contains-substring (await item.createdBy.computedFullName) filterString))
-                                          (contains-substring item.location roomFilter))}}
-                                <tbody onclick={{action (mut selectedItemId) item.id}}>
+<div class="meetings-schedule-container p-lg" style="{{containerStyle}}">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="schedule-header">
+                    {{input value=filterString placeholder="Filter schedule" style="color:black;"}} | Filter by:
+                    <select onchange={{action (mut trackFilter) value="target.value"}}>
+                        <option value="" selected={{eq "" trackFilter}}>All Tracks</option>
+                        {{#each (await tracks) as |track|}}
+                            <option value={{track}} selected={{eq track trackFilter}}>{{track}}</option>
+                        {{/each}}
+                    </select>
+                    <select onchange={{action (mut roomFilter) value="target.value"}}>
+                        <option value="" selected={{eq "" roomFilter}}>All Rooms</option>
+                        {{#each (await rooms) as |room|}}
+                            <option value={{room}} selected={{eq room roomFilter}}>{{room}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div id="schedule-window">
+                    {{#each (await items) as |itemlist|}}
+                        <h4 class="time-slot-header">{{itemlist.[0].startTimeFormatted}}</h4>
+                        <table class="time-slot">
+                            {{#each itemlist as |item|}}
+                                {{#if (and (or (contains-substring item.scheduleFilterText filterString)
+                                        (contains-substring (await item.createdBy.computedFullName) filterString))
+                                              (contains-substring item.location roomFilter))}}
+                                    <tbody onclick={{action (mut selectedItemId) item.id}}>
                                     <tr>
                                         <td class="top-row left-cell event-title"><strong>{{item.title}}</strong></td>
                                         <td class="top-row right-cell event-location">{{item.location}}</td>
@@ -85,22 +36,23 @@
                                         <td class="bottom-row right-cell event-end-time">Ends
                                             at {{item.endTimeFormatted}}</td>
                                     </tr>
-                                </tbody>
-                            {{/if}}
-                        {{/each}}
-                    </table>
-                    <br>
-                {{/each}}
-                <br><br>
+                                    </tbody>
+                                {{/if}}
+                            {{/each}}
+                        </table>
+                        <br>
+                    {{/each}}
+                    <br><br>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="item-detail">
-                <h2>{{get (await selectedItem) 'title'}}<br>
-                    <small>{{get (await selectedItem) 'createdBy.computedFullName'}}</small>
-                </h2>
-                <p>{{get (await selectedItem) 'description'}}</p>
-                <p><a href="#">Link to author</a> | <a href="#">Link to presentation</a></p>
+            <div class="col-sm-6">
+                <div class="item-detail">
+                    <h2>{{get (await selectedItem) 'title'}}<br>
+                        <small>{{get (await selectedItem) 'createdBy.computedFullName'}}</small>
+                    </h2>
+                    <p>{{get (await selectedItem) 'description'}}</p>
+                    <p><a href="#">Link to author</a> | <a href="#">Link to presentation</a></p>
+                </div>
             </div>
         </div>
     </div>
