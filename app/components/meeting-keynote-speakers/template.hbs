@@ -1,0 +1,39 @@
+<div id="{{get-section-id layout.title}}" class="meeting-keynote-speakers-container p-xl" style="{{containerStyle}}">
+    <div class="container">
+        {{#if layout.title}}
+            <div class="row text-center section-title">
+                <h2 style="display: inline">
+                    {{layout.title}}
+                    <a class="headerlink" href="#{{get-section-id layout.title}}">
+                        <i class="fa fa-link"></i>
+                    </a>
+                </h2>
+            </div>
+        {{/if}}
+        <div class="row">
+            <div class="row">
+                {{#if data}}
+                    {{#each data as |speaker|}}
+                        <div class="col-xl-1 col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                            <div class="speaker-detail">
+                                <img class="speaker-pic-thumbnail" src="{{speaker.img_url}}"/>
+                                <p class="speaker-name">{{speaker.first_name}} {{speaker.last_name}}<br>
+                                    <span class="affiliation">{{speaker.affiliation}}</span>
+                                </p>
+                            </div>
+                        </div>
+                    {{/each}}
+                {{else if users}}
+                    {{#each users as |speaker|}}
+                        <div class="col-xl-1 col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                            <span class="osf-gravatar">
+                                <img alt="User gravatar" src="{{speaker.gravatar}}"/>
+                            </span>
+                            <p class="speaker-name p-t-xs">{{speaker.computedFullName}}</p>
+                        </div>
+                    {{/each}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

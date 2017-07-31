@@ -1,0 +1,50 @@
+.meetings-schedule-container {
+  #schedule-window {
+    height: 500px;
+    overflow: auto;
+    padding: 15px;
+  }
+
+  td.right-cell {
+    text-align: right;
+    width: 45%;
+    padding: 0 10px 0 0;
+  }
+
+  td.left-cell {
+    width: 50%;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  td.top-row {
+    padding: 5px 0 2px 0;
+  }
+
+  td.bottom-row {
+    padding: 0 0 5px 0;
+  }
+
+  .time-slot {
+    padding: 0 0 15px 0;
+  }
+
+  .time-slot-header {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 3px;
+  }
+
+  .item-detail {
+    padding: 5px 30px 5px 5px;
+  }
+
+  tr {
+    width: 100%;
+  }
+
+  tbody {
+    cursor: pointer;
+  }
+}

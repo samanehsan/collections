@@ -16,5 +16,13 @@ export default Model.extend({
     settings: attr(),
     createdBy: belongsTo('user'),
     groups: hasMany('group'),
-    items: hasMany('items'),
+    items: hasMany('item'),
+    groupsComputed: Ember.computed('groups', function() {
+        const groups = this.get('groups');
+        groups.forEach(function(group) {
+            group.set('type', 'group');
+        });
+        return groups;
+    }),
+    list: Ember.computed.union('groupsComputed', 'items')
 });

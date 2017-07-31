@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 const {
     Model,
@@ -10,4 +11,8 @@ export default Model.extend({
     firstName: attr('string'),
     lastName: attr('string'),
     fullName: attr('string'),
+    computedFullName: Ember.computed('firstName', 'lastName', function () {
+        return this.get('firstName') + " " + this.get('lastName');
+    }),
+    gravatar: attr('string')
 });

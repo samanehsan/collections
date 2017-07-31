@@ -1,7 +1,10 @@
-@import 'components/navbar-auth-dropdown';
 @import 'validated-input';
 @import 'components/subject-picker';
+@import 'components/landing-sponsors';
+@import 'components/meetings-schedule';
+@import 'components/meeting-keynote-speakers';
 @import 'components/datetime-picker';
+@import 'components/landing-paragraph';
 
 
 $navbar-color: #009688;
@@ -12,6 +15,19 @@ $dark-banner: #607D8B;
 
 /* Global */
 
+h2:hover >.headerlink {
+    opacity: 1;
+}
+.headerlink {
+    opacity: 0;
+    font-size: 14px;
+}
+
+.osf-gravatar > img {
+  border: 1px solid #CDCDCD;
+  border-radius: 50%;
+  margin-right: 5px;
+}
 
 .submit_button {
     display: block;
@@ -90,7 +106,10 @@ ul.comma-list {
         color: #fff;
     }
     td, th {
-        padding: 15px;
+        padding: 10px;
+        p {
+            margin: 0px 0px 0px;
+        }
     }
     tr {
         border-bottom: 1px solid #eee;
