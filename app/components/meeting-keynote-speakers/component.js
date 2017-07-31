@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import _ from 'lodash';
 
 export default Ember.Component.extend({
     store: Ember.inject.service(),
@@ -13,16 +14,14 @@ export default Ember.Component.extend({
     users: Ember.computed('model.items', function() {
         let items = this.get('model.items');
         let userIDs = [];
-        for (var i=0; i < items.get('length'); i++) {
-            const userID = items.objectAt(i).get('createdBy.id');
-            if (userID !== undefined && userIDs.indexOf(userID) == -1) {
+        items.forEach((item) => {
+            const userID = item.get('createdBy.id');
+            if (userID !== undefined) {
                 userIDs.push(userID);
             }
-        }
-        let users = [];
-        for (var j=0; j < userIDs.length; j++) {
-            users.push(this.get('store').findRecord('user', userIDs[j]));
-        }
-        return users;
+        });
+        return _.uniq(userIDs).map((userID) => {
+            return this.get('store').findRecord('user', userID);
+        });
     })
 });
