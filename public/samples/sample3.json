@@ -35,7 +35,9 @@
       "type": "meeting-schedule"
     },
     {
-      "type": "item-table"
+      "type": "item-table",
+      "header_color": "#444",
+      "text_color": "#fff"
     },
     {
       "type": "landing-sponsors",
