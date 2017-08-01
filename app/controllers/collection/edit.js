@@ -63,6 +63,9 @@ export default Ember.Controller.extend({
         },
         deleteCollection() {
             this.get('model').destroyRecord().then(() => this.transitionToRoute('/'));
+        },
+        updateCacheSettings (jsonSettings) {
+            this.set('modelCache.settings', JSON.stringify(jsonSettings));
         }
     }
 
