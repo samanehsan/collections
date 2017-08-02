@@ -54,9 +54,7 @@ body {
 .modal.in {
     display: block;
 }
-.navbar{
-    height: 50px;
-}
+
 ul.comma-list {
     display: inline;
     list-style: none;
@@ -579,6 +577,10 @@ span.sortable-bars:hover {
     background: white;
     z-index: 10;
   }
+}
+
+.icon-bar {
+  background-color: #fff;
 }
 
 .contrib-column-header {
