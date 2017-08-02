@@ -47,6 +47,7 @@ export default Ember.Component.extend({
                     retList.push([i]);
                 }
             });
+            this.set('selectedItemId', retList[0][0].id);
             return retList;
         });
     }),
@@ -80,11 +81,5 @@ export default Ember.Component.extend({
             });
         }
     }),
-    selectedItemId: Ember.computed(function () {
-        // return this.get('model.items').then((results) => {
-        //     console.log(results.get('firstObject.id'));
-        //     return results.get('firstObject.id');
-        // });
-        return 2;
-    })
+    selectedItemId: 0
 });
