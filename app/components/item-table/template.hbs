@@ -1,4 +1,14 @@
 <div class="container">
+    <div class="row m-b-md">
+        {{input value=filterString placeholder="Filter"}}
+        | Filter by:
+        <select onchange={{action (mut eventFilter) value="target.value"}}>
+            <option value="" selected={{eq "" eventFilter}}>Event type</option>
+            {{#each (await eventTypes) as |event|}}
+                <option value={{event}} selected={{eq event eventFilter}}>{{event}}</option>
+            {{/each}}
+        </select>
+    </div>
     <div class="row m-b-lg">
         <table class="coll-table">
             <thead style="{{theadStyle}}">
@@ -7,12 +17,15 @@
                     <th>Author</th>
                     <th>Type</th>
                     <th>Status</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 {{#each model.list as |item|}}
-                    {{collection-item item=item cardView=cardView tagName='tr' toggleSelectedList=toggleSelectedList organizeMode=organizeMode}}
+                    {{#if (and (or (contains-substring item.title filterString)
+                        (contains-substring (await item.createdBy.computedFullName) filterString))
+                            (contains-substring item.type eventFilter))}}
+                        {{collection-item item=item cardView=cardView tagName='tr' toggleSelectedList=toggleSelectedList organizeMode=organizeMode}}
+                    {{/if}}
                 {{/each}}
             </tbody>
         </table>
