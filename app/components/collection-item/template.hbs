@@ -18,9 +18,6 @@
             {{/if}}
             <p> Author: {{item.createdBy.computedFullName}} </p>
             <p> Type: {{item.type}} </p>
-            {{#if item.status}}
-                <p> Status: {{item.status}} </p>
-            {{/if}}
         </div>
     </div>
 {{else}}
@@ -35,7 +32,6 @@
     </td>
     <td>{{item.createdBy.computedFullName}}</td>
     <td>{{item.type}}</td>
-    <td>{{item.status}}</td>
     {{#if organizeMode}}
         <td>
 
