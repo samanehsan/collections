@@ -18,9 +18,6 @@
             {{/if}}
             <p> Author: {{item.createdBy.computedFullName}} </p>
             <p> Type: {{item.type}} </p>
-            {{#if item.status}}
-                <p> Status: {{item.status}} </p>
-            {{/if}}
         </div>
     </div>
 {{else}}
@@ -35,12 +32,12 @@
     </td>
     <td>{{item.createdBy.computedFullName}}</td>
     <td>{{item.type}}</td>
-    <td>{{item.status}}</td>
-    <td>
-        {{#if organizeMode}}
+    {{#if organizeMode}}
+        <td>
+
             {{#unless (eq item.type 'group')}}
                 {{input checked=item.selected type="checkbox" click=(action 'markSelected' item)}}
             {{/unless}}
-        {{/if}}
-    </td>
+        </td>
+    {{/if}}
 {{/if}}
