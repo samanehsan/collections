@@ -10,8 +10,6 @@ Collections is a prototype project at the Center for Open Science. This project 
 You will need the following things properly installed on your computer.
 
 * [Git](http://git-scm.com/)
-* [Python3](http://python.org/)
-* [Postgresql](http://postgresql.org/)
 * [Node.js](http://nodejs.org/) (with NPM)
 * [Bower](http://bower.io/)
 * [Ember CLI](http://ember-cli.com/)
@@ -19,69 +17,35 @@ You will need the following things properly installed on your computer.
 * [Yarn](https://yarnpkg.com/lang/en/docs/install/)
 
 
-
 ## Installation
 
 #### Get the code:
 
     $ git clone git@github.com:cos-labs/collections.git
-    $ cd collections/service
+    $ cd collections
 
 #### Install Dependencies:
-Setting up a virtual environment for Python 3 is recommended.
 
-    $ pyenv virtualenv 3.6.0 osf-collections
-    $ pip install -r requirements.txt
-    $ cd ../client
     $ yarn install
     $ bower install
 
 
 ## Running
 
-#### Start Postgres:
-
-Using a package manager like brew is recommended.
-
-    $ brew services postgres start
-    $ cd {collections}/
-    $ ./manage.py makemigrations
-    $ ./manage.py migrate
-
 #### Run the service
 
-    $ python manage.py runserver
+Follow the set-up instructions in the README for https://github.com/cos-labs/collections-service.
 
 Visit the api at `http://localhost:8000/api/` or admin panel at `http://localhost:8000/admin/`.
 
 #### Run the client
 
+Set up the client to use either OSF staging (`export BACKEND=stage`) or production `export BACKEND=prod`.
+
     $ ember serve
 
 Visit your app at [http://localhost:4200](http://localhost:4200).
 
-
-## Configuration
-
-Set up the backend to use either staging or prod. Do this in the sessions for both the client and the service. `export BACKEND=prod` or `export BACKEND=stage`
-
-#### Create a developer app at [https://staging.osf.io/settings/applications/](https://staging.osf.io/settings/applications/) with the following settings:
-* Project homepage URL: http://localhost:8000/
-* Callback URL: http://localhost:8000/accounts/osf/login/callback/
-
-### create a django super user:
-` $ python manage.py createsuperuser`
-
-#### Create a new Site with domain name: http://localhost:8000/admin/sites/ in the django 
-
-* Note: The site id must match the `SITE_ID` variable defined in  `SITE_ID` should be set to the site id in `collections/service/service/settings/local.py`
-* The SITE_ID can be found in the URL 
-* you may have to define SITE_ID in the local.py file 
-
-#### Create a SocialAccount in the django admin panel:
-* Set provider to "Open Science Framework"
-* Set the client id and secret key to the ones defined in your developer app
-* Select http://localhost:8000/ as the site
 
 ### Running Tests
 
