@@ -47,7 +47,9 @@ export default Ember.Component.extend({
                     retList.push([i]);
                 }
             });
-            this.set('selectedItemId', retList[0][0].id);
+            if (retList.length > 0) {
+                this.set('selectedItemId', retList[0][0].id);
+            }
             return retList;
         });
     }),
