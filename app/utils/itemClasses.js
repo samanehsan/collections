@@ -175,4 +175,6 @@ export default {
     project: Project,
     preprint: Preprint,
     registration: Registration,
+    presentation: Project, // TODO: Look at different detail pages for event and presentation items, but for now use project detail page
+    event: Project
 };

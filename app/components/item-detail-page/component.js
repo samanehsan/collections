@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { itemClasses } from 'collections/utils/itemClasses';
+import itemClasses from 'collections/utils/itemClasses';
 
 export default Ember.Component.extend({
     store: Ember.inject.service(),
@@ -10,7 +10,7 @@ export default Ember.Component.extend({
         this.set('constructedItem', itemClasses[type].create({
             session: this.get('session'),
             store: this.get('store'),
-            item: this.get('item'),
+            item: this.get('item')
         }));
-    },
+    }
 });
